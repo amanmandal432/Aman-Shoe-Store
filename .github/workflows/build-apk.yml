@@ -30,7 +30,6 @@ jobs:
           fi
           mkdir android-project
           unzip -q "$ZIP" -d android-project
-          echo "ZIP extracted"
 
       - name: Locate Android Project
         run: |
@@ -41,15 +40,16 @@ jobs:
           fi
           echo "PROJECT_DIR=$(dirname "$ROOT")" >> $GITHUB_ENV
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: "8.7"
+      - name: Fix Gradle Version
+        run: |
+          cd "$PROJECT_DIR"
+          sed -i 's/gradle-[0-9.]*-[a-z]*\.zip/gradle-8.9-all.zip/' gradle/wrapper/gradle-wrapper.properties
+          chmod +x gradlew
 
       - name: Build APK
         run: |
           cd "$PROJECT_DIR"
-          gradle assembleDebug
+          ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
