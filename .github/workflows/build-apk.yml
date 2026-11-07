@@ -28,31 +28,37 @@ jobs:
             echo "Android ZIP not found!"
             exit 1
           fi
-          mkdir android-project
+          mkdir -p android-project
           unzip -q "$ZIP" -d android-project
 
       - name: Locate Android Project
         run: |
-          ROOT=$(find android-project -name settings.gradle -o -name settings.gradle.kts | head -n 1)
+          ROOT=$(find android-project \
+            \( -name settings.gradle -o -name settings.gradle.kts \) \
+            -type f | head -n 1)
+
           if [ -z "$ROOT" ]; then
             echo "settings.gradle not found!"
+            find android-project -maxdepth 4 -type f
             exit 1
           fi
+
           echo "PROJECT_DIR=$(dirname "$ROOT")" >> $GITHUB_ENV
 
-      - name: Fix Gradle Version
+      - name: Setup Gradle 8.9
         run: |
-          cd "$PROJECT_DIR"
-          sed -i 's/gradle-[0-9.]*-[a-z]*\.zip/gradle-8.9-all.zip/' gradle/wrapper/gradle-wrapper.properties
-          chmod +x gradlew
+          wget -q https://services.gradle.org/distributions/gradle-8.9-bin.zip
+          unzip -q gradle-8.9-bin.zip
+          echo "$PWD/gradle-8.9/bin" >> $GITHUB_PATH
 
       - name: Build APK
         run: |
           cd "$PROJECT_DIR"
-          ./gradlew assembleDebug
+          gradle assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Aman-Shoe-Store-APK
           path: android-project/**/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
