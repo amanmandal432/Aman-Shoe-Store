@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aman Shoe Store</title>
+<style>
+*{box-sizing:border-box}body{font-family:Arial,sans-serif;margin:0;background:#f5f6fa;color:#222}
+header{background:#111827;color:#fff;padding:16px;text-align:center}header h1{margin:0}
+nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+button,.btn{border:0;border-radius:8px;padding:10px 14px;background:#2563eb;color:#fff;cursor:pointer}
+button.secondary{background:#374151}button.danger{background:#dc2626}
+main{max-width:900px;margin:auto;padding:16px}.hero{background:#dbeafe;padding:22px;border-radius:12px;text-align:center}
+input,select,textarea{width:100%;padding:10px;margin:6px 0 12px;border:1px solid #ccd0d8;border-radius:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.card{background:#fff;border-radius:12px;padding:14px;margin:10px 0;box-shadow:0 2px 8px #0001}
+.card img{width:100%;height:150px;object-fit:contain;background:#f8fafc;border-radius:8px}
+section{margin:22px 0}h2{margin-bottom:10px}.hidden{display:none}.muted{color:#666;font-size:14px}
+.status{display:inline-block;padding:4px 8px;border-radius:6px;background:#e5e7eb}
+footer{text-align:center;padding:20px;color:#666}
+</style>
+</head>
+<body>
+<header><h1>👟 Aman Shoe Store</h1><p>Apni pasand ke shoes chunein</p>
+<nav><button onclick="showSection('shop')">Shop</button><button onclick="showSection('cart')">Cart (<span id="cartCount">0</span>)</button><button onclick="showSection('track')">Track Order</button><button onclick="showSection('admin')">Admin</button></nav></header>
+<main>
+<section id="shop"><div class="hero"><h2>Welcome to Aman Shoe Store</h2><p>Quality shoes, best price!</p></div>
+<input id="search" placeholder="Shoes search karein..." oninput="renderProducts()"><div id="products" class="grid"></div></section>
+<section id="cart" class="hidden"><h2>🛒 Your Cart</h2><div id="cartItems"></div><h3 id="cartTotal">Total: ₹0</h3><button onclick="showSection('checkout')">Checkout / Place Order</button></section>
+<section id="checkout" class="hidden"><h2>Place Order</h2><form id="checkoutForm"><label>Name</label><input id="customerName" required><label>Mobile</label><input id="phone" required inputmode="tel"><label>Address</label><textarea id="address" required></textarea><label>City</label><input id="city" required><label>Payment</label><select id="paymentMethod"><option>COD</option></select><button type="submit">Place Order</button></form><p id="checkoutMsg"></p></section>
+<section id="track" class="hidden"><h2>Order Tracking</h2><p>Order ID enter karein (order place hone par milega)</p><input id="trackId" placeholder="Order ID"><button onclick="trackOrder()">Track</button><div id="trackResult"></div></section>
+<section id="admin" class="hidden"><h2>Admin Panel</h2>
+<div id="adminLogin"><p>Firebase Admin email aur password se login karein.</p><input id="adminEmail" type="email" placeholder="Admin email" autocomplete="username"><input id="adminPass" type="password" placeholder="Firebase password" autocomplete="current-password"><button onclick="adminLogin()">Login</button></div>
+<div id="adminArea" class="hidden"><h3>Orders Management</h3><button class="secondary" onclick="loadOrders()">Refresh Orders</button><button class="secondary" onclick="adminLogout()">Logout</button><div id="orders"></div></div></section>
+</main><footer>Aman Shoe Store</footer>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAOIgFcjgN7RM0Cfpt_Q96uyhi7duhhWx0",
+  authDomain: "aman-shoe-store.firebaseapp.com",
+  projectId: "aman-shoe-store",
+  storageBucket: "aman-shoe-store.firebasestorage.app",
+  messagingSenderId: "415910327819",
+  appId: "1:415910327819:web:1e2f865fdcf5681a27790e",
+  measurementId: "G-W6PER4QMG6"
+};
+const ADMIN_UID = "SZXfcVdK2Le2g5jqbhtiNNfuGTI3";
+let db=null, auth=null, cart=[];
+const products=[
+{id:"shoe1",name:"Men Sports Shoe",price:799,stock:18,image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"},
+{id:"shoe2",name:"Running Shoe",price:999,stock:12,image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"}
+];
+try { firebase.initializeApp(firebaseConfig); auth=firebase.auth(); db=firebase.firestore(); }
+catch(e){console.error("Firebase init:",e);}
+function showSection(id){document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");if(id==="cart")renderCart();}
+function renderProducts(){let q=(document.getElementById("search")?.value||"").toLowerCase();document.getElementById("products").innerHTML=products.filter(p=>p.name.toLowerCase().includes(q)).map(p=>`<div class="card"><img src="${p.image}" alt="${p.name}"><h3>${p.name}</h3><p>₹${p.price} • Stock ${p.stock}</p><button onclick="addToCart('${p.id}')">Add to Cart</button></div>`).join("")}
+function addToCart(id){let p=products.find(x=>x.id===id),item=cart.find(x=>x.id===id);if(item)item.qty++;else cart.push({...p,qty:1});document.getElementById("cartCount").textContent=cart.reduce((a,x)=>a+x.qty,0);alert("Cart mein add ho gaya!")}
+function renderCart(){let el=document.getElementById("cartItems");if(!cart.length){el.innerHTML="<p>Cart empty hai.</p>";document.getElementById("cartTotal").textContent="Total: ₹0";return}el.innerHTML=cart.map(x=>`<div class="card"><b>${x.name}</b><p>₹${x.price} × ${x.qty}</p><button onclick="changeQty('${x.id}',-1)">−</button> <button onclick="changeQty('${x.id}',1)">+</button> <button class="danger" onclick="removeCart('${x.id}')">Remove</button></div>`).join("");document.getElementById("cartTotal").textContent="Total: ₹"+cart.reduce((a,x)=>a+x.price*x.qty,0)}
+function changeQty(id,n){let x=cart.find(x=>x.id===id);if(x){x.qty+=n;if(x.qty<=0)cart=cart.filter(y=>y.id!==id)}document.getElementById("cartCount").textContent=cart.reduce((a,x)=>a+x.qty,0);renderCart()}
+function removeCart(id){cart=cart.filter(x=>x.id!==id);document.getElementById("cartCount").textContent=cart.reduce((a,x)=>a+x.qty,0);renderCart()}
+document.getElementById("checkoutForm").addEventListener("submit",async e=>{
+ e.preventDefault();if(!cart.length)return alert("Cart empty hai");if(!db)return alert("Firebase config check karein");
+ const order={customerName:document.getElementById("customerName").value.trim(),phone:document.getElementById("phone").value.trim(),address:document.getElementById("address").value.trim(),city:document.getElementById("city").value.trim(),paymentMethod:document.getElementById("paymentMethod").value,items:cart.map(x=>({id:x.id,name:x.name,price:x.price,qty:x.qty})),totalAmount:cart.reduce((a,x)=>a+x.price*x.qty,0),status:"pending",createdAt:firebase.firestore.FieldValue.serverTimestamp()};
+ try{let ref=await db.collection("orders").add(order);document.getElementById("checkoutMsg").innerHTML=`Order placed! ID: <b>${esc(ref.id)}</b><br>Is ID ko tracking ke liye save karein.`;cart=[];document.getElementById("cartCount").textContent="0";document.getElementById("checkoutForm").reset();}
+ catch(err){alert("Order error: "+err.message)}
+});
+async function adminLogin(){
+ const email=document.getElementById("adminEmail").value.trim(),password=document.getElementById("adminPass").value;
+ if(!email||!password)return alert("Admin email aur password bharein");
+ try{const cred=await auth.signInWithEmailAndPassword(email,password);
+ if(cred.user.uid!==ADMIN_UID){await auth.signOut();return alert("Is account ko Admin permission nahi hai.");}
+ document.getElementById("adminLogin").classList.add("hidden");document.getElementById("adminArea").classList.remove("hidden");await loadOrders();}
+ catch(e){alert("Admin login error: "+e.message)}
+}
+async function adminLogout(){await auth.signOut();document.getElementById("adminArea").classList.add("hidden");document.getElementById("adminLogin").classList.remove("hidden");document.getElementById("orders").innerHTML="";}
+async function loadOrders(){
+ const el=document.getElementById("orders");if(!db){el.textContent="Firebase config set nahi hai.";return}
+ if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID){el.textContent="Admin Firebase login required.";return}
+ el.textContent="Orders loading...";
+ try{let s=await db.collection("orders").orderBy("createdAt","desc").get();
+ el.innerHTML=s.empty?"Orders nahi hain":s.docs.map(d=>{let o=d.data(),st=(o.status||"pending").toLowerCase();return `<div class="card"><b>${esc(o.customerName||"Customer")}</b><p>${esc(o.phone||"")} • ₹${o.totalAmount||0} • ${esc(o.paymentMethod||"COD")}</p><p>${esc(o.address||"")}, ${esc(o.city||"")}</p><p>Status: <span class="status">${esc(st)}</span></p><label>Status update</label><select onchange="updateOrderStatus('${d.id}',this.value)"><option value="pending" ${st==="pending"?"selected":""}>Pending</option><option value="confirmed" ${st==="confirmed"?"selected":""}>Confirmed</option><option value="shipped" ${st==="shipped"?"selected":""}>Shipped</option><option value="delivered" ${st==="delivered"?"selected":""}>Delivered</option><option value="cancelled" ${st==="cancelled"?"selected":""}>Cancelled</option></select><small>Order ID: ${esc(d.id)}</small></div>`}).join("");}
+ catch(e){el.textContent="Orders load error: "+e.message}
+}
+async function updateOrderStatus(id,status){try{if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID)throw new Error("Admin login required");await db.collection("orders").doc(id).update({status});await loadOrders();alert("Order status updated!")}catch(e){alert("Status error: "+e.message)}}
+async function trackOrder(){let id=document.getElementById("trackId").value.trim(),el=document.getElementById("trackResult");if(!db)return el.textContent="Firebase config check karein";if(!id)return el.textContent="Order ID enter karein";try{let d=await db.collection("orders").doc(id).get();if(!d.exists)return el.textContent="Order nahi mila";let o=d.data();el.innerHTML=`<div class="card"><b>${esc(o.customerName||"Customer")}</b><p>Amount: ₹${o.totalAmount||0}</p><p>Current status: <span class="status">${esc(o.status||"pending")}</span></p></div>`}catch(e){el.textContent="Tracking error: "+e.message}}
+function esc(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+renderProducts();
+</script></body></html>
