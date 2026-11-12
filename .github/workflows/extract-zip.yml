@@ -1,0 +1,47 @@
+
+name: Extract Build 14 ZIP into repository
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract Build 14 ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP_FILE="Build14.zip"
+          if [ ! -f "$ZIP_FILE" ]; then
+            echo "ERROR: Upload Build14.zip to the repository root first."
+            exit 1
+          fi
+
+          mkdir -p /tmp/build14-unpack
+          unzip -q "$ZIP_FILE" -d /tmp/build14-unpack
+
+          PROJECT_ROOT="$(find /tmp/build14-unpack -maxdepth 4 -type f -name settings.gradle -print -quit | xargs -r dirname)"
+          if [ -z "$PROJECT_ROOT" ] || [ ! -d "$PROJECT_ROOT/app" ]; then
+            echo "ERROR: ZIP does not contain an Android Gradle project."
+            exit 1
+          fi
+
+          cp -a "$PROJECT_ROOT"/. .
+          rm -f "$ZIP_FILE"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Upload Android Build 14 project"
+            git push
+          fi
