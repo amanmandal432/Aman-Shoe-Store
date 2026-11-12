@@ -1,0 +1,44 @@
+AMAN SHOE STORE – PRODUCT UPLOAD FIREBASE SETUP (BUILD 13)
+
+Admin UID already configured in the app:
+SZXfcVdK2Le2g5jqbhtiNNfuGTI3
+
+IMPORTANT:
+The app code now uses Firebase Storage for product photos and Firestore collection "products" for product details. Firebase Storage must be enabled for project aman-shoe-store. Existing order-related rules must be preserved.
+
+1) FIRESTORE RULES
+Firebase Console > Build > Firestore Database > Rules
+Inside the existing service cloud.firestore { match /databases/{database}/documents { ... } block, add this match block. Do not delete existing orders rules:
+
+match /products/{productId} {
+  allow read: if true;
+  allow create, update, delete: if request.auth != null
+    && request.auth.uid == "SZXfcVdK2Le2g5jqbhtiNNfuGTI3";
+}
+
+2) STORAGE RULES
+Firebase Console > Build > Storage > Get started (if Storage is not enabled yet), then open Rules.
+Inside the existing service firebase.storage { match /b/{bucket}/o { ... } block, add:
+
+match /products/{fileName} {
+  allow read: if true;
+  allow create, update: if request.auth != null
+    && request.auth.uid == "SZXfcVdK2Le2g5jqbhtiNNfuGTI3"
+    && request.resource.size < 5 * 1024 * 1024
+    && request.resource.contentType.matches('image/.*');
+  allow delete: if request.auth != null
+    && request.auth.uid == "SZXfcVdK2Le2g5jqbhtiNNfuGTI3";
+}
+
+Do not replace the entire existing ruleset blindly. Keep current rules for orders and customer order tracking, and add the products rule within the matching service block. Publish rules after adding.
+
+3) WHAT THE APP DOES
+- Admin uploads one product photo (JPG/PNG/WebP, max 5 MB).
+- Product details saved to Firestore collection "products".
+- Photo saved to Firebase Storage folder "products/".
+- Customers see live products with size and colour choices.
+- Cart/order line items include chosen size and colour.
+- Admin can edit product details/photo or delete product.
+
+4) SECURITY NOTE
+Only the configured Firebase Auth UID can create/edit/delete products and upload/delete product photos. Product catalogue reads are public so customers can browse without signing in.

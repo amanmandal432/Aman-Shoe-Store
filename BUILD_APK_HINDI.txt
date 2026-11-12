@@ -1,0 +1,18 @@
+AGLA STEP — APK BUILD (GitHub Actions)
+
+Is project ZIP mein .github/workflows/android-apk.yml workflow included hai.
+APK ko cloud mein compile karne ke liye:
+
+1. ZIP ko extract karein.
+2. GitHub par login karke New repository banayein (e.g. aman-shoe-store-android).
+3. Extracted project ke files repository mein upload/push karein (root mein settings.gradle aur app folder hon).
+4. GitHub repository > Actions tab > "Build Aman Shoe Store APK" workflow.
+5. "Run workflow" dabayein; build complete hone ka wait karein.
+6. Workflow run ke Artifacts section mein Aman-Shoe-Store-debug-apk.zip download karein.
+7. Artifact ZIP extract karein; app-debug.apk Android phone par download karke install karein.
+   Phone Settings > Install unknown apps permission enable karni pad sakti hai.
+
+NOTE:
+- GitHub account/repository setup user ko karna hoga; main is chat se tumhare account mein upload/run nahi kar sakta.
+- This produces a debug APK for testing, not Play Store release.
+- Firebase rules/admin security still need configuration; APK build alone doesn't make admin safe.
