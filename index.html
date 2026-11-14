@@ -4,37 +4,55 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Aman Shoe Store</title>
 <style>
-*{box-sizing:border-box}body{font-family:Arial,sans-serif;margin:0;background:#f5f6fa;color:#222}
-header{background:#111827;color:#fff;padding:16px;text-align:center}header h1{margin:0}
-nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
-button,.btn{border:0;border-radius:8px;padding:10px 14px;background:#2563eb;color:#fff;cursor:pointer}
-button.secondary{background:#374151}button.danger{background:#dc2626}
-main{max-width:900px;margin:auto;padding:16px}.hero{background:#dbeafe;padding:22px;border-radius:12px;text-align:center}
-input,select,textarea{width:100%;padding:10px;margin:6px 0 12px;border:1px solid #ccd0d8;border-radius:8px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.card{background:#fff;border-radius:12px;padding:14px;margin:10px 0;box-shadow:0 2px 8px #0001}
-.card img{width:100%;height:150px;object-fit:contain;background:#f8fafc;border-radius:8px}
-section{margin:22px 0}h2{margin-bottom:10px}.hidden{display:none}.muted{color:#666;font-size:14px}
-.status{display:inline-block;padding:4px 8px;border-radius:6px;background:#e5e7eb}
-footer{text-align:center;padding:20px;color:#666}
+*{box-sizing:border-box}body{font-family:Arial,sans-serif;margin:0;background:#f4f6f9;color:#172033}
+header{background:linear-gradient(120deg,#0755d9,#0878f9);color:#fff;padding:15px 14px 18px;position:sticky;top:0;z-index:5}
+.brandline{display:flex;align-items:center;gap:12px}.brandlogo{font-size:43px}.brandname{font-size:25px;font-weight:900}.brandname span{color:#ffdf22}.brandtag{font-size:12px;font-style:italic}.topactions{margin-left:auto;display:flex;gap:10px}.topactions button{background:transparent;font-size:24px;padding:3px;position:relative}.bubble{position:absolute;top:-3px;right:-2px;background:#ef233c;border-radius:50%;font-size:11px;padding:3px 6px}
+.searchbox{display:flex;align-items:center;background:white;border-radius:28px;margin-top:15px;padding:0 14px;color:#273449}.searchbox span{font-size:23px}.searchbox input{border:0!important;margin:0!important;padding:13px 10px!important}
+.filters{display:flex;gap:8px;overflow-x:auto;padding:12px 0}.filters button{white-space:nowrap;background:#fff;color:#1b2b48;border:1px solid #d5dce7;border-radius:24px;padding:10px 13px;font-size:13px}
+main{max-width:1000px;margin:auto;padding:10px 12px 85px}.hero{background:#e8f2ff;padding:14px;border-radius:14px;text-align:center;margin:4px 0 12px}.hero h2{margin:0 0 5px;font-size:19px}.hero p{margin:0;color:#52647d;font-size:13px}
+#products.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{background:#fff;border-radius:13px;padding:8px;margin:0;box-shadow:0 2px 6px #0001;border:1px solid #e7ebf1;min-width:0;overflow:hidden}
+.productphoto{height:155px;position:relative;background:#f0f3f7;border-radius:9px;overflow:hidden}.productphoto img{width:100%;height:100%;object-fit:cover}.discount{position:absolute;top:8px;left:0;background:#ed243b;color:white;padding:5px 8px;font-size:11px;font-weight:bold}.rating{position:absolute;bottom:7px;left:7px;background:#118b48;color:white;border-radius:5px;padding:4px 6px;font-size:11px}.producttitle{font-size:14px;line-height:1.3;margin:9px 2px 6px;min-height:36px;font-weight:700}.price{font-size:17px;font-weight:800;margin:4px 2px}.oldprice{font-size:12px;color:#7b8492;text-decoration:line-through;font-weight:normal;margin-left:4px}.off{font-size:12px;color:#118b48;font-weight:bold;margin:4px 2px}.delivery{font-size:12px;margin:6px 2px;color:#34445c}.card label{font-size:11px;color:#64748b}.card select{padding:7px!important;font-size:12px!important;margin:3px 0 6px!important}.card button{width:100%;border-radius:8px;background:#075bea;padding:10px 6px;font-size:13px;font-weight:bold}
+section{margin:18px 0}h2{margin-bottom:10px}.hidden{display:none!important}.muted{color:#666;font-size:14px}.status{display:inline-block;padding:4px 8px;border-radius:6px;background:#e5e7eb}
+.product-form{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px;margin:12px 0}.product-form label{font-weight:600;display:block;margin-top:6px}.product-form .hint{font-size:12px;color:#64748b;margin-top:-8px;margin-bottom:10px}.product-thumb{width:88px!important;height:88px!important;object-fit:contain}.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+button,.btn{border:0;border-radius:8px;padding:10px 14px;background:#2563eb;color:#fff;cursor:pointer}button.secondary{background:#374151}button.danger{background:#dc2626}input,select,textarea{width:100%;padding:10px;margin:6px 0 12px;border:1px solid #ccd0d8;border-radius:8px}button:disabled{opacity:.55}.preview{max-width:130px;max-height:130px;object-fit:contain}
+.detail-photo{width:100%;max-height:300px;object-fit:contain;background:#f0f3f7;border-radius:12px}.detail-price{font-size:24px;font-weight:800;margin:12px 0}.cart-actions{display:flex;align-items:center;gap:8px;margin-top:10px}.cart-actions button{width:auto;min-width:42px}.cart-actions .danger{margin-left:auto}.bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:8;background:#fff;border-top:1px solid #e1e5eb;display:flex;justify-content:space-around;padding:7px 2px;box-shadow:0 -2px 8px #0001}.bottomnav button{background:transparent;color:#647080;padding:5px 3px;font-size:10px;display:flex;flex-direction:column;align-items:center;gap:3px}.bottomnav button strong{font-size:20px;font-weight:normal}.bottomnav button.active{color:#075bea;font-weight:bold}footer{text-align:center;padding:20px;color:#666}
+body.dark{background:#111827;color:#f3f4f6}body.dark .card,body.dark .bottomnav,body.dark .filters button{background:#1f2937;color:#f3f4f6;border-color:#374151}body.dark input,body.dark textarea,body.dark select{background:#111827;color:#fff;border-color:#4b5563}
 </style>
 </head>
 <body>
-<header><h1>👟 Aman Shoe Store</h1><p>Apni pasand ke shoes chunein</p>
-<nav><button onclick="showSection('shop')">Shop</button><button onclick="showSection('cart')">Cart (<span id="cartCount">0</span>)</button><button onclick="showSection('track')">Track Order</button><button onclick="showSection('admin')">Admin</button></nav></header>
+<header><div class="brandline"><div class="brandlogo">👟</div><div><div class="brandname">Aman <span>Shoe Store</span></div><div class="brandtag">Step Ahead With Style...</div></div><div class="topactions"><button onclick="showSection('track')">♧</button><button onclick="showSection('cart')">🛒<span class="bubble" id="cartBadge">0</span></button></div></div><div class="searchbox"><span>⌕</span><input id="search" placeholder="Search for shoes, slippers..." oninput="renderProducts()"><span>⌄</span></div></header>
 <main>
-<section id="shop"><div class="hero"><h2>Welcome to Aman Shoe Store</h2><p>Quality shoes, best price!</p></div>
-<input id="search" placeholder="Shoes search karein..." oninput="renderProducts()"><div id="products" class="grid"></div></section>
-<section id="cart" class="hidden"><h2>🛒 Your Cart</h2><div id="cartItems"></div><h3 id="cartTotal">Total: ₹0</h3><button onclick="showSection('checkout')">Checkout / Place Order</button></section>
+<section id="shop"><div class="hero"><h2>Welcome to Aman Shoe Store 👟</h2><p>Find your style • Best prices • Easy shopping</p></div><div class="filters"><button onclick="toggleTheme()">🌙 Dark Mode</button><button onclick="toggleLanguage()">हिंदी / EN</button><button onclick="showWishlist()">♥ Wishlist</button><button onclick="showRecently()">🕘 Recently Viewed</button><button onclick="alert('Sort options coming soon')">☷ Sort & Filter</button><button onclick="alert('Size product card par select karein')">▦ Size⌄</button><button onclick="alert('Colour product card par select karein')">🎨 Colour⌄</button><button onclick="alert('Brand filter coming soon')">⭐ Brand⌄</button></div><div id="products" class="grid"></div></section>
+<section id="productDetails" class="hidden"><button class="secondary" onclick="showSection('shop')">← Back to Shop</button><div id="productDetailContent"></div></section>
+<section id="wishlist" class="hidden"><h2>♥ Wishlist</h2><div id="wishlistItems"></div></section><section id="recent" class="hidden"><h2>🕘 Recently Viewed</h2><div id="recentItems"></div></section><section id="cart" class="hidden"><h2>🛒 Your Cart</h2><div id="cartItems"></div><h3 id="cartTotal">Total: ₹0</h3><label>Coupon code (SAVE10 = 10% off)</label><input id="couponCode" placeholder="SAVE10"><button class="secondary" onclick="applyCoupon()">Apply Coupon</button><p id="couponMsg"></p><button onclick="shareCartWhatsApp()">Order on WhatsApp</button><button onclick="showSection('checkout')">Checkout / Place Order</button></section>
 <section id="checkout" class="hidden"><h2>Place Order</h2><form id="checkoutForm"><label>Name</label><input id="customerName" required><label>Mobile</label><input id="phone" required inputmode="tel"><label>Address</label><textarea id="address" required></textarea><label>City</label><input id="city" required><label>Payment</label><select id="paymentMethod"><option>COD</option></select><button type="submit">Place Order</button></form><p id="checkoutMsg"></p></section>
+<section id="account" class="hidden"><h2>👤 Customer Account / Profile</h2><div id="profileEdit" class="hidden"><label>Profile Name</label><input id="profileName"><button onclick="saveCustomerProfile()">Save Profile</button></div><div id="customerAuthBox"><p>Register ya Login karke apne orders dekhein.</p><label>Name (Register)</label><input id="custName" placeholder="Your name"><label>Email</label><input id="custEmail" type="email" placeholder="Email address"><label>Password</label><input id="custPassword" type="password" minlength="6" placeholder="At least 6 characters"><button onclick="customerRegister()">Register</button> <button class="secondary" onclick="customerLogin()">Login</button></div><div id="customerProfile" class="hidden"><p id="customerWelcome"></p><button class="secondary" onclick="loadMyOrders()">My Orders</button> <button class="secondary" onclick="editCustomerProfile()">Edit Profile</button> <button class="danger" onclick="customerLogout()">Logout</button><div id="myOrders"></div></div></section>
 <section id="track" class="hidden"><h2>Order Tracking</h2><p>Order ID enter karein (order place hone par milega)</p><input id="trackId" placeholder="Order ID"><button onclick="trackOrder()">Track</button><div id="trackResult"></div></section>
 <section id="admin" class="hidden"><h2>Admin Panel</h2>
 <div id="adminLogin"><p>Firebase Admin email aur password se login karein.</p><input id="adminEmail" type="email" placeholder="Admin email" autocomplete="username"><input id="adminPass" type="password" placeholder="Firebase password" autocomplete="current-password"><button onclick="adminLogin()">Login</button></div>
-<div id="adminArea" class="hidden"><h3>Orders Management</h3><button class="secondary" onclick="loadOrders()">Refresh Orders</button><button class="secondary" onclick="adminLogout()">Logout</button><div id="orders"></div></div></section>
-</main><footer>Aman Shoe Store</footer>
+<div id="adminArea" class="hidden">
+ <button class="secondary" onclick="adminLogout()">Logout</button>
+ <h3>📦 Product Management</h3><p class="muted">Yahin se shoes aur slippers add, edit aur delete karein. Product customer shop par automatically dikhega.</p>
+ <form id="productForm" class="product-form">
+  <input id="productId" type="hidden">
+  <label>Product name</label><input id="productName" required maxlength="100" placeholder="Jaise Men's Sports Shoe">
+  <label>Category</label><select id="productCategory"><option value="Shoes">Shoes</option><option value="Slippers">Slippers</option></select>
+  <div class="form-row"><div><label>Selling price (₹)</label><input id="productPrice" type="number" min="1" required placeholder="799"></div><div><label>MRP (₹)</label><input id="productMrp" type="number" min="0" placeholder="999"></div><div><label>Stock quantity</label><input id="productStock" type="number" min="0" required value="1"></div></div>
+  <label>Sizes</label><input id="productSizes" placeholder="6, 7, 8, 9, 10"><div class="hint">Comma se alag karein. Slippers ke liye Free Size bhi likh sakte hain.</div>
+  <label>Colours</label><input id="productColors" placeholder="Black, White, Blue"><div class="hint">Comma se alag karein.</div>
+  <label>Alternate photo URLs (comma-separated)</label><input id="productExtraImages" placeholder="https://...angle2.jpg, https://...angle3.jpg"><div class="hint">Additional angles ke public image URLs comma se daalein; product detail mein swipe hoga.</div><label>Product photo</label><input id="productImage" type="file" accept="image/*"><div class="hint">Mobile gallery ya camera se photo select karein. JPG/PNG/WebP, maximum 5 MB.</div>
+  <img id="productPreview" class="preview hidden" alt="Product photo preview">
+  <button id="saveProductBtn" type="submit">Upload Product</button> <button type="button" class="secondary" onclick="resetProductForm()">Clear</button>
+  <p id="productFormMsg" class="muted" aria-live="polite"></p>
+ </form>
+ <h3>🛍️ Your Products</h3><button class="secondary" onclick="loadAdminProducts()">Refresh Products</button><div id="adminProducts"></div>
+ <hr><h3>Orders Management</h3><button class="secondary" onclick="loadOrders()">Refresh Orders</button><div id="orders"></div>
+</div></section>
+</main><footer>Aman Shoe Store</footer><nav class="bottomnav"><button class="active" onclick="showSection('shop')"><strong>⌂</strong>Home</button><button onclick="showSection('shop')"><strong>▦</strong>Categories</button><button onclick="showSection('shop')"><strong>◇</strong>Offers</button><button onclick="showSection('account')"><strong>♙</strong>Account</button><button onclick="showSection('track')"><strong>•••</strong>More</button></nav>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyAOIgFcjgN7RM0Cfpt_Q96uyhi7duhhWx0",
@@ -46,23 +64,72 @@ const firebaseConfig = {
   measurementId: "G-W6PER4QMG6"
 };
 const ADMIN_UID = "SZXfcVdK2Le2g5jqbhtiNNfuGTI3";
-let db=null, auth=null, cart=[];
-const products=[
-{id:"shoe1",name:"Men Sports Shoe",price:799,stock:18,image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"},
-{id:"shoe2",name:"Running Shoe",price:999,stock:12,image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"}
+let db=null, auth=null, storage=null, cart=[], products=[];
+const fallbackProducts=[
+{id:"shoe1",name:"Men Sports Shoe",category:"Shoes",price:799,mrp:999,stock:18,sizes:["6","7","8","9","10"],colors:["Red"],image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"},
+{id:"shoe2",name:"Running Shoe",category:"Shoes",price:999,mrp:1299,stock:12,sizes:["6","7","8","9","10"],colors:["Black"],image:"https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600"}
 ];
-try { firebase.initializeApp(firebaseConfig); auth=firebase.auth(); db=firebase.firestore(); }
+let productsUnsubscribe=null;
+try { firebase.initializeApp(firebaseConfig); auth=firebase.auth(); db=firebase.firestore(); storage=firebase.storage(); }
 catch(e){console.error("Firebase init:",e);}
+let customerUser=null;let wishlist=JSON.parse(localStorage.getItem("amanWishlist")||"[]");let couponApplied=false;
+if(auth)auth.onAuthStateChanged(user=>{customerUser=user&&user.uid!==ADMIN_UID?user:null;refreshCustomerUI();});
+function editCustomerProfile(){if(!customerUser)return;document.getElementById("profileEdit").classList.toggle("hidden");document.getElementById("profileName").value=customerUser.displayName||"";}async function saveCustomerProfile(){if(!customerUser)return;const n=document.getElementById("profileName").value.trim();if(!n)return alert("Name bharein");try{await customerUser.updateProfile({displayName:n});await db.collection("customers").doc(customerUser.uid).set({name:n,email:customerUser.email},{merge:true});refreshCustomerUI();alert("Profile saved");}catch(e){alert(e.message)}}
+function refreshCustomerUI(){const box=document.getElementById("customerAuthBox"),profile=document.getElementById("customerProfile");if(!box||!profile)return;box.classList.toggle("hidden",!!customerUser);profile.classList.toggle("hidden",!customerUser);if(customerUser){document.getElementById("customerWelcome").textContent="Logged in: "+(customerUser.displayName||customerUser.email||"Customer");}}
+async function customerRegister(){const name=document.getElementById("custName").value.trim(),email=document.getElementById("custEmail").value.trim(),pass=document.getElementById("custPassword").value;if(!name||!email||pass.length<6)return alert("Name, valid email aur 6+ character password bharein");try{const c=await auth.createUserWithEmailAndPassword(email,pass);await c.user.updateProfile({displayName:name});await db.collection("customers").doc(c.user.uid).set({name,email,createdAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});alert("Registration successful!");refreshCustomerUI();}catch(e){alert("Register error: "+e.message)}}
+async function customerLogin(){const email=document.getElementById("custEmail").value.trim(),pass=document.getElementById("custPassword").value;if(!email||!pass)return alert("Email aur password bharein");try{const c=await auth.signInWithEmailAndPassword(email,pass);if(c.user.uid===ADMIN_UID){await auth.signOut();return alert("Admin account ko customer login mein use na karein.")}refreshCustomerUI();alert("Login successful!");}catch(e){alert("Login error: "+e.message)}}
+async function customerLogout(){try{await auth.signOut();customerUser=null;refreshCustomerUI();document.getElementById("myOrders").innerHTML="";alert("Logout successful");}catch(e){alert(e.message)}}
+async function loadMyOrders(){const el=document.getElementById("myOrders");if(!customerUser)return el.textContent="Pehle customer login karein";el.textContent="Orders loading...";try{const snap=await db.collection("orders").where("customerUid","==",customerUser.uid).get();if(snap.empty){el.innerHTML="<p>Abhi koi order nahi hai.</p>";return;}el.innerHTML=snap.docs.map(d=>{const o=d.data();return `<div class="card"><b>Order ${esc(d.id)}</b><p>₹${Number(o.totalAmount)||0} • ${esc(o.status||"pending")}</p><p>${esc((o.items||[]).map(i=>i.name+" × "+i.qty).join(", "))}</p><button onclick="showOrderDetails('${esc(d.id)}')">Order Details</button></div>`}).join("");}catch(e){el.textContent="My Orders error: "+e.message}}
+async function showOrderDetails(id){try{const d=await db.collection("orders").doc(id).get();if(!d.exists||d.data().customerUid!==customerUser.uid)return alert("Order not found");const o=d.data();alert("Order: "+id+"\nStatus: "+o.status+"\nAmount: ₹"+o.totalAmount+"\nItems: "+(o.items||[]).map(i=>i.name+" × "+i.qty).join(", "));}catch(e){alert(e.message)}}
 function showSection(id){document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");if(id==="cart")renderCart();}
-function renderProducts(){let q=(document.getElementById("search")?.value||"").toLowerCase();document.getElementById("products").innerHTML=products.filter(p=>p.name.toLowerCase().includes(q)).map(p=>`<div class="card"><img src="${p.image}" alt="${p.name}"><h3>${p.name}</h3><p>₹${p.price} • Stock ${p.stock}</p><button onclick="addToCart('${p.id}')">Add to Cart</button></div>`).join("")}
-function addToCart(id){let p=products.find(x=>x.id===id),item=cart.find(x=>x.id===id);if(item)item.qty++;else cart.push({...p,qty:1});document.getElementById("cartCount").textContent=cart.reduce((a,x)=>a+x.qty,0);alert("Cart mein add ho gaya!")}
-function renderCart(){let el=document.getElementById("cartItems");if(!cart.length){el.innerHTML="<p>Cart empty hai.</p>";document.getElementById("cartTotal").textContent="Total: ₹0";return}el.innerHTML=cart.map(x=>`<div class="card"><b>${x.name}</b><p>₹${x.price} × ${x.qty}</p><button onclick="changeQty('${x.id}',-1)">−</button> <button onclick="changeQty('${x.id}',1)">+</button> <button class="danger" onclick="removeCart('${x.id}')">Remove</button></div>`).join("");document.getElementById("cartTotal").textContent="Total: ₹"+cart.reduce((a,x)=>a+x.price*x.qty,0)}
-function changeQty(id,n){let x=cart.find(x=>x.id===id);if(x){x.qty+=n;if(x.qty<=0)cart=cart.filter(y=>y.id!==id)}document.getElementById("cartCount").textContent=cart.reduce((a,x)=>a+x.qty,0);renderCart()}
-function removeCart(id){cart=cart.filter(x=>x.id!==id);document.getElementById("cartCount").textContent=cart.reduce((a,x)=>a+x.qty,0);renderCart()}
+function renderProducts(){
+ const q=(document.getElementById("search")?.value||"").toLowerCase();
+ const list=products.filter(p=>(p.name||"").toLowerCase().includes(q)||(p.category||"").toLowerCase().includes(q));
+ document.getElementById("products").innerHTML=list.length?list.map(p=>{
+  const sizes=Array.isArray(p.sizes)&&p.sizes.length?p.sizes:["Free Size"],colors=Array.isArray(p.colors)&&p.colors.length?p.colors:["Default"];
+  return `<div class="card"><div class="productphoto"><img onclick="showProductDetails('${esc(p.id)}')" style="cursor:pointer" src="${esc(p.image||"")}" alt="${esc(p.name)}"><span class="discount">${p.mrp&&p.mrp>p.price?Math.round((p.mrp-p.price)*100/p.mrp)+"% OFF":"NEW"}</span><span class="rating">★ 4.1</span></div><div class="producttitle">${esc(p.name)}</div><button class="secondary" onclick="toggleWishlist('${esc(p.id)}')">♡ Wishlist</button><div class="price">₹${Number(p.price)||0} ${p.mrp?`<span class="oldprice">₹${Number(p.mrp)}</span>`:""}</div><div class="off">↓ ${p.mrp&&p.mrp>p.price?Math.round((p.mrp-p.price)*100/p.mrp):0}% OFF</div><div class="delivery">🚚 Free Delivery</div><label>Size</label><select id="size_${esc(p.id)}">${sizes.map(v=>`<option>${esc(v)}</option>`).join("")}</select><label>Colour</label><select id="color_${esc(p.id)}">${colors.map(v=>`<option>${esc(v)}</option>`).join("")}</select><button class="secondary" onclick="showProductDetails('${esc(p.id)}')">View Product Details</button><button ${Number(p.stock)<1?"disabled":""} onclick="addToCart('${esc(p.id)}')">🛒 ${Number(p.stock)<1?"Out of Stock":"Add to Cart"}</button></div>`;
+ }).join(""):"<p>Abhi koi product available nahi hai.</p>";
+}
+function toggleWishlist(id){wishlist.includes(id)?wishlist=wishlist.filter(x=>x!==id):wishlist.push(id);localStorage.setItem("amanWishlist",JSON.stringify(wishlist));alert(wishlist.includes(id)?"Wishlist mein add hua":"Wishlist se remove hua");}function showWishlist(){showSection("wishlist");document.getElementById("wishlistItems").innerHTML=products.filter(p=>wishlist.includes(p.id)).map(p=>`<div class="card"><b>${esc(p.name)}</b><p>₹${p.price}</p><button onclick="showProductDetails('${esc(p.id)}')">View</button></div>`).join("")||"Wishlist empty";}function showRecently(){showSection("recent");document.getElementById("recentItems").innerHTML=(window.recentProducts||[]).map(id=>products.find(p=>p.id===id)).filter(Boolean).map(p=>`<div class="card"><b>${esc(p.name)}</b><button onclick="showProductDetails('${esc(p.id)}')">View</button></div>`).join("")||"No recently viewed products";}function applyCoupon(){const code=document.getElementById("couponCode").value.trim().toUpperCase();couponApplied=code==="SAVE10";document.getElementById("couponMsg").textContent=couponApplied?"SAVE10 applied: 10% discount":"Invalid coupon";renderCart();}function shareCartWhatsApp(){if(!cart.length)return alert("Cart empty");const lines=cart.map(x=>x.name+" x"+x.qty+" - ₹"+(x.price*x.qty)).join("\n");const total=cart.reduce((a,x)=>a+x.price*x.qty,0);window.open("https://wa.me/?text="+encodeURIComponent("Aman Shoe Store Order\n"+lines+"\nTotal ₹"+(couponApplied?Math.round(total*.9):total)),"_blank");}
+function toggleTheme(){document.body.classList.toggle("dark");localStorage.setItem("amanDark",document.body.classList.contains("dark")?"1":"0");}function toggleLanguage(){alert("Hindi/English support: product/customer text is bilingual; interface language switch is being expanded.");}
+async function submitReview(id){if(!customerUser)return alert("Review ke liye customer login karein");const txt=document.getElementById("reviewText").value.trim();if(!txt)return alert("Review likhein");try{await db.collection("products").doc(id).collection("reviews").add({uid:customerUser.uid,name:customerUser.displayName||customerUser.email,text:txt,createdAt:firebase.firestore.FieldValue.serverTimestamp()});document.getElementById("reviewText").value="";alert("Review submitted");}catch(e){alert("Review error: "+e.message)}}
+function updateCartCount(){const count=cart.reduce((a,x)=>a+(Number(x.qty)||0),0);const badge=document.getElementById("cartCount");if(badge)badge.textContent=count;const top=document.getElementById("cartBadge");if(top)top.textContent=count;}
+function addToCart(id){
+ const p=products.find(x=>x.id===id);if(!p)return;
+ const size=document.getElementById("size_"+id)?.value||"Free Size",color=document.getElementById("color_"+id)?.value||"Default";
+ let item=cart.find(x=>x.id===id&&x.size===size&&x.color===color);
+ if(item){if(item.qty>=Number(p.stock))return alert("Stock limit reached");item.qty++;}
+ else {if(Number(p.stock)<1)return alert("Out of stock");cart.push({...p,size,color,qty:1});}
+ updateCartCount();renderCart();alert("Cart mein add ho gaya!");
+}
+function renderCart(){
+ const el=document.getElementById("cartItems");
+ if(!cart.length){el.innerHTML="<p>Cart empty hai.</p>";document.getElementById("cartTotal").textContent="Total: ₹0";updateCartCount();return;}
+ el.innerHTML=cart.map(x=>`<div class="card"><b>${esc(x.name)}</b><p>Size: ${esc(x.size||"Free Size")} • Colour: ${esc(x.color||"Default")}</p><p>₹${Number(x.price)||0} × ${Number(x.qty)||0}</p><div class="cart-actions"><button data-id="${esc(x.id)}" data-size="${esc(x.size||"Free Size")}" data-color="${esc(x.color||"Default")}" onclick="changeQty(this.dataset.id,this.dataset.size,this.dataset.color,-1)">−</button><b>${Number(x.qty)||0}</b><button data-id="${esc(x.id)}" data-size="${esc(x.size||"Free Size")}" data-color="${esc(x.color||"Default")}" onclick="changeQty(this.dataset.id,this.dataset.size,this.dataset.color,1)">+</button><button class="danger" data-id="${esc(x.id)}" data-size="${esc(x.size||"Free Size")}" data-color="${esc(x.color||"Default")}" onclick="removeCart(this.dataset.id,this.dataset.size,this.dataset.color)">Remove</button></div></div>`).join("");
+ const rawTotal=cart.reduce((a,x)=>a+(Number(x.price)||0)*(Number(x.qty)||0),0);document.getElementById("cartTotal").textContent="Total: ₹"+Math.round(couponApplied?rawTotal*.9:rawTotal);updateCartCount();
+}
+function changeQty(id,size,color,n){
+ const x=cart.find(v=>v.id===id&&v.size===size&&v.color===color),p=products.find(v=>v.id===id);
+ if(!x)return;
+ const next=x.qty+Number(n);if(next<=0){cart=cart.filter(v=>!(v.id===id&&v.size===size&&v.color===color));}
+ else if(p&&next>Number(p.stock)){alert("Stock limit reached");}
+ else{x.qty=next;}
+ updateCartCount();renderCart();
+}
+function removeCart(id,size,color){cart=cart.filter(x=>!(x.id===id&&x.size===size&&x.color===color));updateCartCount();renderCart();}
+function showProductDetails(id){
+ const p=products.find(x=>x.id===id);if(!p)return;
+ const sizes=Array.isArray(p.sizes)&&p.sizes.length?p.sizes:["Free Size"],colors=Array.isArray(p.colors)&&p.colors.length?p.colors:["Default"];
+ const gallery=(Array.isArray(p.images)&&p.images.length?p.images:[p.image]).filter(Boolean);window.detailGallery=gallery;window.detailGalleryIndex=0;window.recentProducts=[p.id,...(window.recentProducts||[]).filter(x=>x!==p.id)].slice(0,12);
+ document.getElementById("productDetailContent").innerHTML=`<div class="card"><div style="position:relative"><img id="detailGalleryImage" class="detail-photo" src="${esc(gallery[0]||"")}" alt="${esc(p.name||"Product")}" ontouchstart="galleryTouchStart(event)" ontouchend="galleryTouchEnd(event)"><div style="display:flex;justify-content:space-between;margin:8px 0"><button class="secondary" onclick="galleryMove(-1)">‹ Previous</button><span id="galleryCount">1 / ${gallery.length||1}</span><button class="secondary" onclick="galleryMove(1)">Next ›</button></div></div><h2>${esc(p.name||"Product")}</h2><p>${esc(p.category||"Shoes")}</p><div class="detail-price">₹${Number(p.price)||0} ${p.mrp&&p.mrp>p.price?`<small class="oldprice">₹${Number(p.mrp)}</small>`:""}</div><p>${esc(p.description||"Quality product from Aman Shoe Store.")}</p><label>Write a review</label><textarea id="reviewText" placeholder="Your feedback"></textarea><button class="secondary" onclick="submitReview('${esc(p.id)}')">Submit Review</button><div id="reviews_${esc(p.id)}"></div><p><b>Available stock:</b> ${Number(p.stock)||0}</p><label>Size</label><select id="size_${esc(p.id)}">${sizes.map(v=>`<option>${esc(v)}</option>`).join("")}</select><label>Colour</label><select id="color_${esc(p.id)}">${colors.map(v=>`<option>${esc(v)}</option>`).join("")}</select><button ${Number(p.stock)<1?"disabled":""} onclick="addToCart('${esc(p.id)}')">🛒 Add to Cart</button></div>`;
+ showSection("productDetails");
+}
+function galleryMove(n){const a=window.detailGallery||[];if(!a.length)return;window.detailGalleryIndex=(window.detailGalleryIndex+n+a.length)%a.length;document.getElementById("detailGalleryImage").src=a[window.detailGalleryIndex];document.getElementById("galleryCount").textContent=(window.detailGalleryIndex+1)+" / "+a.length;}
+let galleryStartX=0;function galleryTouchStart(e){galleryStartX=e.changedTouches[0].screenX}function galleryTouchEnd(e){const dx=e.changedTouches[0].screenX-galleryStartX;if(Math.abs(dx)>45)galleryMove(dx<0?1:-1)}
 document.getElementById("checkoutForm").addEventListener("submit",async e=>{
- e.preventDefault();if(!cart.length)return alert("Cart empty hai");if(!db)return alert("Firebase config check karein");
- const order={customerName:document.getElementById("customerName").value.trim(),phone:document.getElementById("phone").value.trim(),address:document.getElementById("address").value.trim(),city:document.getElementById("city").value.trim(),paymentMethod:document.getElementById("paymentMethod").value,items:cart.map(x=>({id:x.id,name:x.name,price:x.price,qty:x.qty})),totalAmount:cart.reduce((a,x)=>a+x.price*x.qty,0),status:"pending",createdAt:firebase.firestore.FieldValue.serverTimestamp()};
- try{let ref=await db.collection("orders").add(order);document.getElementById("checkoutMsg").innerHTML=`Order placed! ID: <b>${esc(ref.id)}</b><br>Is ID ko tracking ke liye save karein.`;cart=[];document.getElementById("cartCount").textContent="0";document.getElementById("checkoutForm").reset();}
+ e.preventDefault();if(!cart.length)return alert("Cart empty hai");if(!customerUser)return alert("Order place karne ke liye Account mein customer Register/Login karein.");if(!db)return alert("Firebase config check karein");
+ const order={customerUid:customerUser.uid,customerEmail:customerUser.email||"",customerName:document.getElementById("customerName").value.trim(),phone:document.getElementById("phone").value.trim(),address:document.getElementById("address").value.trim(),city:document.getElementById("city").value.trim(),paymentMethod:document.getElementById("paymentMethod").value,items:cart.map(x=>({id:x.id,name:x.name,price:x.price,qty:x.qty,size:x.size||"Free Size",color:x.color||"Default"})),totalAmount:cart.reduce((a,x)=>a+x.price*x.qty,0),status:"pending",createdAt:firebase.firestore.FieldValue.serverTimestamp()};
+ try{let ref=await db.collection("orders").add(order);document.getElementById("checkoutMsg").innerHTML=`Order placed! ID: <b>${esc(ref.id)}</b><br>Is ID ko tracking ke liye save karein.`;cart=[];couponApplied=false;updateCartCount();renderCart();document.getElementById("checkoutForm").reset();}
  catch(err){alert("Order error: "+err.message)}
 });
 async function adminLogin(){
@@ -70,10 +137,10 @@ async function adminLogin(){
  if(!email||!password)return alert("Admin email aur password bharein");
  try{const cred=await auth.signInWithEmailAndPassword(email,password);
  if(cred.user.uid!==ADMIN_UID){await auth.signOut();return alert("Is account ko Admin permission nahi hai.");}
- document.getElementById("adminLogin").classList.add("hidden");document.getElementById("adminArea").classList.remove("hidden");await loadOrders();}
+ document.getElementById("adminLogin").classList.add("hidden");document.getElementById("adminArea").classList.remove("hidden");await loadOrders();await loadAdminProducts();}
  catch(e){alert("Admin login error: "+e.message)}
 }
-async function adminLogout(){await auth.signOut();document.getElementById("adminArea").classList.add("hidden");document.getElementById("adminLogin").classList.remove("hidden");document.getElementById("orders").innerHTML="";}
+async function adminLogout(){await auth.signOut();document.getElementById("adminArea").classList.add("hidden");document.getElementById("adminLogin").classList.remove("hidden");document.getElementById("orders").innerHTML="";document.getElementById("adminProducts").innerHTML="";resetProductForm();}
 async function loadOrders(){
  const el=document.getElementById("orders");if(!db){el.textContent="Firebase config set nahi hai.";return}
  if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID){el.textContent="Admin Firebase login required.";return}
@@ -83,7 +150,45 @@ async function loadOrders(){
  catch(e){el.textContent="Orders load error: "+e.message}
 }
 async function updateOrderStatus(id,status){try{if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID)throw new Error("Admin login required");await db.collection("orders").doc(id).update({status});await loadOrders();alert("Order status updated!")}catch(e){alert("Status error: "+e.message)}}
+// Product catalogue: public read, Firebase-authenticated admin writes.
+function startProductsListener(){
+ if(!db)return;
+ if(productsUnsubscribe)productsUnsubscribe();
+ productsUnsubscribe=db.collection("products").onSnapshot(s=>{
+  products=s.empty?fallbackProducts:s.docs.map(d=>({id:d.id,...d.data()}));renderProducts();
+ },e=>{console.error("Products listener:",e);if(!products.length)products=fallbackProducts;renderProducts();});
+}
+function isStoreAdmin(){return !!(auth&&auth.currentUser&&auth.currentUser.uid===ADMIN_UID)}
+function splitList(v,fallback){const a=String(v||"").split(",").map(x=>x.trim()).filter(Boolean);return a.length?a:fallback}
+function resetProductForm(){const f=document.getElementById("productForm");if(!f)return;f.reset();document.getElementById("productId").value="";document.getElementById("productStock").value="1";document.getElementById("productPreview").classList.add("hidden");document.getElementById("productPreview").removeAttribute("src");document.getElementById("productFormMsg").textContent="";document.getElementById("saveProductBtn").textContent="Upload Product"}
+document.getElementById("productImage").addEventListener("change",e=>{const f=e.target.files&&e.target.files[0],img=document.getElementById("productPreview");if(!f){img.classList.add("hidden");return}if(!f.type.startsWith("image/")){alert("Image file select karein");e.target.value="";return}if(f.size>5*1024*1024){alert("Photo 5 MB se chhoti honi chahiye");e.target.value="";return}img.src=URL.createObjectURL(f);img.classList.remove("hidden")});
+document.getElementById("productForm").addEventListener("submit",async e=>{
+ e.preventDefault();if(!isStoreAdmin())return alert("Admin login required");if(!db||!storage)return alert("Firebase Storage available nahi hai. Firebase Console mein Storage enable karein.");
+ const btn=document.getElementById("saveProductBtn"),msg=document.getElementById("productFormMsg"),id=document.getElementById("productId").value,file=document.getElementById("productImage").files[0];
+ const price=Number(document.getElementById("productPrice").value),mrp=Number(document.getElementById("productMrp").value)||0,stock=Number(document.getElementById("productStock").value);
+ if(!(price>0)||stock<0)return alert("Price aur stock sahi bharein");
+ btn.disabled=true;msg.textContent="Product save ho raha hai...";
+ try{
+  let old={};if(id){const snap=await db.collection("products").doc(id).get();if(snap.exists)old=snap.data()||{}}
+  let image=old.image||"",imagePath=old.imagePath||"";
+  if(file){if(!file.type.startsWith("image/")||file.size>5*1024*1024)throw new Error("Photo 5 MB se chhoti image honi chahiye");const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");imagePath="products/"+Date.now()+"_"+safeName;const ref=storage.ref().child(imagePath);await ref.put(file,{contentType:file.type});image=await ref.getDownloadURL();}
+  if(!image)throw new Error("Product ki photo select karein");
+  const data={name:document.getElementById("productName").value.trim(),category:document.getElementById("productCategory").value,price,mrp,stock,sizes:splitList(document.getElementById("productSizes").value,["Free Size"]),colors:splitList(document.getElementById("productColors").value,["Default"]),images:[image,...String(document.getElementById("productExtraImages").value||"").split(",").map(x=>x.trim()).filter(x=>/^https?:\/\//i.test(x))],image,imagePath,updatedAt:firebase.firestore.FieldValue.serverTimestamp()};
+  if(id)await db.collection("products").doc(id).update(data);else{data.createdAt=firebase.firestore.FieldValue.serverTimestamp();await db.collection("products").add(data)}
+  const successText=id?"Product update ho gaya!":"Product successfully upload ho gaya!";resetProductForm();msg.textContent=successText;await loadAdminProducts();
+ }catch(err){console.error(err);msg.textContent="Save error: "+err.message;alert("Product save nahi hua: "+err.message)}
+ finally{btn.disabled=false}
+});
+async function loadAdminProducts(){
+ const el=document.getElementById("adminProducts");if(!el)return;if(!isStoreAdmin()){el.textContent="Admin login required";return}el.textContent="Products loading...";
+ try{const snap=await db.collection("products").orderBy("createdAt","desc").get();if(snap.empty){el.innerHTML="<p>Abhi Firebase mein koi uploaded product nahi hai. Upar form se pehla product add karein.</p>";return}
+  el.innerHTML=snap.docs.map(d=>{const p=d.data();return `<div class="card"><img class="product-thumb" src="${esc(p.image||"")}" alt=""> <b>${esc(p.name||"")}</b><p>${esc(p.category||"Shoes")} • ₹${Number(p.price)||0} • Stock ${Number(p.stock)||0} ${Number(p.stock)<=5?"⚠️ LOW STOCK":""}</p><p>Sizes: ${esc((p.sizes||[]).join(", "))} | Colours: ${esc((p.colors||[]).join(", "))}</p><button onclick="editProduct('${d.id}')">Edit</button> <button class="danger" onclick="deleteProduct('${d.id}')">Delete</button></div>`}).join("");
+ }catch(e){el.textContent="Products load error: "+e.message}
+}
+async function editProduct(id){if(!isStoreAdmin())return;try{const d=await db.collection("products").doc(id).get();if(!d.exists)return alert("Product nahi mila");const p=d.data();document.getElementById("productId").value=id;document.getElementById("productName").value=p.name||"";document.getElementById("productCategory").value=p.category||"Shoes";document.getElementById("productPrice").value=p.price||"";document.getElementById("productMrp").value=p.mrp||"";document.getElementById("productStock").value=p.stock??0;document.getElementById("productSizes").value=(p.sizes||[]).join(", ");document.getElementById("productColors").value=(p.colors||[]).join(", ");document.getElementById("productExtraImages").value=(p.images||[]).slice(1).join(", ");document.getElementById("productPreview").src=p.image||"";document.getElementById("productPreview").classList.toggle("hidden",!p.image);document.getElementById("saveProductBtn").textContent="Update Product";document.getElementById("productFormMsg").textContent="Edit mode: nayi photo na chunein to purani photo rahegi.";document.getElementById("productForm").scrollIntoView({behavior:"smooth"})}catch(e){alert("Edit error: "+e.message)}}
+async function deleteProduct(id){if(!isStoreAdmin())return;if(!confirm("Kya aap is product ko delete karna chahte hain?"))return;try{const ref=db.collection("products").doc(id),d=await ref.get(),p=d.data()||{};await ref.delete();if(p.imagePath)try{await storage.ref().child(p.imagePath).delete()}catch(e){console.warn("Image cleanup:",e)}await loadAdminProducts();alert("Product delete ho gaya")}catch(e){alert("Delete error: "+e.message)}}
 async function trackOrder(){let id=document.getElementById("trackId").value.trim(),el=document.getElementById("trackResult");if(!db)return el.textContent="Firebase config check karein";if(!id)return el.textContent="Order ID enter karein";try{let d=await db.collection("orders").doc(id).get();if(!d.exists)return el.textContent="Order nahi mila";let o=d.data();el.innerHTML=`<div class="card"><b>${esc(o.customerName||"Customer")}</b><p>Amount: ₹${o.totalAmount||0}</p><p>Current status: <span class="status">${esc(o.status||"pending")}</span></p></div>`}catch(e){el.textContent="Tracking error: "+e.message}}
 function esc(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+startProductsListener();
 renderProducts();
 </script></body></html>

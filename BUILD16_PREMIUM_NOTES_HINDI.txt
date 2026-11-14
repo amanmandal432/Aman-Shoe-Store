@@ -1,0 +1,18 @@
+Aman Shoe Store Build16 Premium
+
+Build15 se updates:
+- Customer Firebase Register/Login/Logout alag customer account flow
+- Customer profile name update
+- Customer My Orders aur order details
+- Checkout customer login ke baad aur customerUid ke saath
+- Product photo tap -> Product Details; multi-image p.images gallery aur swipe/next-prev support
+- Wishlist local device par
+- Recently viewed products
+- SAVE10 coupon (10% discount)
+- WhatsApp cart summary share
+- Dark mode toggle
+- Product reviews Firebase subcollection
+- Existing cart quantity, remove, total, stock checks, admin panel/order tracking preserved
+
+Build: GitHub Actions > Build APK workflow > Run workflow.
+Note: Firebase Firestore Rules mein customers ko apne customerUid wale orders read/write aur reviews access dena zaroori hai. Admin rules ko restrict rakhein. Product alternate angles p.images array ke URLs se support hote hain; admin upload form abhi single image upload karta hai. Hindi/English toggle is build mein informational placeholder hai, complete translated UI nahi.
