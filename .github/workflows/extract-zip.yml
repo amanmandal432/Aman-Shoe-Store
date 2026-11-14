@@ -1,4 +1,5 @@
-name: Extract Build 14 ZIP into repository
+
+name: Extract Build 16 Premium ZIP into repository
 
 on:
   workflow_dispatch:
@@ -13,36 +14,41 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Extract Build 14 ZIP
+      - name: Extract Build 16 Premium
         shell: bash
         run: |
           set -euo pipefail
-          ZIP_FILE="Build14.zip"
+
+          ZIP_FILE="Aman_Shoe_Store_Build16_Premium_Source.zip"
+
           if [ ! -f "$ZIP_FILE" ]; then
-            echo "ERROR: Upload Build14.zip to the repository root first."
+            echo "ERROR: Build16 Premium ZIP not found."
             exit 1
           fi
 
-          mkdir -p /tmp/build14-unpack
-          unzip -q "$ZIP_FILE" -d /tmp/build14-unpack
+          mkdir -p /tmp/build16-unpack
+          unzip -q "$ZIP_FILE" -d /tmp/build16-unpack
 
-          PROJECT_ROOT="$(find /tmp/build14-unpack -maxdepth 4 -type f -name settings.gradle -print -quit | xargs -r dirname)"
+          PROJECT_ROOT="$(find /tmp/build16-unpack -maxdepth 5 -type f -name settings.gradle -print -quit | xargs -r dirname)"
+
           if [ -z "$PROJECT_ROOT" ] || [ ! -d "$PROJECT_ROOT/app" ]; then
-            echo "ERROR: ZIP does not contain an Android Gradle project."
+            echo "ERROR: Android project not found in ZIP."
             exit 1
           fi
 
           cp -a "$PROJECT_ROOT"/. .
+
           rm -f "$ZIP_FILE"
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add -A
           git reset -- .github/workflows/android-apk.yml
-          
+
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Upload Android Build 14 project"
+            git commit -m "Extract Aman Shoe Store Build16 Premium"
             git push
           fi
