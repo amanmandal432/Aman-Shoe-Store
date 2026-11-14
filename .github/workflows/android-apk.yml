@@ -1,5 +1,5 @@
 
-name: Build Aman Shoe Store APK - Build14
+name: Build Aman Shoe Store APK - Build16 Diagnostic
 
 on:
   workflow_dispatch:
@@ -30,18 +30,36 @@ jobs:
           unzip -q gradle-8.9-bin.zip
           echo "$PWD/gradle-8.9/bin" >> "$GITHUB_PATH"
 
-      - name: Verify Android source
+      - name: Verify Build16 Android source
         run: |
           test -f settings.gradle
           test -f app/src/main/assets/index.html
           test -f app/src/main/java/com/amanshoestore/app/MainActivity.java
+          echo "Build16 source verified"
 
       - name: Build Debug APK
         run: gradle assembleDebug
 
-      - name: Upload Build14 APK
+      - name: Diagnose APK
+        run: |
+          echo "===== APK FILES ====="
+          ls -lah app/build/outputs/apk/debug/
+
+          echo "===== APK SIZE ====="
+          du -h app/build/outputs/apk/debug/*.apk
+
+          echo "===== APK TYPE ====="
+          file app/build/outputs/apk/debug/*.apk
+
+          echo "===== APK ZIP TEST ====="
+          unzip -t app/build/outputs/apk/debug/app-debug.apk
+
+          echo "===== APK CONTENTS ====="
+          unzip -l app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Upload Build16 Diagnostic APK
         uses: actions/upload-artifact@v4
         with:
-          name: Aman-Shoe-Store-Build14-APK
+          name: Aman-Shoe-Store-Build16-Diagnostic
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
