@@ -44,7 +44,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add -A
-          git reset -- .github/workflows/android-apk.yml
+          git reset -- .github/workflows/
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
