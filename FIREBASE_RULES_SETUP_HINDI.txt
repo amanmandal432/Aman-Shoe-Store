@@ -42,3 +42,35 @@ Do not replace the entire existing ruleset blindly. Keep current rules for order
 
 4) SECURITY NOTE
 Only the configured Firebase Auth UID can create/edit/delete products and upload/delete product photos. Product catalogue reads are public so customers can browse without signing in.
+
+5) CUSTOMER PRODUCT REVIEWS – FIX "Missing or insufficient permissions"
+Firebase Console > Build > Firestore Database > Rules.
+Inside the existing service cloud.firestore { match /databases/{database}/documents { ... } block, add this nested match inside the existing match /products/{productId} block OR add the complete products match below if you do not already have one. Do not create duplicate overlapping products matches without checking your current rules.
+
+match /products/{productId}/reviews/{reviewId} {
+  allow read: if true;
+  allow create: if request.auth != null
+    && request.resource.data.uid == request.auth.uid
+    && request.resource.data.text is string
+    && request.resource.data.text.size() > 0
+    && request.resource.data.text.size() <= 1000;
+  allow update, delete: if false;
+}
+
+The reviews rule must be at the same document-match level as the products rule, for example:
+match /products/{productId} {
+  allow read: if true;
+  allow create, update, delete: if request.auth != null
+    && request.auth.uid == "SZXfcVdK2Le2g5jqbhtiNNfuGTI3";
+  match /reviews/{reviewId} {
+    allow read: if true;
+    allow create: if request.auth != null
+      && request.resource.data.uid == request.auth.uid
+      && request.resource.data.text is string
+      && request.resource.data.text.size() > 0
+      && request.resource.data.text.size() <= 1000;
+    allow update, delete: if false;
+  }
+}
+
+After adding the nested reviews match, click Publish. Do not replace or remove the existing orders, customers, or admin rules. The app cannot publish Firestore rules itself; this Firebase Console Publish step is required to remove the review permission error.
