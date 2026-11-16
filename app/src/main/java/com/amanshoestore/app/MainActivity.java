@@ -64,8 +64,16 @@ public class MainActivity extends Activity {
             if (filePathCallback != null) {
                 Uri[] results = null;
                 if (resultCode == RESULT_OK && data != null) {
-                    Uri uri = data.getData();
-                    if (uri != null) results = new Uri[]{uri};
+                    android.content.ClipData clipData = data.getClipData();
+                    if (clipData != null && clipData.getItemCount() > 0) {
+                        results = new Uri[clipData.getItemCount()];
+                        for (int i = 0; i < clipData.getItemCount(); i++) {
+                            results[i] = clipData.getItemAt(i).getUri();
+                        }
+                    } else {
+                        Uri uri = data.getData();
+                        if (uri != null) results = new Uri[]{uri};
+                    }
                 }
                 filePathCallback.onReceiveValue(results);
                 filePathCallback = null;
