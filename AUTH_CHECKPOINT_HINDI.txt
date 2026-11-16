@@ -1,0 +1,23 @@
+AMAN SHOE STORE - AUTH CHECKPOINT
+Date: 2026-11-16
+
+DECISION:
+Customer login will use Email + Password only. SMS/mobile OTP has been discontinued (no billing upgrade).
+
+COMPLETED IN SOURCE (GitHub main):
+- Removed Mobile OTP HTML UI and phone OTP functions from app/src/main/assets/index.html.
+- Customer Email + Password registration/login retained.
+- Added Forgot Password button and Firebase sendPasswordResetEmail() function to root index.html (website source) and app/src/main/assets/index.html (Android APK source).
+- Existing cart/coupon/shop features were not intentionally changed.
+
+Commits:
+- Remove customer SMS OTP; keep email password auth: 30bdd8004be066fab17270c0d8b85df3c9ebab12
+- Add customer email password reset option: 896345848f8c5e19104e3841b8400f4d45cbaaf5
+- Add email password reset to Android customer account: 84147bb556aa75524fc715ae1d1ee6d451114f32
+
+NEXT:
+1. Firebase Console > Authentication > Sign-in method > Email/Password enable (if not already enabled).
+2. Deploy website root index.html to Firebase Hosting.
+3. Trigger Android APK workflow to build updated APK from app/src/main/assets/index.html.
+4. Test Register, Login, Forgot Password, My Orders; confirm coupon/cart unchanged.
+5. Preserve all other app features.
