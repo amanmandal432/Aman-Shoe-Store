@@ -162,7 +162,7 @@ function startProductsListener(){
  if(!db)return;
  if(productsUnsubscribe)productsUnsubscribe();
  productsUnsubscribe=db.collection("products").onSnapshot(s=>{
-  products=s.empty?fallbackProducts:s.docs.map(d=>({id:d.id,...d.data()}));renderProducts();
+  products=s.empty?fallbackProducts:s.docs.map(d=>({id:d.id,...d.data()}));renderProducts();renderCategoryProducts();renderOfferProducts();
  },e=>{console.error("Products listener:",e);if(!products.length)products=fallbackProducts;renderProducts();});
 }
 function isStoreAdmin(){return !!(auth&&auth.currentUser&&auth.currentUser.uid===ADMIN_UID)}
