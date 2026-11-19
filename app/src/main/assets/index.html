@@ -64,6 +64,7 @@ const firebaseConfig = {
 };
 const ADMIN_UID = "SZXfcVdK2Le2g5jqbhtiNNfuGTI3";
 let db=null, auth=null, cart=[], products=[];
+let productsListenerUid=null;
 const fallbackProducts=[
 {id:"shoe1",name:"Men Sports Shoe",category:"Shoes",price:799,mrp:999,stock:18,sizes:["6","7","8","9","10"],colors:["Red"],image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"},
 {id:"shoe2",name:"Running Shoe",category:"Shoes",price:999,mrp:1299,stock:12,sizes:["6","7","8","9","10"],colors:["Black"],image:"https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600"}
@@ -72,7 +73,7 @@ let productsUnsubscribe=null;
 try { firebase.initializeApp(firebaseConfig); auth=firebase.auth(); db=firebase.firestore(); }
 catch(e){console.error("Firebase init:",e);}
 let customerUser=null;let wishlist=JSON.parse(localStorage.getItem("amanWishlist")||"[]");let couponApplied=false;
-if(auth)auth.onAuthStateChanged(user=>{customerUser=user&&user.uid!==ADMIN_UID?user:null;refreshCustomerUI();});
+if(auth)auth.onAuthStateChanged(user=>{customerUser=user&&user.uid!==ADMIN_UID?user:null;refreshCustomerUI();startProductsListener();});
 function editCustomerProfile(){if(!customerUser)return;document.getElementById("profileEdit").classList.toggle("hidden");document.getElementById("profileName").value=customerUser.displayName||"";}async function saveCustomerProfile(){if(!customerUser)return;const n=document.getElementById("profileName").value.trim();if(!n)return alert("Name bharein");try{await customerUser.updateProfile({displayName:n});await db.collection("customers").doc(customerUser.uid).set({name:n,email:customerUser.email},{merge:true});refreshCustomerUI();alert("Profile saved");}catch(e){alert(e.message)}}
 function refreshCustomerUI(){const box=document.getElementById("customerAuthBox"),profile=document.getElementById("customerProfile");if(!box||!profile)return;box.classList.toggle("hidden",!!customerUser);profile.classList.toggle("hidden",!customerUser);if(customerUser){document.getElementById("customerWelcome").textContent="Logged in: "+(customerUser.displayName||customerUser.email||"Customer");}}
 async function customerRegister(){const name=document.getElementById("custName").value.trim(),email=document.getElementById("custEmail").value.trim(),pass=document.getElementById("custPassword").value;if(!name||!email||pass.length<6)return alert("Name, valid email aur 6+ character password bharein");try{const c=await auth.createUserWithEmailAndPassword(email,pass);await c.user.updateProfile({displayName:name});await db.collection("customers").doc(c.user.uid).set({name,email,createdAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});alert("Registration successful!");refreshCustomerUI();}catch(e){alert("Register error: "+e.message)}}
@@ -154,7 +155,12 @@ async function updateOrderStatus(id,status){try{if(!auth.currentUser||auth.curre
 // Product catalogue: public read, Firebase-authenticated admin writes.
 function startProductsListener(){
  if(!db)return;
+ // Restart the catalogue listener whenever Firebase authentication changes.
+ // This recovers from an initial permission-denied listener started before login.
+ const listenerUid=auth&&auth.currentUser?auth.currentUser.uid:"signed-out";
+ if(productsUnsubscribe&&productsListenerUid===listenerUid)return;
  if(productsUnsubscribe)productsUnsubscribe();
+ productsListenerUid=listenerUid;
  productsUnsubscribe=db.collection("products").onSnapshot(s=>{
   products=s.empty?fallbackProducts:s.docs.map(d=>({id:d.id,...d.data()}));renderProducts();
  },e=>{console.error("Products listener:",e);if(!products.length)products=fallbackProducts;renderProducts();});
