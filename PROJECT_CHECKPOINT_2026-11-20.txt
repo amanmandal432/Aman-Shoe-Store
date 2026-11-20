@@ -1,0 +1,38 @@
+AMAN SHOE STORE — PROJECT CHECKPOINT
+Date: 2026-11-20
+
+LATEST USER-APPROVED DESIGN
+- Final logo selection: Black & Gold Option 2.
+- Web logo: assets/aman-gold-logo.svg
+- Android logo: app/src/main/assets/aman-gold-logo.svg
+- Header logo references updated on web and Android assets. Launcher drawable/icon has not yet been refreshed.
+
+CUSTOMER MORE MENU
+- Replaced old Order Tracking section/tab with More menu.
+- Items include Customer Profile, My Orders, Edit Profile, Language (Hindi/English), Dark Mode, Wishlist, Recently Viewed, Help & Support, About, Privacy Policy, Logout.
+- My Address screen added with Full Name, Mobile, Address, City, 6-digit PIN and Firestore customer address save/load.
+- Firebase Email/Password login is to remain unchanged.
+- Forgot Password Firebase email reset function added in customer UI.
+- Changes were synced into app/src/main/assets/index.html.
+
+ANDROID BACK BUTTON
+- app/src/main/assets/index.html now maintains section navigation using history.pushState and listens to popstate; Back should step through previous app sections.
+- MainActivity.java onBackPressed now calls WebView.goBack() when possible; at root it shows Exit Aman Shoe Store? confirmation with Cancel and Exit.
+- MainActivity update commit: 94984ca5120875d8077157736da307183ca40a97
+- Section history commit: fdbfb8ea0512424844602146b0ea2c633a563247
+- Need build and test on actual Android device: More -> My Orders -> Back; Product Details -> Back; Cart -> Back; root Back should show confirmation.
+
+RECENT WORK ALREADY IN PROJECT
+- Checkout required 6-digit PIN code stored with order and shown in Admin.
+- WhatsApp cart order message, product sorting, category/brand/size/colour filters, admin brand field.
+- Android source synced with latest root app HTML at prior checkpoint, then newer customer More menu/password reset and Back navigation added.
+- Customer Email/Password auth and core Admin/product/cart/checkout/COD/orders flows previously tested working.
+- Forgot Password was previously broken; reset email function added but must be tested.
+- My Orders previously reported missing; ensure test after new menu change.
+- Firebase Storage/Blaze billing and Phone/SMS OTP must not be introduced. Product images should continue using free-compatible client-side compressed data URL approach.
+- Do not uninstall old app or ask user to install until correct-source APK build succeeds and artifact is verified.
+
+BUILD
+- Correct-source workflow: .github/workflows/build-apk.yml
+- Builds app/src/main/assets/index.html and MainActivity.java into debug APK and validates archive.
+- Latest code changes should trigger workflow automatically on push to main. Need verify run success and artifact before sharing/installing.
