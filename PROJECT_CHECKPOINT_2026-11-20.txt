@@ -38,3 +38,6 @@ BUILD
 - Latest code changes should trigger workflow automatically on push to main. Need verify run success and artifact before sharing/installing.
 
 BUILD REQUEST (2026-11-20): User explicitly requested a fresh APK build after the More menu, logo and Android Back button changes. Correct workflow: .github/workflows/build-apk.yml; expected artifact name configured in workflow: Aman-Shoe-Store-Build20-Verified. Verify workflow success and artifact before sharing APK.
+
+
+FINAL BUILD20 RESULT (2026-11-20): Correct-source workflow run 44668510231 completed SUCCESS on commit 743739b8ba6283ae9eee59e52f3cca646ab04037. All workflow steps passed: Android project verification, Gradle 8.9 setup, assembleDebug, APK validation (assets/index.html and classes.dex present), artifact upload. Artifact: Aman-Shoe-Store-Build20-Verified (artifact ID 14598348420; expires 2027-02-18). Downloaded ZIP and extracted APK locally; APK recognized as Android package, APK archive test passed, contains assets/index.html (56,461 bytes) and classes.dex (1,340 bytes). Local verified APK: /mnt/data/Aman-Shoe-Store-Build20.apk. User should retain existing installation until installing/testing new APK. Next device tests: Android Back navigation, More menu links, Forgot Password email reset, My Orders, saved address, then regression test customer/admin order flow.
