@@ -1,6 +1,7 @@
 package com.amanshoestore.app;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
@@ -87,8 +88,16 @@ public class MainActivity extends Activity {
     }
 
     @Override public void onBackPressed() {
-        if (webView != null && webView.canGoBack()) webView.goBack();
-        else super.onBackPressed();
+        if (webView != null && webView.canGoBack()) {
+            webView.goBack();
+            return;
+        }
+        new AlertDialog.Builder(this)
+                .setTitle("Exit Aman Shoe Store?")
+                .setMessage("Kya aap app band karna chahte hain?")
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .setPositiveButton("Exit", (dialog, which) -> finish())
+                .show();
     }
 
     @Override protected void onDestroy() {
