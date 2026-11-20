@@ -36,3 +36,5 @@ BUILD
 - Correct-source workflow: .github/workflows/build-apk.yml
 - Builds app/src/main/assets/index.html and MainActivity.java into debug APK and validates archive.
 - Latest code changes should trigger workflow automatically on push to main. Need verify run success and artifact before sharing/installing.
+
+BUILD REQUEST (2026-11-20): User explicitly requested a fresh APK build after the More menu, logo and Android Back button changes. Correct workflow: .github/workflows/build-apk.yml; expected artifact name configured in workflow: Aman-Shoe-Store-Build20-Verified. Verify workflow success and artifact before sharing APK.
