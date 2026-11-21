@@ -1,10 +1,10 @@
-name: Aman Shoe Store APK - Correct Source Build
+name: Aman Shoe Store APK - Build21
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - build21-ui-updates
 
 permissions:
   contents: read
@@ -61,6 +61,6 @@ jobs:
       - name: Upload verified APK
         uses: actions/upload-artifact@v4
         with:
-          name: Aman-Shoe-Store-Build20-Verified
+          name: Aman-Shoe-Store-Build21-Verified
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
