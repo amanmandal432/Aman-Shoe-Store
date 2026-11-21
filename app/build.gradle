@@ -5,10 +5,11 @@ android {
     compileSdk 35
 
     defaultConfig {
-        applicationId 'com.amanshoestore.app.otpfix'
+        // Separate package so the recovery test APK can be installed alongside stable Build21.
+        applicationId 'com.amanshoestore.app.recoverytest'
         minSdk 23
         targetSdk 35
-        versionCode 5
-        versionName '1.4-build22'
+        versionCode 1
+        versionName '1.4-build21-recovery-test'
     }
 }
