@@ -16,7 +16,7 @@ Source of truth: user-attached `aman_build21_nav.apk`.
 - `.github/workflows/build-apk.yml` is configured to build on pushes to this recovery branch and label the artifact `Aman-Shoe-Store-Build21-Recovery-Test`.
 
 ## Not yet verified / remaining
-- GitHub Actions currently reports no run for this recovery branch. No recovery APK has been built or validated yet.
+- User manually triggered GitHub Actions run #99 (run ID 44918373183) on 2026-11-21. Java setup, repository checks, and Gradle setup passed; APK compilation is currently in progress. Validation and artifact upload are still pending. No recovery APK is available yet.
 - Android launcher icon: APK `res/drawable/ic_aman_logo.xml` is compiled binary XML, not plain source vector XML. The existing repository vector XML has NOT been overwritten or claimed to be Build21-exact.
 - Full Android Studio/Gradle project cannot be recovered from the APK alone.
 - No Firebase live backend or end-to-end runtime tests were run from this branch.
