@@ -61,3 +61,28 @@ Android app Gradle config currently reports versionCode 5 and versionName 1.4-bu
 - No production/default branch, Build21 backup, or Recovery branch has been modified.
 - UI implementation and Build23 APK build have not yet been completed.
 - Next work: implement the product card/detail improvements and Firestore-backed admin banner carousel on this branch, then increment Android version and run GitHub Actions verification.
+
+
+## Update — 2026-11-22 implementation pass
+
+Implemented on the isolated Build23 branch:
+- Product cards now use a cleaner two-column marketplace layout with product photo, brand, name, selling price, MRP, discount, rating placeholder/available rating, stock and delivery text. Tapping the card opens product details.
+- Product detail view now has gallery thumbnails and swipe navigation, selectable colour and size chips, an approximate size guide, product/brand/stock details, Add to Cart and Buy Now.
+- Product admin form now includes a description field; save and edit preserve it.
+- Added a home banner carousel with swipe, dots and 4.5-second auto-advance.
+- Added admin banner upload and delete UI. Banner photos are compressed client-side and saved in a Firestore `banners` collection, without Firebase Storage.
+- Android version set to versionCode 6 and versionName `1.5-build23`.
+- JavaScript inline script syntax compilation passed.
+
+GitHub:
+- Draft PR opened: https://github.com/amanmandal432/Aman-Shoe-Store/pull/2
+- PR #2 is open and not merged.
+- Latest branch commit at this checkpoint: `8f65c35c6fa2eef581aa39ef4326721c1b860393`.
+- A workflow run has not yet been observed for the PR commit. The APK has NOT yet been built or validated.
+- The workflow file on this branch now includes a pull_request trigger, but because that workflow change itself is part of this PR and the base branch may not yet contain the trigger, do not assume a PR check will start automatically. A manual workflow_dispatch on the Build23 branch may be needed.
+
+Important remaining checks:
+1. Confirm Firestore security rules permit public read and admin-only create/delete for `banners`. No rules file was found in this repository, so do not assume banner writes will work until checked in Firebase Console.
+2. Check Android GitHub Actions build and APK artifact; fix any Gradle/build errors.
+3. Install Build23 APK on user's phone and test all flows: product cards, details/gallery, sizes/colours, Add to Cart, Buy Now, checkout, customer login, Forgot Password, My Orders, admin products, admin banner upload/delete, banner swipe/auto-slide, admin orders/status.
+4. Do not merge PR #2 or replace Build21/Recovery until the user has tested and approved the APK.
