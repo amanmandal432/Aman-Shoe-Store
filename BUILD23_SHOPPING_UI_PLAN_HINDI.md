@@ -158,3 +158,10 @@ Important remaining checks:
 - GitHub Actions run #117, ID `45044034245`, is running for the latest Build24 branch commit `532604380b7d593cb7d0b9d1e4305d0ad5d54822` (push event). Initial verification and Gradle setup steps have passed; Gradle APK build was in progress at checkpoint time. No Build24 APK artifact is confirmed yet.
 - Earlier PR event run #116, ID `45044014638`, was also in progress against the earlier branch head. Prefer run #117 for the latest source state.
 - No APK link should be offered until the latest run completes successfully and its artifact is downloaded and validated.
+## Build24 CI completed and artifact verified — 2026-11-22
+- Latest Build24 branch push workflow run #117 / ID `45044034245` completed with conclusion `success` for commit `532604380b7d593cb7d0b9d1e4305d0ad5d54822`.
+- All workflow steps passed, including `Build APK from repository source`, `Validate generated APK`, and `Upload verified APK`.
+- Artifact confirmed: `Aman-Shoe-Store-Build24-Verified` (artifact ID `14763335055`, expires 2027-02-20). Downloaded and inspected ZIP; it contains `app-debug.apk` (38,794 bytes).
+- The APK artifact has been created and ZIP contents checked. It has NOT yet been installed or tested on the user's phone. Do not describe Build24 as final/stable or merge PR #3 yet.
+- Draft PR #3 remains OPEN and UNMERGED: https://github.com/amanmandal432/Aman-Shoe-Store/pull/3.
+- Next checkpoint: provide the Build24 APK to user for install/test; ensure the previous installed test app is uninstalled first if Android reports package conflict (Build21 stable APK/recovery backup should be retained separately). Test banner visibility from customer Home, yellow Buy Now, admin product/order View All/Show Less, and regression-check login, My Orders, COD checkout and order status. If banner permission diagnostic appears, inspect/merge Firestore read rules safely before final release.
