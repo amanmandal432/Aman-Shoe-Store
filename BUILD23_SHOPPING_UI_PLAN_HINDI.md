@@ -126,3 +126,14 @@ Important remaining checks:
 - APK ZIP integrity test passed and it contains `assets/index.html`, `classes.dex`, and `AndroidManifest.xml`.
 - This confirms the APK package was built and structurally validated. It has NOT yet been installed or functionally tested on the user's phone.
 - Outstanding before release: install and test Build23 on-device; verify Firestore rules for the new `banners` collection (public read, admin-only writes). Keep PR #2 unmerged and Build21/Recovery untouched until user approval.
+
+
+## On-device Build23 test checkpoint — 2026-11-22 (user-reported)
+- User reports Build23 was downloaded and opened/installed after resolving the package conflict (treat as user-reported device test; do not claim independent device verification).
+- Home screen is still very similar to the previous design, with only a small visible change; it does not yet meet the intended professional home-page redesign.
+- Banner: user added/set a banner in Banner Settings, but it does not appear on the customer Home screen. This is a confirmed user-reported defect to investigate first. Possible areas to inspect: Firestore `banners` collection rules/read access, saved document shape/active status, and home carousel query/render logic. Do not assume the cause until inspected.
+- Buy Now button is still blue; desired design in the plan is yellow. Visual styling issue.
+- Admin Panel: all uploaded products and all orders are displayed at once; there is no Hide/Collapse or View More control. Desired improvement: compact summaries with View More / Show All or collapse controls, separately for product uploads and orders.
+- Current Build23 is TEST ONLY, not stable/release approved. Do not merge PR #2 or modify main/Build21/Recovery.
+- Next work priority: inspect branch code for banner save/query/render mismatch and Firestore rules guidance; then fix banner display and test. Also correct Buy Now button color and add compact admin sections with View More/Show All. Preserve all existing login, orders, COD, and admin status functionality. Rebuild a new test APK and repeat user testing.
+- User explicitly requested this progress be saved step by step; this entry records the exact observed issues and next priorities.
