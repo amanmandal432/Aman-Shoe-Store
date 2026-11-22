@@ -86,3 +86,9 @@ Important remaining checks:
 2. Check Android GitHub Actions build and APK artifact; fix any Gradle/build errors.
 3. Install Build23 APK on user's phone and test all flows: product cards, details/gallery, sizes/colours, Add to Cart, Buy Now, checkout, customer login, Forgot Password, My Orders, admin products, admin banner upload/delete, banner swipe/auto-slide, admin orders/status.
 4. Do not merge PR #2 or replace Build21/Recovery until the user has tested and approved the APK.
+
+
+## Latest automation update
+- APK workflow push trigger now includes `build23-shopping-ui-2026-11-22`.
+- APK artifact name changed to `Aman-Shoe-Store-Build23-Verified`.
+- Workflow source updated in the Build23 branch. Waiting for a GitHub Actions run; no APK artifact is confirmed yet.
