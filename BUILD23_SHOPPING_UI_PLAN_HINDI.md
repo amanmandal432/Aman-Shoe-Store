@@ -152,3 +152,9 @@ Important remaining checks:
 - Important limitation: Firestore security rules are not stored in this repository and the live rules were not accessible for inspection. Banner upload by admin does not prove public customer reads are allowed. If the app shows the new permission diagnostic, Firebase Console Firestore Rules must allow public read on `/banners/{bannerId}` while restricting create/update/delete to the configured admin UID. Do not overwrite the user's existing rules; merge this match into the existing ruleset only after inspecting it.
 - Build24 is development/test only. It has not yet passed GitHub Actions, APK installation or end-to-end device testing. Do not merge or call it final/stable.
 - Next steps: open a draft PR for Build24 to main so CI runs; inspect CI/APK validation; then ask user to install/test the new APK. Preserve email/password login, forgot password, customer order history, COD checkout, admin order status, Firestore products/orders, and zero-cost Firebase design.
+## Build24 CI and PR checkpoint — 2026-11-22
+- Draft PR #3 opened: https://github.com/amanmandal432/Aman-Shoe-Store/pull/3 (base main, not merged).
+- Updated APK workflow to include Build24 branch push builds and use artifact name `Aman-Shoe-Store-Build24-Verified`.
+- GitHub Actions run #117, ID `45044034245`, is running for the latest Build24 branch commit `532604380b7d593cb7d0b9d1e4305d0ad5d54822` (push event). Initial verification and Gradle setup steps have passed; Gradle APK build was in progress at checkpoint time. No Build24 APK artifact is confirmed yet.
+- Earlier PR event run #116, ID `45044014638`, was also in progress against the earlier branch head. Prefer run #117 for the latest source state.
+- No APK link should be offered until the latest run completes successfully and its artifact is downloaded and validated.
