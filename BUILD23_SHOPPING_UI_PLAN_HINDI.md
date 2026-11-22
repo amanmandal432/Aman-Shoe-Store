@@ -92,3 +92,12 @@ Important remaining checks:
 - APK workflow push trigger now includes `build23-shopping-ui-2026-11-22`.
 - APK artifact name changed to `Aman-Shoe-Store-Build23-Verified`.
 - Workflow source updated in the Build23 branch. Waiting for a GitHub Actions run; no APK artifact is confirmed yet.
+
+
+## APK build result — 2026-11-22
+- GitHub Actions run #107, run ID `45039546820`, completed with conclusion `success`.
+- All 8 relevant workflow steps passed, including Android project verification, Gradle APK build, APK validation (ZIP integrity and required app assets/classes), and artifact upload.
+- Verified artifact: `Aman-Shoe-Store-Build23-Verified`, artifact ID `14761152123`, size 33,322 bytes (artifact ZIP), expires 2027-02-20.
+- Run page: https://github.com/amanmandal432/Aman-Shoe-Store/actions/runs/45039546820
+- Artifact download API: https://api.github.com/repos/amanmandal432/Aman-Shoe-Store/actions/artifacts/14761152123/zip
+- APK build is successful and artifact is available. It has NOT yet been installed and tested on the user's phone. Do not merge the draft PR or call Build23 stable until device testing and Firebase banner-rule verification are complete.
