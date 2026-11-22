@@ -116,3 +116,13 @@ Important remaining checks:
 - Code review confirms Build23 adds marketplace-style product cards, gallery/details, size/colour selection, size chart, Add to Cart/Buy Now, product descriptions, and a Firestore-backed banner carousel/admin upload-delete using compressed images (no Firebase Storage dependency).
 - Remaining mandatory checks: (1) inspect/verify Firestore rules for `banners` read and admin-only writes in Firebase Console; no rules file exists in this repo, so access cannot be assumed; (2) user installs and tests the Build23 APK end-to-end; (3) only after user approval consider merging PR #2. Do not change Build21, Recovery, or main before then.
 - Preserve Firebase Email/Password login, Forgot Password, My Orders, COD checkout, admin orders/status, existing product/order data, and zero-cost Firebase approach.
+
+
+## Latest verified artifact checkpoint — 2026-11-22
+- Latest observed Build23 GitHub Actions run: #109, run ID `45039712740`, event `pull_request`, conclusion `success`.
+- All build job steps completed successfully: Android project verification, Gradle APK build, APK validation and artifact upload.
+- Artifact for this exact run: `Aman-Shoe-Store-Build23-Verified`, artifact ID `14760544923`.
+- Artifact ZIP was downloaded and extracted; it contains `app-debug.apk` (37,317 bytes).
+- APK ZIP integrity test passed and it contains `assets/index.html`, `classes.dex`, and `AndroidManifest.xml`.
+- This confirms the APK package was built and structurally validated. It has NOT yet been installed or functionally tested on the user's phone.
+- Outstanding before release: install and test Build23 on-device; verify Firestore rules for the new `banners` collection (public read, admin-only writes). Keep PR #2 unmerged and Build21/Recovery untouched until user approval.
