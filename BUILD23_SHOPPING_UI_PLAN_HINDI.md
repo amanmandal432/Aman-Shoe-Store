@@ -137,3 +137,18 @@ Important remaining checks:
 - Current Build23 is TEST ONLY, not stable/release approved. Do not merge PR #2 or modify main/Build21/Recovery.
 - Next work priority: inspect branch code for banner save/query/render mismatch and Firestore rules guidance; then fix banner display and test. Also correct Buy Now button color and add compact admin sections with View More/Show All. Preserve all existing login, orders, COD, and admin status functionality. Rebuild a new test APK and repeat user testing.
 - User explicitly requested this progress be saved step by step; this entry records the exact observed issues and next priorities.
+
+## Build24 autonomous improvement checkpoint — 2026-11-22
+- User explicitly authorized the assistant to make sensible improvements independently, step by step, with the goal of a polished professional shoe-shopping app inspired by large marketplaces (not a copy of another brand), and asked that progress be saved.
+- Created isolated branch: `build24-professional-store-fixes-2026-11-22`, based on the Build23 development branch. Main, Build21 and Recovery remain untouched.
+- Build24 source improvements committed in `app/src/main/assets/index.html`:
+  1. Reworked home hero area with a premium blue promotional header, clear shopping message and benefit chips.
+  2. Added quick category shortcuts for Shoes, Slippers, Offers and All Categories.
+  3. Improved home banner fallback: the banner region no longer disappears when no banner records are returned; it displays a designed fallback instead.
+  4. Banner listener now restarts after Firebase auth state changes and clears its failed subscription on permission/error; a visible diagnostic message points to Firestore banner read permission if access is denied.
+  5. Corrected Buy Now button specificity so yellow styling wins over generic card button CSS.
+  6. Admin Products and Orders now show the latest five by default, with View All / Show Less controls when more than five exist; existing edit/delete and order-status update handlers remain in use.
+- Android app version bumped to `versionCode 7`, `versionName 1.6-build24`.
+- Important limitation: Firestore security rules are not stored in this repository and the live rules were not accessible for inspection. Banner upload by admin does not prove public customer reads are allowed. If the app shows the new permission diagnostic, Firebase Console Firestore Rules must allow public read on `/banners/{bannerId}` while restricting create/update/delete to the configured admin UID. Do not overwrite the user's existing rules; merge this match into the existing ruleset only after inspecting it.
+- Build24 is development/test only. It has not yet passed GitHub Actions, APK installation or end-to-end device testing. Do not merge or call it final/stable.
+- Next steps: open a draft PR for Build24 to main so CI runs; inspect CI/APK validation; then ask user to install/test the new APK. Preserve email/password login, forgot password, customer order history, COD checkout, admin order status, Firestore products/orders, and zero-cost Firebase design.
