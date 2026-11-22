@@ -101,3 +101,18 @@ Important remaining checks:
 - Run page: https://github.com/amanmandal432/Aman-Shoe-Store/actions/runs/45039546820
 - Artifact download API: https://api.github.com/repos/amanmandal432/Aman-Shoe-Store/actions/artifacts/14761152123/zip
 - APK build is successful and artifact is available. It has NOT yet been installed and tested on the user's phone. Do not merge the draft PR or call Build23 stable until device testing and Firebase banner-rule verification are complete.
+
+
+## Step-by-step continuation checkpoint — 2026-11-22 (evening)
+- User approved continuing the screenshot-based professional e-commerce plan and requested that progress be saved after each step.
+- Repository audit completed: default branch is `main`; Build23 work remains isolated on `build23-shopping-ui-2026-11-22`.
+- Build23 branch is 8 commits ahead of `main`; comparison confirms `main` is the unchanged base at `dcc97605e3b268ad2dce563ca2e1adba9f60d935`.
+- Build21 stable and `build21-recovery-2026-11-21` remain separate and untouched.
+- Draft PR #2 remains open, not merged: https://github.com/amanmandal432/Aman-Shoe-Store/pull/2
+- Build23 Android config: versionCode 6, versionName `1.5-build23`.
+- Latest successful GitHub Actions run #109, ID `45039712740`, on commit `6fea62a77d570f9aa40c558ddf5ac4ea3a70f5e6`. All build, Android-project verification, APK validation and artifact-upload steps passed.
+- Latest verified artifact: `Aman-Shoe-Store-Build23-Verified`, artifact ID `14760544923`, artifact ZIP size 33,322 bytes, not expired; expires 2027-02-20.
+- Important: successful CI build does not equal device testing. Build23 APK has not yet been installed/tested by the user and is NOT stable.
+- Code review confirms Build23 adds marketplace-style product cards, gallery/details, size/colour selection, size chart, Add to Cart/Buy Now, product descriptions, and a Firestore-backed banner carousel/admin upload-delete using compressed images (no Firebase Storage dependency).
+- Remaining mandatory checks: (1) inspect/verify Firestore rules for `banners` read and admin-only writes in Firebase Console; no rules file exists in this repo, so access cannot be assumed; (2) user installs and tests the Build23 APK end-to-end; (3) only after user approval consider merging PR #2. Do not change Build21, Recovery, or main before then.
+- Preserve Firebase Email/Password login, Forgot Password, My Orders, COD checkout, admin orders/status, existing product/order data, and zero-cost Firebase approach.
