@@ -7,6 +7,7 @@ on:
       - main
       - build23-shopping-ui-2026-11-22
       - build24-professional-store-fixes-2026-11-22
+      - build24-mobile-polish-2026-11-23
   pull_request:
     branches:
       - main
