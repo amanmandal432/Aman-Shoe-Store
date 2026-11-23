@@ -76,7 +76,7 @@ body.dark .home-category-strip button{background:#1f2937;color:#f3f4f6;border-co
  <form id="productForm" class="product-form">
   <input id="productId" type="hidden">
   <label>Product name</label><input id="productName" required maxlength="100" placeholder="Jaise Men's Sports Shoe">
-  <label>Category</label><select id="productCategory"><option value="Shoes">Shoes</option><option value="Slippers">Slippers</option></select><label>Brand</label><input id="productBrand" maxlength="50" placeholder="Nike, Adidas, Puma...">
+  <label>Category (you can add your own)</label><input id="productCategory" list="storeCategoryOptions" value="Shoes" placeholder="Shoes, Slippers, Sandals..."><datalist id="storeCategoryOptions"><option value="Shoes"><option value="Slippers"></datalist><label>Brand</label><input id="productBrand" maxlength="50" placeholder="Nike, Adidas, Puma...">
   <div class="form-row"><div><label>Selling price (₹)</label><input id="productPrice" type="number" min="1" required placeholder="799"></div><div><label>MRP (₹)</label><input id="productMrp" type="number" min="0" placeholder="999"></div><div><label>Stock quantity</label><input id="productStock" type="number" min="0" required value="1"></div></div>
   <label>Sizes</label><input id="productSizes" placeholder="6, 7, 8, 9, 10"><div class="hint">Comma se alag karein. Slippers ke liye Free Size bhi likh sakte hain.</div>
   <label>Colours</label><input id="productColors" placeholder="Black, White, Blue"><label>Product description</label><textarea id="productDescription" maxlength="1200" placeholder="Material, comfort, use, features..."></textarea><div class="hint">Comma se alag karein.</div>
@@ -126,8 +126,14 @@ async function loadMyOrders(){const el=document.getElementById("myOrders");if(!c
 async function showOrderDetails(id){try{const d=await db.collection("orders").doc(id).get();if(!d.exists||d.data().customerUid!==customerUser.uid)return alert("Order not found");const o=d.data();alert("Order: "+id+"\nStatus: "+o.status+"\nAmount: ₹"+o.totalAmount+"\nItems: "+(o.items||[]).map(i=>i.name+" × "+i.qty).join(", "));}catch(e){alert(e.message)}}
 let currentAppSection="shop";
 function showSection(id,fromHistory=false){const target=document.getElementById(id);if(!target)return;if(!fromHistory&&id!==currentAppSection){try{history.pushState({appSection:id},"","#"+id);}catch(e){} }document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));target.classList.remove("hidden");currentAppSection=id;if(id==="cart")renderCart();if(id==="categories")renderCategories();if(id==="offers")renderOffers();if(id==="shop")renderProducts();if(id==="admin"&&isStoreAdmin()){document.getElementById("adminLogin").classList.add("hidden");document.getElementById("adminArea").classList.remove("hidden");loadOrders();loadAdminProducts();loadAdminBanners();}}
-try{history.replaceState({appSection:currentAppSection},"","#shop");}catch(e){}
-window.addEventListener("popstate",function(event){const previous=event.state&&event.state.appSection?event.state.appSection:"shop";showSection(previous,true);});
+try{history.replaceState({appSection:currentAppSection},"","#shop");history.pushState({appRoot:true},"","#app");}catch(e){}
+let lastHomeBackAt=0;
+window.addEventListener("popstate",function(){
+ if(currentAppSection!=="shop"){showSection("shop",true);try{history.pushState({appRoot:true},"","#app");}catch(e){}return;}
+ const now=Date.now();
+ if(now-lastHomeBackAt<1800){if(confirm("Aman Shoe Store se exit karna hai?")){history.back();}else{try{history.pushState({appRoot:true},"","#app");}catch(e){}}}
+ else{lastHomeBackAt=now;const n=document.createElement("div");n.textContent="Exit ke liye dobara Back dabayein";n.style.cssText="position:fixed;bottom:82px;left:50%;transform:translateX(-50%);background:#172033;color:white;padding:12px 18px;border-radius:24px;z-index:9999";document.body.appendChild(n);setTimeout(()=>n.remove(),1500);try{history.pushState({appRoot:true},"","#app");}catch(e){}}
+});
 function productCardHTML(p){
  const discount=p.mrp&&Number(p.mrp)>Number(p.price)?Math.round((Number(p.mrp)-Number(p.price))*100/Number(p.mrp)):0;
  const rating=Number(p.rating)||4.1,reviewCount=Number(p.reviewCount)||0;
