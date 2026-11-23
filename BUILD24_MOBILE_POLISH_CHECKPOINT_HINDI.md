@@ -1,19 +1,35 @@
-# Build24 mobile polish checkpoint — 2026-11-23
+# Aman Shoe Store — Build24 Mobile Polish Checkpoint
+Date: 2026-11-23
 
-User tested the Build24 APK on an Android phone and confirmed the Home screen banner carousel is visible. The screenshot also confirms the banner contains promotional shoe artwork, the Home screen has category shortcuts (Shoes, Slippers, Offers, All Categories), and the header has a hamburger menu plus cart.
+## Stable safety
+- Build21 stable release and Recovery APK/branch remain untouched.
+- Ongoing work is isolated on `build24-mobile-polish-2026-11-23`, based on Build24.
+- Preserve Firebase Email/Password auth, Forgot Password, My Orders, COD, Admin order status, product upload, and free Firebase Storage-free image approach.
 
-New user-approved improvements:
-1. Tapping a promotional banner should open an offer/details page, similar to marketplace banner behavior. Admin should be able to enter offer details when uploading a banner.
-2. Android Back should return directly to Home from nested app screens; from Home, a second Back should ask for exit rather than requiring repeated Back presses through every activity.
-3. Home category shortcuts should be configurable by the store admin (names/categories/order), rather than hard-coded.
-4. Remove duplicate navigation and controls: keep More in one place; keep Dark Mode, Wishlist, Language in the hamburger More/settings area; show Sort & Filter only once on Home.
-5. Admin Products and Orders View All / Show Less controls should be placed above their lists, not at the bottom.
-6. Assistant may make additional sensible customer-friendly improvements, preserving all existing app flows.
+## Confirmed by user on phone
+- Build24 Home promotional banner carousel is visible.
+- Shoes/Slippers/Offers/All Categories shortcuts are visible.
+- Hamburger More and cart are visible in the header.
 
-Work safety:
-- Build21 stable and Recovery APK/branches remain untouched.
-- This work is isolated on `build24-mobile-polish-2026-11-23`, based on Build24.
-- Previous Build24 test APK had passed CI; user is now reporting a successful visual Home/Banner check. This is not a full functional test.
-- On this branch, the Home duplicate preference/filter toolbar and duplicate bottom More navigation item have been removed in commit `9700231ac593d5c6d6695bcd2f7dcd6cb5ff238d`.
-- The banner details flow, configurable category editor, Android Back handling, and top-positioned Admin toggles remain to be implemented and tested. Do not claim these are done.
-- Rebuild and validate APK after implementation. Preserve Email/Password auth, Forgot Password, My Orders, COD, Admin order status, product upload, and zero-cost Firebase approach.
+## Requested improvements
+1. Tappable promotional banners open an offer-details page; admin can enter offer details.
+2. Android Back returns directly to Home from nested app pages; another Back from Home asks for exit confirmation.
+3. Admin can customize Home category shortcut names/categories/order.
+4. Put Dark Mode, Wishlist and Language in hamburger More; remove duplicate More navigation.
+5. Show Sort & Filter only once on Home.
+6. Put Admin Products and Orders View All / Show Less controls above the lists.
+7. Add sensible customer-friendly improvements without breaking existing flows.
+
+## Committed source changes
+- 9700231: removed duplicate Home preferences/filter toolbar and duplicate bottom More.
+- 85b2123: added Admin Products and Orders View All controls above lists, dynamic labels, and removed bottom toggles.
+- 2e556c4: added banner details screen, tap-to-open behavior, Admin offer-description field and persistence.
+- 27e9edb: product category field accepts custom category names; added Home-to-exit Back navigation flow with exit confirmation.
+
+## Still needs build and real-phone verification
+- New banner detail flow and Admin offer description.
+- Admin top list controls and expand/collapse behavior.
+- Android Back handling in the actual Android WebView.
+- Category name entry works, but a full Admin editor for choosing Home shortcut visibility/order is not complete.
+- Home screenshot predates these commits and does not verify the new code.
+- No successful fresh CI build after these commits has yet been confirmed. Check Actions and artifact before sharing an APK.
