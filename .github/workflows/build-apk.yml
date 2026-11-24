@@ -1,4 +1,4 @@
-name: Aman Shoe Store Build24 APK - Correct Source Build
+name: Aman Shoe Store Build25 APK - Correct Source Build
 
 on:
   workflow_dispatch:
@@ -68,6 +68,6 @@ jobs:
       - name: Upload verified APK
         uses: actions/upload-artifact@v4
         with:
-          name: Aman-Shoe-Store-Build24-Verified
+          name: Aman-Shoe-Store-Build25-Verified
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
