@@ -8,6 +8,7 @@ on:
       - build23-shopping-ui-2026-11-22
       - build24-professional-store-fixes-2026-11-22
       - build24-mobile-polish-2026-11-23
+      - build25-amazon-category-navigation-2026-11-24
   pull_request:
     branches:
       - main
