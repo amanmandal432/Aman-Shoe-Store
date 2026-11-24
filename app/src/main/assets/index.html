@@ -52,7 +52,72 @@ body.dark{background:#111827;color:#f3f4f6}body.dark .card,body.dark .bottomnav,
 body.dark .product-brand{color:#e5e7eb}body.dark .detail-meta div{background:#273449}
 .hero-premium{background:linear-gradient(125deg,#082b67,#0868d9 65%,#19a0d8);color:#fff;text-align:left;padding:20px 17px;border-radius:18px;box-shadow:0 8px 22px #0649a52b;margin:8px 0 14px}.hero-premium .hero-kicker{font-size:10px;font-weight:800;letter-spacing:1.5px;color:#cde7ff}.hero-premium h2{font-size:24px;line-height:1.2;margin:8px 0}.hero-premium p{font-size:13px;color:#e2efff}.hero-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}.hero-pills span{font-size:10px;padding:6px 9px;border:1px solid #ffffff55;border-radius:30px;background:#ffffff18}.banner-wrap{min-height:145px}.banner-empty{min-height:145px;display:flex;flex-direction:column;justify-content:center;gap:7px;padding:22px;background:linear-gradient(120deg,#f9b600,#ffdf79 60%,#fff0be);color:#382800}.banner-empty b{font-size:21px}.banner-empty span{font-size:13px}.home-category-strip{display:flex;gap:10px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;padding:12px 1px 18px;margin:12px 0 20px}.home-category-strip::-webkit-scrollbar{display:none}.home-category-strip button{flex:0 0 92px;min-height:88px;background:#fff;color:#263449;border:1px solid #e4e9f0;border-radius:16px;padding:11px 7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;box-shadow:0 2px 7px #0000000a}.home-category-strip button span{font-size:27px;line-height:1.1}.home-category-strip button b{font-size:11px;line-height:1.25;text-align:center}.home-category-admin-row{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #e5e7eb;border-radius:10px;margin:8px 0;background:#fff}.home-category-admin-row .cat-icon{font-size:25px}.home-category-admin-row .cat-info{flex:1;min-width:0}.home-category-admin-row button{padding:8px 10px;font-size:12px}.home-section-heading{display:flex;align-items:end;justify-content:space-between;margin:10px 0 8px}.home-section-heading small{font-size:10px;color:#0874cf;font-weight:800;letter-spacing:1px}.home-section-heading h2{margin:3px 0;font-size:19px}.home-section-heading button{font-size:11px;padding:8px 10px;background:#e8f1ff;color:#0755c9}.card .detail-buy-row button.buy-now,.detail-buy-row button.buy-now{background:#facc15!important;color:#171717!important;border:1px solid #eab308!important}.product-card .card-actions button:last-child{background:#facc15;color:#171717}.admin-list-toggle{display:block;width:100%;margin:10px 0;background:#eef4ff;color:#0755c9;border:1px solid #cbdcf7;font-weight:800}.admin-list-summary{font-size:12px;color:#64748b;margin:6px 0}.banner-load-error{padding:12px;background:#fff4e5;color:#7c3e00;border-radius:10px;font-size:12px}
 body.dark .home-category-strip button{background:#1f2937;color:#f3f4f6;border-color:#374151}body.dark .home-section-heading button{background:#243b62;color:#fff}body.dark .admin-list-toggle{background:#243b62;color:#dbeafe;border-color:#365b8a}
- .banner-slide[role="button"]{cursor:pointer;touch-action:pan-y}.banner-slide[role="button"]:focus-visible{outline:3px solid #facc15;outline-offset:2px}.admin-section-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}.admin-section-actions .admin-list-toggle{flex:1;margin:0;min-width:150px}.admin-section-actions .secondary{white-space:nowrap}</style>
+ .banner-slide[role="button"]{cursor:pointer;touch-action:pan-y}.banner-slide[role="button"]:focus-visible{outline:3px solid #facc15;outline-offset:2px}.admin-section-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}.admin-section-actions .admin-list-toggle{flex:1;margin:0;min-width:150px}.admin-section-actions .secondary{white-space:nowrap}
+/* Build26 premium mobile-first visual refresh */
+:root{color-scheme:light;--brand:#0755d9;--brand-deep:#073b91;--accent:#facc15;--ink:#172033;--muted:#64748b;--surface:#fff;--line:#e7edf5}
+html{scroll-behavior:smooth}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:#f5f7fb;color:var(--ink);letter-spacing:.05px;-webkit-font-smoothing:antialiased}
+header{background:linear-gradient(125deg,#062b68 0%,#0755d9 58%,#1684dc 100%);padding:13px 14px 15px;box-shadow:0 5px 18px #062d6730}
+.brandline{gap:11px}.brandlogo{width:52px;height:52px;flex-basis:52px;border-radius:15px;box-shadow:0 5px 16px #001b4933}.brandlogo svg{width:44px;height:44px}
+.brandname{font-size:22px;letter-spacing:-.45px}.brandtag{font-size:11px;opacity:.9}
+.searchbox{margin-top:13px;min-height:46px;border-radius:14px;box-shadow:0 3px 12px #001c4a20;padding:0 13px}
+.searchbox input{font-size:14px!important}
+.filters{gap:7px;padding:11px 0 5px;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}
+.filters button{border:1px solid #ffffff65;border-radius:30px;background:#ffffff16;color:#fff;padding:8px 13px;font-weight:650}
+.filters button:focus,.filters button:active{background:#fff;color:#0755d9}
+main{padding:12px 12px calc(92px + env(safe-area-inset-bottom));max-width:1080px}
+.hero-premium{border-radius:20px;padding:22px 18px;box-shadow:0 10px 24px #0649a526}
+.banner-wrap{border-radius:18px;box-shadow:0 7px 20px #102b4b18;margin:10px 0 18px}
+.banner-slide{height:190px}.banner-slide img{object-fit:cover}
+.banner-copy{padding:17px;background:linear-gradient(transparent,#06152bd9)}
+.banner-copy b{font-size:22px;letter-spacing:-.3px}
+.home-category-strip{gap:9px;padding:10px 1px 15px;margin:8px 0 16px}
+.home-category-strip button{flex-basis:88px;min-height:86px;border-radius:17px;box-shadow:0 4px 12px #142d4b0b;transition:transform .15s,border-color .15s}
+.home-category-strip button:active{transform:scale(.96);border-color:#8ab7ff}
+.home-section-heading{margin:17px 2px 10px;align-items:center}
+.home-section-heading h2{font-size:19px;font-weight:850;letter-spacing:-.35px}
+.home-section-heading small{font-size:10px;letter-spacing:1.1px}
+#products.grid{gap:11px}
+.card,.product-card{border:1px solid #e9eef5;border-radius:16px;box-shadow:0 4px 14px #142d4b0b;transition:box-shadow .18s,transform .18s}
+.product-card{overflow:hidden}.product-card:active{transform:scale(.985);box-shadow:0 2px 8px #142d4b16}
+.product-card .productphoto{height:174px;border-radius:0;background:linear-gradient(145deg,#f8fafc,#edf2f8)}
+.product-card .productphoto img{object-fit:contain;padding:7px}
+.product-card .product-info{padding:10px}
+.product-brand{font-size:12px;letter-spacing:.35px;text-transform:uppercase;color:#52647d}
+.product-card .producttitle{font-size:13px;line-height:1.4;color:#34445c}
+.product-card .price{font-size:19px;letter-spacing:-.4px;color:#111827}
+.product-card .off{font-size:11px}
+.product-card .card-actions{gap:7px;margin-top:9px}
+.product-card .card-actions button{border-radius:10px;min-height:38px;font-weight:750}
+.product-card .card-actions button:first-child{background:#0755d9}
+.product-card .card-actions button:last-child{background:#ffda35;color:#191919}
+.discount{border-radius:0 8px 8px 0;font-size:10px}
+.detail-gallery{border-radius:18px;background:linear-gradient(145deg,#f8fafc,#edf2f8)}
+.detail-photo{height:340px;object-fit:contain;padding:8px}
+.detail-thumbs img{border-radius:11px}
+.detail-buy-row{position:sticky;bottom:calc(66px + env(safe-area-inset-bottom));z-index:4;background:#ffffffed;backdrop-filter:blur(10px);padding:9px;border:1px solid #e7edf5;border-radius:15px;box-shadow:0 5px 20px #0d24401b}
+.detail-buy-row button{border-radius:12px;min-height:48px;font-size:14px}
+.buy-now{background:#ffda35!important;color:#171717!important}
+button,.btn{border-radius:11px;font-weight:650;transition:filter .15s,transform .15s}
+button:active{filter:brightness(.96);transform:translateY(1px)}
+input,select,textarea{border-radius:11px;border-color:#d8e0eb;background:#fff}
+input:focus,select:focus,textarea:focus{outline:2px solid #9cc5ff;border-color:#3985ed}
+.bottomnav{padding:8px 3px calc(8px + env(safe-area-inset-bottom));border-top:1px solid #e6ebf2;box-shadow:0 -5px 18px #0c234012;backdrop-filter:blur(14px);background:#ffffffed}
+.bottomnav button{font-size:10px;font-weight:650;gap:4px}
+.bottomnav button strong{font-size:21px}
+.bottomnav button.active{color:#0755d9}
+.category-tile,.product-form,.home-category-admin-row{border-radius:15px;box-shadow:0 3px 12px #142d4b0a}
+.admin-list-toggle{border-radius:11px}
+footer{padding:24px 15px;color:#718096}
+body.dark{background:#0f172a;color:#e5e7eb}
+body.dark .card,body.dark .product-card,body.dark .product-form,body.dark .category-tile{background:#1e293b;border-color:#334155;color:#e5e7eb}
+body.dark .product-card .producttitle,body.dark .product-brand{color:#cbd5e1}
+body.dark .product-card .productphoto,body.dark .detail-gallery{background:#172235}
+body.dark .bottomnav{background:#111c2eeb;border-color:#334155}
+@media(min-width:600px){.banner-slide{height:260px}.product-card .productphoto{height:240px}main{padding-left:18px;padding-right:18px}}
+@media(max-width:360px){.brandname{font-size:19px}.brandlogo{width:46px;height:46px;flex-basis:46px}.product-card .productphoto{height:148px}.product-card .product-info{padding:8px}}
+
+</style>
 </head>
 <body>
 <header><div class="brandline"><div class="brandlogo" aria-label="Aman Shoe Store logo"><img src="aman-gold-logo.svg" alt="Aman Shoe Store" style="width:100%;height:100%;object-fit:cover;border-radius:16px"></div><div><div class="brandname">Aman <span>Shoe Store</span></div><div class="brandtag">Step Ahead With Style...</div></div><div class="topactions"><button onclick="showSection('more')">☰</button><button onclick="showSection('cart')">🛒<span class="bubble" id="cartBadge">0</span></button></div></div><div class="searchbox"><span>⌕</span><input id="search" placeholder="Search for shoes, slippers..." oninput="renderProducts()"><span>⌄</span></div></header>
