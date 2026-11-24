@@ -68,8 +68,33 @@ main{max-width:1080px;padding:12px 12px calc(90px + env(safe-area-inset-bottom))
 @media(min-width:560px){.home-category-strip{grid-template-columns:repeat(6,minmax(0,1fr))}.product-rail .rail-card{flex-basis:190px}#products.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.product-card .productphoto{height:210px}.banner-slide{height:250px}.home-welcome{min-height:190px}.welcome-copy h1{font-size:32px}}@media(min-width:850px){#products.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.product-card .productphoto{height:225px}}@media(max-width:360px){.welcome-copy h1{font-size:21px}.welcome-art{font-size:64px}.home-category-strip button{min-height:82px}.product-card .productphoto{height:130px}.product-card .product-info{padding:7px}}
 body.dark .home-category-strip button,body.dark .product-card,body.dark .home-promo-pair button{background:#1e293b;color:#f3f4f6;border-color:#334155}body.dark .product-card .producttitle,body.dark .product-card .price{color:#f3f4f6}body.dark .product-card .productphoto{background:#172235}body.dark .detail-buy-row{background:#172235ed;border-color:#334155}
 </style>
+<style id="aman-splash-style">
+#amanWelcomeSplash{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:28px 22px;text-align:center;background:radial-gradient(circle at 50% 34%,#174d91 0,#0b2e60 42%,#061a39 100%);color:#fff;transition:opacity .45s ease,visibility .45s ease}
+#amanWelcomeSplash.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
+#amanWelcomeSplash .splash-logo-wrap{width:158px;height:158px;padding:8px;border-radius:38px;background:linear-gradient(145deg,#fff4c4,#d9a62d 52%,#8c5b0c);box-shadow:0 16px 50px #0007,0 0 0 7px #ffffff12;animation:amanLogoIntro .9s cubic-bezier(.2,.8,.2,1) both}
+#amanWelcomeSplash .splash-logo{width:100%;height:100%;display:block;border-radius:31px;object-fit:cover;background:#080808}
+#amanWelcomeSplash .splash-welcome{margin:31px 0 8px;font-size:13px;letter-spacing:2.7px;text-transform:uppercase;font-weight:800;color:#ffdf82}
+#amanWelcomeSplash .splash-title{margin:0;font-size:clamp(27px,8vw,38px);line-height:1.08;letter-spacing:-.8px;font-weight:950;color:#fff;text-shadow:0 3px 15px #0005}
+#amanWelcomeSplash .splash-title span{display:block;color:#ffdc62}
+#amanWelcomeSplash .splash-tagline{margin:13px 0 0;font-size:12px;letter-spacing:1.4px;color:#dceaff}
+#amanWelcomeSplash .splash-loader{width:116px;height:3px;border-radius:10px;margin-top:38px;background:#ffffff30;overflow:hidden}
+#amanWelcomeSplash .splash-loader:after{content:"";display:block;width:40%;height:100%;border-radius:10px;background:#ffdb57;animation:amanLoad 2.7s ease-in-out forwards}
+#amanWelcomeSplash .splash-foot{position:absolute;bottom:30px;color:#b9cbe4;font-size:10px;letter-spacing:1.7px}
+@keyframes amanLogoIntro{from{opacity:0;transform:translateY(18px) scale(.82)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes amanLoad{from{transform:translateX(-110%)}to{transform:translateX(260%)}}
+@media(prefers-reduced-motion:reduce){#amanWelcomeSplash .splash-logo-wrap,#amanWelcomeSplash .splash-loader:after{animation:none}#amanWelcomeSplash{transition:none}}
+</style>
 </head>
 <body>
+<div id="amanWelcomeSplash" role="status" aria-label="Welcome to Aman Shoe Store">
+ <div class="splash-logo-wrap"><img class="splash-logo" src="aman-gold-logo.svg" alt="Aman Shoe Store logo"></div>
+ <p class="splash-welcome">Welcome to</p>
+ <h1 class="splash-title">AMAN <span>SHOE STORE</span></h1>
+ <p class="splash-tagline">STEP AHEAD WITH STYLE</p>
+ <div class="splash-loader" aria-hidden="true"></div>
+ <div class="splash-foot">COMFORT • QUALITY • STYLE</div>
+</div>
+
 <header><div class="brandline"><div class="brandlogo" aria-label="Aman Shoe Store logo"><img src="aman-gold-logo.svg" alt="Aman Shoe Store" style="width:100%;height:100%;object-fit:cover;border-radius:16px"></div><div><div class="brandname">Aman <span>Shoe Store</span></div><div class="brandtag">Step Ahead With Style...</div></div><div class="topactions"><button onclick="showSection('more')">☰</button><button onclick="showSection('cart')">🛒<span class="bubble" id="cartBadge">0</span></button></div></div><div class="searchbox"><span>⌕</span><input id="search" placeholder="Search for shoes, slippers..." oninput="renderProducts()"><span>⌄</span></div></header>
 <main>
 <section id="shop" class="home-page">
@@ -391,4 +416,13 @@ startProductsListener();
 startBannerListener();
 startHomeCategoryListener();
 renderProducts();
+
+// Build28: short branded welcome splash before the shop opens
+(function(){
+ const splash=document.getElementById("amanWelcomeSplash");
+ if(!splash)return;
+ let dismissed=false;
+ const enterStore=()=>{if(dismissed)return;dismissed=true;splash.classList.add("is-leaving");window.setTimeout(()=>{if(splash.parentNode)splash.parentNode.removeChild(splash);},500);};
+ window.setTimeout(enterStore,3000);
+})();
 </script></body></html>
