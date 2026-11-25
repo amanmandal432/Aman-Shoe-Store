@@ -19,7 +19,8 @@
 - Build31 workflow branch trigger added.
 
 ## Pending verification
-- Wait for GitHub Actions Build31 APK to finish.
+- GitHub Actions Build31 run #147 completed successfully (run ID 45646542880).
+- Artifact `Aman-Shoe-Store-Build31-Verified` is available; artifact ZIP size 43,966 bytes.
 - Install and verify: no rating overlaps Wishlist; unrated products do not show fake 4.1; uploaded product images fill cards better; details gallery still shows full image; bottom More no longer duplicates hamburger.
 - Re-test category image grid, full screen, review submission/admin review deletion, login, cart, COD orders, and product upload.
 - Build21 stable and Recovery APK must remain untouched.
