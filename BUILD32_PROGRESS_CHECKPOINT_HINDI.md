@@ -19,6 +19,7 @@ Build31 installed but app remained stuck on Welcome screen and would not open Ho
 - Build21 stable and Recovery APK untouched.
 
 ## Pending
-- Wait for GitHub Actions Build32 APK workflow.
+- GitHub Actions Build32 run #149 completed successfully (run ID 45647867722).
+- Artifact `Aman-Shoe-Store-Build32-Verified` downloaded; `app-debug.apk` extracted and confirmed present (48,033 bytes).
 - Install Build32 and confirm it exits Welcome screen to Home.
 - Re-test Build30 category photo cards and Build31 product card/rating/nav changes, then retest review, cart, order and admin flows.
