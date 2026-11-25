@@ -1,4 +1,4 @@
-name: Aman Shoe Store Build28 Welcome Splash
+name: Aman Shoe Store Build29 Review and UI Update
 
 on:
   workflow_dispatch:
@@ -11,6 +11,7 @@ on:
       - build25-amazon-category-navigation-2026-11-24
       - build27-full-store-redesign-2026-11-24
       - build28-welcome-splash-2026-11-24
+      - build29-reviews-fullscreen-categories-2026-11-25
   pull_request:
     branches:
       - main
@@ -70,6 +71,6 @@ jobs:
       - name: Upload verified APK
         uses: actions/upload-artifact@v4
         with:
-          name: Aman-Shoe-Store-Build28-Verified
+          name: Aman-Shoe-Store-Build29-Verified
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
