@@ -8,7 +8,7 @@ android {
         applicationId 'com.amanshoestore.app.build28test'
         minSdk 23
         targetSdk 35
-        versionCode 14
-        versionName '1.12-build32'
+        versionCode 15
+        versionName '1.13-build33'
     }
 }
