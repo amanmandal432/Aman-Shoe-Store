@@ -1,4 +1,4 @@
-name: Aman Shoe Store Build32 Splash Startup Hotfix
+name: Aman Shoe Store Build33 Category Carousel Fix
 
 on:
   workflow_dispatch:
@@ -15,6 +15,7 @@ on:
       - build30-category-image-grid-2026-11-25
       - build31-product-cards-image-nav-2026-11-25
       - build32-splash-startup-hotfix-2026-11-25
+      - build33-category-carousel-fix-2026-11-25
   pull_request:
     branches:
       - main
@@ -74,6 +75,6 @@ jobs:
       - name: Upload verified APK
         uses: actions/upload-artifact@v4
         with:
-          name: Aman-Shoe-Store-Build32-Verified
+          name: Aman-Shoe-Store-Build33-Verified
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
