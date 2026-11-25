@@ -14,8 +14,9 @@
 5. Android app version bumped to 1.9-build29 / versionCode 11.
 
 ## Important verification still pending
-- Android APK build workflow has been triggered automatically and is currently IN PROGRESS (run #140).
-- APK is not yet verified or ready to install; wait for the workflow to finish, then test on phone before calling Build29 ready.
+- Android APK build workflow #140 completed successfully (GitHub Actions conclusion: success).
+- Artifact `Aman-Shoe-Store-Build29-Verified` was downloaded; APK file `app-debug.apk` was extracted and confirmed as an Android package.
+- APK installation and real-device feature testing are still pending; do not call Build29 final stable until the user tests it on phone.
 - Test customer review submit/display, admin review list/delete, category image cards and taps, status bar hidden, plus login/cart/COD/orders/product upload.
 - Firestore rules currently published by user; review delete requires admin delete permission on the nested review documents. If deletion fails, inspect rules and update safely.
 
