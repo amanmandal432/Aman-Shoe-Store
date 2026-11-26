@@ -1,0 +1,17 @@
+AMAN SHOE STORE — BUILD 44 CHECKPOINT
+Date: 2026-11-26
+Base: build43-color-image-gallery-fix-2026-11-26
+Branch: build44-color-swatches-selection-2026-11-26
+
+Changes:
+- Improved colour swatch visual feedback: clearer selected border, check mark, and larger colour dot.
+- Selected colour now updates aria-pressed state and selected-colour label consistently.
+- Hardened colour-to-gallery mapping: explicit admin mapping remains first priority; image filename matching is next; colour order fallback is used only when a corresponding photo exists.
+- Existing size selection, cart selection, size chart, gallery swipe/fullscreen, and checkout paths are preserved.
+- Android APK workflow now builds from Build44 branch and uploads artifact Aman-Shoe-Store-Build44.
+
+Important:
+- Build21 stable/recovery branch untouched.
+- Build43 branch untouched.
+- Admin can set photo mapping like Black=2, White=1, Blue=3. Photo numbers refer to the gallery order (main image first, then additional photos).
+- Build is not considered complete until GitHub Actions APK validation succeeds.
