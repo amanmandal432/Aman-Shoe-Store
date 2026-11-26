@@ -1,0 +1,31 @@
+AMAN SHOE STORE — BUILD41 FIRESTORE STOCK RULE ADDITION
+Project: aman-shoe-store
+Purpose: Allow signed-in customers to reduce product stock only as part of the same atomic order transaction.
+
+IMPORTANT: The current Firestore rules are managed in Firebase Console and are not stored in this GitHub repository. Do NOT replace the full rules file. Add the allow update clause below inside the EXISTING match /products/{productId} block. Keep the existing admin create/delete rules and all existing orders/customers rules.
+
+Add this additional allow update rule (Firestore allow statements are OR-combined):
+
+allow update: if request.auth != null
+  && request.resource.data.diff(resource.data).affectedKeys()
+       .hasOnly(['stock', 'lastOrderId', 'lastOrderQty', 'updatedAt'])
+  && resource.data.stock is number
+  && request.resource.data.stock is number
+  && request.resource.data.stock >= 0
+  && request.resource.data.stock < resource.data.stock
+  && request.resource.data.lastOrderQty is number
+  && request.resource.data.lastOrderQty == resource.data.stock - request.resource.data.stock
+  && getAfter(/databases/$(database)/documents/orders/$(request.resource.data.lastOrderId)).data.customerUid == request.auth.uid
+  && getAfter(/databases/$(database)/documents/orders/$(request.resource.data.lastOrderId)).data.orderId == request.resource.data.lastOrderId
+  && getAfter(/databases/$(database)/documents/orders/$(request.resource.data.lastOrderId)).data.stockChanges[productId] == request.resource.data.lastOrderQty;
+
+How this is intended to work:
+- Build41 creates the order document and decrements all relevant product stocks in one Firestore transaction.
+- The order document contains orderId, customerUid, and stockChanges (product ID -> requested quantity).
+- The product stock can only decrease, never become negative, and the decrease must match the quantity in the order document created by the same transaction.
+- The customer's existing order-create permission must continue to allow the authenticated customer to create their own order (customerUid must equal request.auth.uid). Do not loosen that rule.
+- Admin product create/delete permissions remain unchanged.
+
+Publish the updated rules once in Firebase Console > Firestore Database > Rules. This one-time publish is required; app code cannot publish Firestore security rules.
+
+If the rule editor reports an error, do not publish a partial ruleset. Send the exact current rules text/error so the existing rules can be preserved and reconciled.
