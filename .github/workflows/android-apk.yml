@@ -1,11 +1,11 @@
 
-name: Build Aman Shoe Store APK - Build39 Product Details
+name: Build Aman Shoe Store APK - Build40 Modern Design
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - build39-product-detail-share-size-2026-11-26
+      - build40-modern-text-price-2026-11-26
 
 permissions:
   contents: read
@@ -30,12 +30,12 @@ jobs:
           unzip -q gradle-8.9-bin.zip
           echo "$PWD/gradle-8.9/bin" >> "$GITHUB_PATH"
 
-      - name: Verify Build39 Android source
+      - name: Verify Build40 Android source
         run: |
           test -f settings.gradle
           test -f app/src/main/assets/index.html
           test -f app/src/main/java/com/amanshoestore/app/MainActivity.java
-          echo "Build39 source verified"
+          echo "Build40 source verified"
 
       - name: Build Debug APK
         run: gradle assembleDebug
@@ -57,9 +57,9 @@ jobs:
           echo "===== APK CONTENTS ====="
           unzip -l app/build/outputs/apk/debug/app-debug.apk
 
-      - name: Upload Build39 APK
+      - name: Upload Build40 APK
         uses: actions/upload-artifact@v4
         with:
-          name: Aman-Shoe-Store-Build39
+          name: Aman-Shoe-Store-Build40
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
