@@ -1,4 +1,4 @@
-name: Build Aman Shoe Store APK - Build44 Colour Swatch Fix
+name: Build Aman Shoe Store APK - Build45 Colour Sync and Admin Lists
 
 on:
   workflow_dispatch:
@@ -7,6 +7,7 @@ on:
       - build41-order-permissions-direct-buy-links-2026-11-26
       - build43-color-image-gallery-fix-2026-11-26
       - build44-color-swatches-selection-2026-11-26
+      - build45-color-sync-admin-lists-2026-11-26
 
 permissions:
   contents: read
@@ -15,10 +16,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Build44 source
+      - name: Checkout Build45 source
         uses: actions/checkout@v4
         with:
-          ref: build44-color-swatches-selection-2026-11-26
+          ref: build45-color-sync-admin-lists-2026-11-26
 
       - name: Setup Java 17
         uses: actions/setup-java@v4
@@ -32,7 +33,7 @@ jobs:
           unzip -q gradle-8.9-bin.zip
           echo "$PWD/gradle-8.9/bin" >> "$GITHUB_PATH"
 
-      - name: Verify Build44 source
+      - name: Verify Build45 source
         run: |
           set -euo pipefail
           test -f settings.gradle
@@ -41,8 +42,11 @@ jobs:
           grep -q "openGalleryFullscreen" app/src/main/assets/index.html
           grep -q "colorImageIndex" app/src/main/assets/index.html
           grep -q "aria-pressed" app/src/main/assets/index.html
+          grep -q "initialColorForGallery" app/src/main/assets/index.html
+          grep -q "CSS.supports(\"color\",n)" app/src/main/assets/index.html
+          grep -q "docs.slice(0,2)" app/src/main/assets/index.html
 
-      - name: Build Build44 APK
+      - name: Build Build45 APK
         run: gradle --no-daemon assembleDebug
 
       - name: Validate APK
@@ -54,9 +58,9 @@ jobs:
           unzip -l "$APK" | grep -q "assets/index.html"
           unzip -l "$APK" | grep -q "classes.dex"
 
-      - name: Upload Build44 APK
+      - name: Upload Build45 APK
         uses: actions/upload-artifact@v4
         with:
-          name: Aman-Shoe-Store-Build44
+          name: Aman-Shoe-Store-Build45
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
