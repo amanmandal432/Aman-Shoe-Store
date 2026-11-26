@@ -1,11 +1,11 @@
 
-name: Build Aman Shoe Store APK - Build38 Stock and Login
+name: Build Aman Shoe Store APK - Build39 Product Details
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - build38-stock-login-polish-2026-11-26
+      - build39-product-detail-share-size-2026-11-26
 
 permissions:
   contents: read
@@ -30,12 +30,12 @@ jobs:
           unzip -q gradle-8.9-bin.zip
           echo "$PWD/gradle-8.9/bin" >> "$GITHUB_PATH"
 
-      - name: Verify Build38 Android source
+      - name: Verify Build39 Android source
         run: |
           test -f settings.gradle
           test -f app/src/main/assets/index.html
           test -f app/src/main/java/com/amanshoestore/app/MainActivity.java
-          echo "Build38 source verified"
+          echo "Build39 source verified"
 
       - name: Build Debug APK
         run: gradle assembleDebug
@@ -57,9 +57,9 @@ jobs:
           echo "===== APK CONTENTS ====="
           unzip -l app/build/outputs/apk/debug/app-debug.apk
 
-      - name: Upload Build38 APK
+      - name: Upload Build39 APK
         uses: actions/upload-artifact@v4
         with:
-          name: Aman-Shoe-Store-Build38
+          name: Aman-Shoe-Store-Build39
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
