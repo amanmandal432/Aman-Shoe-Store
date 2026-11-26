@@ -1,4 +1,4 @@
-name: Build Aman Shoe Store APK - Build45 Colour Sync and Admin Lists - Final
+name: Build Aman Shoe Store APK - Build45 Colour Sync and Admin Lists - Mapping Guard
 
 on:
   workflow_dispatch:
