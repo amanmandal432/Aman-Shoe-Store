@@ -480,6 +480,12 @@ document.getElementById("productForm").addEventListener("submit",async e=>{
   const extraUrls=String(document.getElementById("productExtraImages").value||"").split(",").map(x=>x.trim()).filter(x=>/^https?:\/\//i.test(x));
   const images=Array.from(new Set([...oldImages,...extraUrls])).filter(Boolean);
   if(!images.length)throw new Error("Product ki kam se kam ek photo select karein ya public photo URL daalein");
+  const colorList=splitList(document.getElementById("productColors").value,["Default"]),mappingText=String(document.getElementById("productColorImages").value||"").trim();
+  if(colorList.length>1&&images.length>1){
+   const mapping={};mappingText.split(/[,;\\n]+/).forEach(pair=>{const at=pair.lastIndexOf("=");if(at>0)mapping[normalizeColorKey(pair.slice(0,at))]=Number(pair.slice(at+1).trim());});
+   const missing=colorList.filter(c=>!Number.isInteger(mapping[normalizeColorKey(c)])||mapping[normalizeColorKey(c)]<1||mapping[normalizeColorKey(c)]>images.length);
+   if(missing.length)throw new Error("Colour aur photo ka sahi match zaroori hai. Colour-wise photo mapping mein har colour ka number likhein. Example: Yellow=1, Red=2 (gallery photo order ke hisaab se). Missing/invalid: "+missing.join(", "));
+  }
   const image=images[0];
   msg.textContent="Step 3/3: Product Firestore mein save ho raha hai...";
   const data={name:document.getElementById("productName").value.trim(),category:document.getElementById("productCategory").value,brand:document.getElementById("productBrand").value.trim(),description:document.getElementById("productDescription").value.trim(),price,mrp,stock,sizes:splitList(document.getElementById("productSizes").value,["Free Size"]),colors:splitList(document.getElementById("productColors").value,["Default"]),colorImages:document.getElementById("productColorImages").value.trim(),images,image,imagePath:"",imagePaths:[],updatedAt:firebase.firestore.FieldValue.serverTimestamp()};
