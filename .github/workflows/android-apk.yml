@@ -1,4 +1,4 @@
-name: Build Aman Shoe Store APK - Build45 Startup Hotfix - Products and Navigation
+name: Build Aman Shoe Store APK - Build45 Startup Hotfix - Products and Navigation v2
 
 on:
   workflow_dispatch:
