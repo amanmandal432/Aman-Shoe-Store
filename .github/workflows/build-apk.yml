@@ -1,4 +1,4 @@
-name: Aman Shoe Store Build35 Category and Logo Update
+name: Aman Shoe Store Build36 Delivery Search Branding Fix
 
 on:
   workflow_dispatch:
@@ -18,6 +18,7 @@ on:
       - build33-category-carousel-fix-2026-11-25
       - build34-category-management-safe-delete-2026-11-25
       - build35-category-management-final-2026-11-25
+      - build36-delivery-search-branding-fix-2026-11-26
   pull_request:
     branches:
       - main
@@ -77,6 +78,6 @@ jobs:
       - name: Upload verified APK
         uses: actions/upload-artifact@v4
         with:
-          name: Aman-Shoe-Store-Build35-Verified
+          name: Aman-Shoe-Store-Build36-Verified
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
