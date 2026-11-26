@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -35,6 +36,7 @@ public class MainActivity extends Activity {
                 return false;
             }
         });
+        webView.addJavascriptInterface(new AndroidShareBridge(), "AndroidShare");
         webView.setWebChromeClient(new WebChromeClient() {
             @Override public boolean onShowFileChooser(WebView view,
                     ValueCallback<Uri[]> callback, FileChooserParams params) {
@@ -58,6 +60,19 @@ public class MainActivity extends Activity {
             webView.loadUrl("file:///android_asset/index.html");
         } else {
             webView.restoreState(savedInstanceState);
+        }
+    }
+
+    public class AndroidShareBridge {
+        @JavascriptInterface
+        public void shareText(String text) {
+            runOnUiThread(() -> {
+                Intent send = new Intent(Intent.ACTION_SEND);
+                send.setType("text/plain");
+                send.putExtra(Intent.EXTRA_SUBJECT, "Aman Shoe Store Product");
+                send.putExtra(Intent.EXTRA_TEXT, text == null ? "Aman Shoe Store" : text);
+                startActivity(Intent.createChooser(send, "Share product via"));
+            });
         }
     }
 
