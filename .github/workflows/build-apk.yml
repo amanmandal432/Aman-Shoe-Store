@@ -1,4 +1,4 @@
-name: Aman Shoe Store Build36 Delivery Search Branding Fix
+name: Aman Shoe Store Build37 Order Review Address
 
 on:
   workflow_dispatch:
@@ -19,6 +19,7 @@ on:
       - build34-category-management-safe-delete-2026-11-25
       - build35-category-management-final-2026-11-25
       - build36-delivery-search-branding-fix-2026-11-26
+      - build37-order-review-address-2026-11-26
   pull_request:
     branches:
       - main
@@ -78,6 +79,6 @@ jobs:
       - name: Upload verified APK
         uses: actions/upload-artifact@v4
         with:
-          name: Aman-Shoe-Store-Build36-Verified
+          name: Aman-Shoe-Store-Build37-Verified
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
