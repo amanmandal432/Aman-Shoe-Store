@@ -319,7 +319,7 @@ function showProductDetails(id){
  <p class="product-brand">${esc(p.brand||"Aman Shoe Store")}</p><h2 class="modern-heading">${esc(p.name||"Product")}</h2><p class="muted">${esc(p.category||"Shoes")}</p>
  <section class="detail-variant-panel" aria-label="Choose colour and size">
  <div class="detail-color-head">Selected Color: <span id="selectedDetailColorLabel">${esc(colors[0])}</span></div>
- <div class="detail-color-options">${colors.map((v,i)=>`<button type="button" class="detail-color-option ${i===0?"selected":""}" data-color="${esc(String(v))}" onclick="selectDetailChoice('color',this.dataset.color,this)" aria-label="Select colour ${esc(v)}"><i class="detail-color-dot" style="background:${detailColorHex(v)}"></i><span>${esc(v)}</span></button>`).join("")}</div>
+ <div class="detail-color-options">${colors.map((v,i)=>`<button type="button" class="detail-color-option ${i===0?"selected":""}" data-color="${esc(String(v))}" aria-pressed="${i===0?"true":"false"}" onclick="selectDetailChoice('color',this.dataset.color,this)" aria-label="Select colour ${esc(v)}"><i class="detail-color-dot" style="background:${detailColorHex(v)}"></i><span>${esc(v)}</span></button>`).join("")}</div>
  <div class="detail-size-head"><h3>Select Size</h3><button class="size-chart-link" type="button" onclick="showSizeChart()">Size Chart</button></div>
  <div class="detail-size-options">${sizes.map((v,i)=>`<button type="button" class="choice-chip ${i===0?"selected":""}" onclick="selectDetailChoice('size','${esc(v)}',this)">${esc(v)}</button>`).join("")}</div>
  </section>
