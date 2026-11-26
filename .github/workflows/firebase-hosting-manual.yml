@@ -2,6 +2,9 @@ name: Firebase Hosting (manual only)
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - build41-order-permissions-direct-buy-links-2026-11-26
 
 permissions:
   contents: read
