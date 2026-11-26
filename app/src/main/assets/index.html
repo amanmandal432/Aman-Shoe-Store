@@ -161,7 +161,7 @@ body.dark .home-category-strip button,body.dark .product-card,body.dark .home-pr
   <label>Category (you can add your own)</label><input id="productCategory" list="storeCategoryOptions" value="Shoes" placeholder="Shoes, Slippers, Sandals..."><datalist id="storeCategoryOptions"><option value="Men Slipper"><option value="Men Shoe"><option value="Ladies Slippers"><option value="Ladies Shoe"><option value="Kids Shoe"><option value="Kids Slippers"><option value="Shoes"><option value="Slippers"></datalist><label>Brand</label><input id="productBrand" maxlength="50" placeholder="Nike, Adidas, Puma...">
   <div class="form-row"><div><label>Selling price (₹)</label><input id="productPrice" type="number" min="1" required placeholder="799"></div><div><label>MRP (₹)</label><input id="productMrp" type="number" min="0" placeholder="999"></div><div><label>Stock quantity</label><input id="productStock" type="number" min="0" required value="1"></div></div>
   <label>Sizes</label><input id="productSizes" placeholder="6, 7, 8, 9, 10"><div class="hint">Comma se alag karein. Slippers ke liye Free Size bhi likh sakte hain.</div>
-  <label>Colours</label><input id="productColors" placeholder="Black, White, Blue"><label>Colour-wise photo mapping (optional)</label><input id="productColorImages" placeholder="Black=3, White=1, Blue=2"><div class="hint">Har colour ke saamne us photo ka number likhein (gallery photo order 1, 2, 3...). Isse Black select karne par wahi black shoe photo khulegi. Blank chhodne par matching colour-name filename ya photo order use hoga.</div><label>Product description</label><textarea id="productDescription" maxlength="1200" placeholder="Material, comfort, use, features..."></textarea><div class="hint">Comma se alag karein.</div>
+  <label>Colours</label><input id="productColors" placeholder="Black, White, Blue"><label>Colour-wise photo mapping (optional)</label><input id="productColorImages" placeholder="Black=3, White=1, Blue=2"><div class="hint">Har colour ke saamne us photo ka number likhein (gallery photo order 1, 2, 3...). Isse Black select karne par wahi black shoe photo khulegi. Har colour ke saamne us photo ka number zaroor likhein (gallery order 1, 2, 3...). Example: Yellow=1, Red=2. Photo ke rang ko app khud reliably pehchan nahi sakta; mapping se selected colour aur photo hamesha match honge.</div><label>Product description</label><textarea id="productDescription" maxlength="1200" placeholder="Material, comfort, use, features..."></textarea><div class="hint">Comma se alag karein.</div>
   <label>Alternate photo URLs (comma-separated)</label><input id="productExtraImages" placeholder="https://...angle2.jpg, https://...angle3.jpg"><div class="hint">Additional angles ke public image URLs comma se daalein; product detail mein swipe hoga.</div><label>Product photos (Free mode)</label><input id="productImage" type="file" accept="image/*" multiple><div class="hint">Maximum 5 photos, each up to 5 MB. Photos automatically compress hokar Firestore mein save hongi; Firebase Storage/billing required nahi.</div><div class="hint">Each compressed photo max ~110 KB; total product document size limit ke andar rakhne ke liye.</div>
   <img id="productPreview" class="preview hidden" alt="Product photo preview">
   <button id="saveProductBtn" type="submit">Upload Product</button> <button type="button" class="secondary" onclick="resetProductForm()">Clear</button>
@@ -309,7 +309,7 @@ function showProductDetails(id){
  const p=products.find(x=>x.id===id);if(!p)return;
  const sizes=Array.isArray(p.sizes)&&p.sizes.length?p.sizes:["Free Size"],colors=Array.isArray(p.colors)&&p.colors.length?p.colors:["Default"];
  const gallery=Array.from(new Set([...(Array.isArray(p.images)?p.images:[]),p.image||""])).filter(Boolean);
- window.detailProductId=id;window.detailGallery=gallery;window.detailGalleryIndex=0;window.selectedDetailSize=sizes[0];window.selectedDetailColor=colors[0];window.detailQty=1;
+ window.detailProductId=id;window.detailGallery=gallery;window.detailGalleryIndex=0;window.selectedDetailSize=sizes[0];window.selectedDetailColor=initialColorForGallery(p,colors);window.detailQty=1;
  window.recentProducts=[p.id,...(window.recentProducts||[]).filter(x=>x!==p.id)].slice(0,12);
  const discount=p.mrp&&Number(p.mrp)>Number(p.price)?Math.round((Number(p.mrp)-Number(p.price))*100/Number(p.mrp)):0;
  document.getElementById("productDetailContent").innerHTML=`<div class="card">
@@ -318,8 +318,8 @@ function showProductDetails(id){
  <div style="display:flex;justify-content:space-between;align-items:center"><span id="galleryCount" class="muted">${gallery.length?1:0} / ${gallery.length}</span><span class="muted">Swipe photos to view more</span></div>
  <p class="product-brand">${esc(p.brand||"Aman Shoe Store")}</p><h2 class="modern-heading">${esc(p.name||"Product")}</h2><p class="muted">${esc(p.category||"Shoes")}</p>
  <section class="detail-variant-panel" aria-label="Choose colour and size">
- <div class="detail-color-head">Selected Color: <span id="selectedDetailColorLabel">${esc(colors[0])}</span></div>
- <div class="detail-color-options">${colors.map((v,i)=>`<button type="button" class="detail-color-option ${i===0?"selected":""}" data-color="${esc(String(v))}" aria-pressed="${i===0?"true":"false"}" onclick="selectDetailChoice('color',this.dataset.color,this)" aria-label="Select colour ${esc(v)}"><i class="detail-color-dot" style="background:${detailColorHex(v)}"></i><span>${esc(v)}</span></button>`).join("")}</div>
+ <div class="detail-color-head">Selected Color: <span id="selectedDetailColorLabel">${esc(window.selectedDetailColor)}</span></div>
+ <div class="detail-color-options">${colors.map((v,i)=>`<button type="button" class="detail-color-option ${normalizeColorKey(v)===normalizeColorKey(window.selectedDetailColor)?"selected":""}" data-color="${esc(String(v))}" aria-pressed="${normalizeColorKey(v)===normalizeColorKey(window.selectedDetailColor)?"true":"false"}" onclick="selectDetailChoice('color',this.dataset.color,this)" aria-label="Select colour ${esc(v)}"><i class="detail-color-dot" style="background:${detailColorHex(v)}"></i><span>${esc(v)}</span></button>`).join("")}</div>
  <div class="detail-size-head"><h3>Select Size</h3><button class="size-chart-link" type="button" onclick="showSizeChart()">Size Chart</button></div>
  <div class="detail-size-options">${sizes.map((v,i)=>`<button type="button" class="choice-chip ${i===0?"selected":""}" onclick="selectDetailChoice('size','${esc(v)}',this)">${esc(v)}</button>`).join("")}</div>
  </section>
@@ -335,12 +335,13 @@ function showProductDetails(id){
  showSection("productDetails");loadReviews(id);
 }
 function detailColorHex(name){
- const n=String(name||"").trim().toLowerCase().replace(/[_-]+/g," ").replace(/\s+/g," ");
- const map={"white":"#ffffff","off white":"#f8f7f0","ivory":"#fffbea","cream":"#fff1cc","black":"#17191d","charcoal":"#364152","blue":"#1976d2","navy":"#142b54","navy blue":"#142b54","royal blue":"#2457d6","sky blue":"#75c9f2","light blue":"#a9d8f0","dark blue":"#123b78","red":"#d62828","maroon":"#800020","wine":"#722f37","pink":"#e88cab","baby pink":"#f4c2d7","hot pink":"#ff69b4","rose":"#e8799b","green":"#218c50","dark green":"#14532d","light green":"#90c98b","olive":"#808000","mint":"#98e3c2","yellow":"#f1d34c","mustard":"#d4a017","gold":"#d4af37","orange":"#ef8a35","brown":"#80543c","dark brown":"#503321","tan":"#c49a6c","beige":"#d8c5a2","grey":"#858d98","gray":"#858d98","light grey":"#c7cbd1","light gray":"#c7cbd1","dark grey":"#555b65","dark gray":"#555b65","silver":"#c0c7d0","purple":"#8859a8","violet":"#7544a8","lavender":"#b9a0d8"};
- if(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(n)||/^rgba?\(/.test(n))return n;
- if(n.includes("/")||n.includes("&")){const parts=n.split(/[\/&]/).map(x=>x.trim()).filter(Boolean);if(parts.length===2)return "linear-gradient(135deg,"+detailColorHex(parts[0])+" 0 50%,"+detailColorHex(parts[1])+" 50% 100%)";}
+ const n=String(name||"").trim().toLowerCase().replace(/[_-]+/g," ").replace(/\\s+/g," ");
+ const map={"white":"#ffffff","off white":"#f8f7f0","ivory":"#fffbea","cream":"#fff1cc","black":"#17191d","jet black":"#080808","charcoal":"#364152","blue":"#1976d2","navy":"#142b54","navy blue":"#142b54","royal blue":"#2457d6","sky blue":"#75c9f2","light blue":"#a9d8f0","dark blue":"#123b78","red":"#d62828","maroon":"#800020","wine":"#722f37","burgundy":"#800020","pink":"#e88cab","baby pink":"#f4c2d7","hot pink":"#ff69b4","rose":"#e8799b","coral":"#ff7f50","peach":"#ffcba4","green":"#218c50","dark green":"#14532d","light green":"#90c98b","olive":"#808000","mint":"#98e3c2","lime":"#a4c639","teal":"#008080","turquoise":"#40e0d0","yellow":"#f1d34c","mustard":"#d4a017","gold":"#d4af37","orange":"#ef8a35","rust":"#b7410e","brown":"#80543c","dark brown":"#503321","tan":"#c49a6c","beige":"#d8c5a2","khaki":"#c3b091","grey":"#858d98","gray":"#858d98","light grey":"#c7cbd1","light gray":"#c7cbd1","dark grey":"#555b65","dark gray":"#555b65","silver":"#c0c7d0","purple":"#8859a8","violet":"#7544a8","lavender":"#b9a0d8","indigo":"#4b0082","magenta":"#ff00ff","cyan":"#00ffff","multicolor":"conic-gradient(red,orange,yellow,green,blue,indigo,violet)"};
+ if(/^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(n)||/^rgba?\\(/.test(n)||/^hsla?\\(/.test(n))return n;
+ if(n.includes("/")||n.includes("&")){const parts=n.split(/[\\/&]/).map(x=>x.trim()).filter(Boolean);if(parts.length===2)return "linear-gradient(135deg,"+detailColorHex(parts[0])+" 0 50%,"+detailColorHex(parts[1])+" 50% 100%)";}
  if(map[n])return map[n];
- const keys=Object.keys(map).sort((a,b)=>b.length-a.length);for(const k of keys)if(n.startsWith(k+" ")||n.endsWith(" "+k))return map[k];
+ const keys=Object.keys(map).sort((x,y)=>y.length-x.length);for(const k of keys)if(n.startsWith(k+" ")||n.endsWith(" "+k))return map[k];
+ try{if(window.CSS&&CSS.supports("color",n))return n;}catch(e){}
  return "#aab4c2";
 }
 function normalizeColorKey(v){return String(v||"").toLowerCase().replace(/[^a-z0-9]/g,"");}
@@ -349,10 +350,18 @@ function colorImageIndex(color){
  const gallery=window.detailGallery||[],key=normalizeColorKey(color),raw=String(p.colorImages||""),map={};
  raw.split(/[,;\\n]+/).forEach(pair=>{const at=pair.lastIndexOf("=");if(at>0){const name=normalizeColorKey(pair.slice(0,at)),idx=Number(pair.slice(at+1).trim());if(name&&Number.isInteger(idx)&&idx>0)map[name]=idx-1;}});
  if(Number.isInteger(map[key])&&map[key]>=0&&map[key]<gallery.length)return map[key];
- const matched=gallery.findIndex(url=>normalizeColorKey(decodeURIComponent(String(url).split(/[?#]/)[0].split("/").pop()||"")).includes(key));
+ const matched=gallery.findIndex(url=>{let file="";try{file=decodeURIComponent(String(url).split(/[?#]/)[0].split("/").pop()||"")}catch(e){file=String(url)}return normalizeColorKey(file).includes(key)});
  if(matched>=0)return matched;
- const colors=Array.isArray(p.colors)?p.colors:[],idx=colors.findIndex(x=>normalizeColorKey(x)===key);
- return idx>=0&&idx<gallery.length?idx:-1;
+ return -1;
+}
+function initialColorForGallery(p,colors){
+ const gallery=window.detailGallery||[];if(!gallery.length||!colors.length)return colors[0]||"Default";
+ const raw=String(p.colorImages||""),entries=raw.split(/[,;\\n]+/);
+ for(const entry of entries){const at=entry.lastIndexOf("=");if(at>0&&Number(entry.slice(at+1).trim())===1){const found=colors.find(c=>normalizeColorKey(c)===normalizeColorKey(entry.slice(0,at)));if(found)return found;}}
+ const filename=String(gallery[0]).split(/[?#]/)[0].split("/").pop()||"";
+ let decoded=filename;try{decoded=decodeURIComponent(filename)}catch(e){}
+ const match=colors.find(c=>normalizeColorKey(decoded).includes(normalizeColorKey(c)));
+ return match||colors[0]||"Default";
 }
 function selectDetailChoice(type,value,button){
  if(!button)return;
@@ -422,7 +431,7 @@ async function loadOrders(){
  if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID){el.textContent="Admin Firebase login required.";return}
  el.textContent="Orders loading...";
  try{const s=await db.collection("orders").get();const docs=s.docs.slice().sort((a,b)=>{const x=a.data(),y=b.data(),tx=x.createdAt&&x.createdAt.toMillis?x.createdAt.toMillis():0,ty=y.createdAt&&y.createdAt.toMillis?y.createdAt.toMillis():0;return ty-tx;});
- const visible=adminOrdersExpanded?docs:docs.slice(0,5);const topToggle=document.getElementById('ordersTopToggle');if(topToggle)topToggle.textContent=adminOrdersExpanded?'Show Less Orders':'View All Orders ('+docs.length+')';
+ const visible=adminOrdersExpanded?docs:docs.slice(0,2);const topToggle=document.getElementById('ordersTopToggle');if(topToggle)topToggle.textContent=adminOrdersExpanded?'Show Less Orders':'View All Orders ('+docs.length+')';
  el.innerHTML=!docs.length?"Abhi koi order nahi hai.":visible.map(d=>{const o=d.data(),st=String(o.status||"pending").toLowerCase(),items=Array.isArray(o.items)&&o.items.length?o.items.map(i=>(i.name||"Product")+" × "+(i.qty||1)).join(", "):(o["product name"]||o.productName||"Order items"),customer=o.customerName||o.name||o.customerEmail||"Customer";return `<div class="card"><b>${esc(customer)}</b><p>${esc(o.phone||o.mobile||"")} • ₹${Number(o.totalAmount)||0} • ${esc(o.paymentMethod||"COD")}</p><p>${esc(o.address||"")}${o.city?", "+esc(o.city):""}${o.pinCode?" • PIN: "+esc(o.pinCode):""}</p><p>Items: ${esc(items)} • Quantity: ${Number(o.quantity)||((o.items||[]).reduce((n,i)=>n+(Number(i.qty)||0),0))||1}</p><p>Status: <span class="status">${esc(st)}</span></p><label>Status update</label><select onchange="updateOrderStatus('${d.id}',this.value)"><option value="pending" ${st==="pending"?"selected":""}>Pending</option><option value="confirmed" ${st==="confirmed"?"selected":""}>Confirmed</option><option value="shipped" ${st==="shipped"?"selected":""}>Shipped</option><option value="delivered" ${st==="delivered"?"selected":""}>Delivered</option><option value="cancelled" ${st==="cancelled"?"selected":""}>Cancelled</option></select><small>Order ID: ${esc(d.id)}</small></div>`}).join("")+`<p class="admin-list-summary">Showing ${visible.length} of ${docs.length} orders</p>`+(docs.length>5?`<button class="admin-list-toggle" onclick="toggleAdminList('orders')">${adminOrdersExpanded?"Show Less":"View All Orders ("+docs.length+")"}</button>`:"");
  }catch(e){el.textContent="Orders load error: "+e.message}
 }
