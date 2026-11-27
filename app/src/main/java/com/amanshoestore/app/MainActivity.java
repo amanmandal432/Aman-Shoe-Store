@@ -127,6 +127,11 @@ public class MainActivity extends Activity {
         }
 
         @JavascriptInterface
+        public void exitApp() {
+            runOnUiThread(() -> MainActivity.this.finish());
+        }
+
+        @JavascriptInterface
         public void shareText(String text) {
             runOnUiThread(() -> {
                 Intent send = new Intent(Intent.ACTION_SEND);
