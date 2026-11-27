@@ -46,6 +46,8 @@ jobs:
           grep -q "function openSupportWhatsApp" app/src/main/assets/index.html
           grep -q "function callSupportPhone" app/src/main/assets/index.html
           grep -q "callPhone" app/src/main/java/com/amanshoestore/app/MainActivity.java
+          grep -q "public void exitApp()" app/src/main/java/com/amanshoestore/app/MainActivity.java
+          grep -q "AndroidShare.exitApp()" app/src/main/assets/index.html
           grep -q "userId:customerUser.uid" app/src/main/assets/index.html
           grep -q "Intent.ACTION_DIAL" app/src/main/java/com/amanshoestore/app/MainActivity.java
           grep -q "openWhatsApp" app/src/main/java/com/amanshoestore/app/MainActivity.java
