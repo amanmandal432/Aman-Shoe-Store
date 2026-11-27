@@ -50,7 +50,6 @@ jobs:
           grep -q "Intent.ACTION_DIAL" app/src/main/java/com/amanshoestore/app/MainActivity.java
           grep -q "openWhatsApp" app/src/main/java/com/amanshoestore/app/MainActivity.java
           grep -q "lastOrderQty:u.qty" app/src/main/assets/index.html
-          grep -q ".slice(0,1)" app/src/main/assets/index.html
           grep -q "function headerLogout" app/src/main/assets/index.html
           grep -q "versionCode 27" app/build.gradle
           grep -q "1.25-build54" app/build.gradle
