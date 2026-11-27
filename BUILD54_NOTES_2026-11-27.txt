@@ -6,3 +6,5 @@ Build54 changes:
 Build validation updated to assert multiple-banner behavior rather than the old one-banner limit.
 
 Additional Build54 fix: browser Back now restores the immediately previous app section/detail screen one step at a time; Home requires two Back presses to exit.
+
+Android back-button behavior: each Back restores one previous section/detail; on Home, first Back shows an exit hint, second Back confirms and calls the native Android exit bridge.
