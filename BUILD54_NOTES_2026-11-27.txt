@@ -23,4 +23,7 @@ CUSTOMER DISTRIBUTION CHECKPOINT:
 - Stable customer download URL: https://github.com/amanmandal432/Aman-Shoe-Store/releases/latest/download/app-debug.apk
 - Customer QR should encode that stable latest-release URL, not a temporary Actions artifact URL.
 - Future releases must upload the same asset filename and be marked latest; the QR image remains unchanged.
-- Build54 customer release publishing is pending workflow execution and verification.
+- Build54 published successfully as GitHub Release v1.25.0; asset app-debug.apk (76,912 bytes) is uploaded and visible as the latest release.
+- Stable customer download URL verified: https://github.com/amanmandal432/Aman-Shoe-Store/releases/latest/download/app-debug.apk
+- Stable QR PNG created at /mnt/data/Aman_Shoe_Store_Stable_Download_QR.png; QR encodes the stable latest-release URL.
+- Future update process: publish each new APK as a newer GitHub Release marked latest, retaining asset filename app-debug.apk; existing QR remains unchanged.
