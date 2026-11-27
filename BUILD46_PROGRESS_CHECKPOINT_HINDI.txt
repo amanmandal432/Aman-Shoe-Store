@@ -18,3 +18,14 @@ Important:
 - Build45 branch remains unchanged.
 - Build21 Stable and Recovery remain untouched.
 - Build46 is not considered ready until GitHub Actions JavaScript syntax validation, APK build, and APK ZIP validation all succeed.
+
+FINAL CHECKPOINT UPDATE — 2026-11-27
+- GitHub Actions run 45933160955 completed with conclusion SUCCESS.
+- JavaScript feature/syntax verification passed.
+- Gradle Build Build46 APK completed successfully.
+- APK archive validation passed (ZIP integrity and expected app assets/classes verified).
+- GitHub Actions artifact: Aman-Shoe-Store-Build46 (artifact ID 15169885540).
+- Downloaded artifact and extracted APK into this chat runtime as /mnt/data/Aman-Shoe-Store-Build46.apk.
+- APK was delivered to the user. User has not yet confirmed installation or on-device testing.
+- Next step: wait for user's install confirmation, then test colour-to-image mapping, size/colour stock × indicators, variant stock decrement, checkout, and delivery tracking on device.
+- Keep Build21 stable and Recovery build untouched.
