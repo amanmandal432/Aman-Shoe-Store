@@ -44,3 +44,14 @@ Branch: build48-admin-navigation-dashboard-2026-11-27
 
 
 BUILD48 LAUNCHER ICON UPDATE (2026-11-27): Replaced the old simple letter/monogram launcher icon with a custom vector sneaker illustration: white/blue athletic shoe, deep navy circular background, gold rim and crown accents. AndroidManifest already references @drawable/ic_aman_logo for both icon and roundIcon, so this asset update applies to the installed app launcher icon. Rebuild required; do not distribute the previous Build48 APK as it does not include this latest icon commit.
+
+
+BUILD48 ADMIN DASHBOARD VISUAL REFRESH — approved reference image applied (2026-11-27):
+- User approved the supplied colourful dashboard mockup as the desired exact visual direction.
+- Added a large blue sports-shoe hero banner under the Admin welcome header, with "Admin Panel", "Welcome, Admin", and short store-management tagline.
+- Reworked the seven management shortcut cards into a two-column colourful pastel layout with large icons, coloured circular arrow actions and clearer labels: Store Settings, Home Banner Management, Categories, Store Branding, Product Management, Orders Management, Customer Feedback.
+- Added Store Dashboard section with live data populated from Firestore orders/reviews: order count, delivered-order sales total, distinct customer identifiers found on orders, average review rating, and up to four recent orders. Values are fetched from actual store data, not hard-coded demo figures. Sales metric sums delivered orders only; customer count is based on unique customer identifiers available on order documents.
+- Existing header, bottom navigation, admin section IDs, CRUD forms, order status actions and existing data logic are retained.
+- CI workflow now checks for hero, live dashboard renderer, dashboard metrics, and the sneaker launcher icon.
+- Latest source commit for this UI update: e8b7e90e2d4842ec78e1e71fd96cf69557c99716; CI workflow check commit: b998b2fcb65c9858f317832370af6dc3aba9cb2a.
+- A fresh APK build and validation are required before distributing this exact visual update.
