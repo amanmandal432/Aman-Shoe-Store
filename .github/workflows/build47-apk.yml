@@ -51,7 +51,7 @@ jobs:
           if not inline.strip():
               raise SystemExit("No inline JavaScript found")
           PY
-          node --check /tmp/aman-build47-inline.js
+          node --input-type=module --check < /tmp/aman-build47-inline.js
       - name: Build Build47/48 APK
         run: gradle --no-daemon assembleDebug
       - name: Validate APK
