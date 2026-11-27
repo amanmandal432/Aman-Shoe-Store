@@ -357,7 +357,7 @@ window.addEventListener("popstate",function(event){
  // At Home, require two Back presses to exit.
  const now=Date.now();
  if(now-lastHomeBackAt<1800){
-   if(confirm("Aman Shoe Store se exit karna hai?")){history.back();}
+   if(confirm("Aman Shoe Store se exit karna hai?")){if(window.AndroidShare&&typeof AndroidShare.exitApp==="function"){AndroidShare.exitApp();}else{history.back();}}
    else{lastHomeBackAt=0;try{history.pushState({appRoot:true},"","#app");}catch(e){}}
  }else{
    lastHomeBackAt=now;
