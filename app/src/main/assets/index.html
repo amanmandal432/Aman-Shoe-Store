@@ -120,7 +120,7 @@ body.dark .home-category-strip button,body.dark .product-card,body.dark .home-pr
 .detail-color-option.selected{border:3px solid #075bea!important;background:#eaf2ff!important;color:#0647ad!important;box-shadow:0 0 0 2px #075bea20!important;font-weight:800!important}
 .detail-color-option.selected .detail-color-dot{outline:2px solid #075bea!important;outline-offset:2px!important}
 
-/* Build49: reliable Android tap targets and single-banner navigation polish */\nheader{z-index:40}.topactions{position:relative;z-index:41}.topactions button{min-width:42px;min-height:42px;display:inline-flex;align-items:center;justify-content:center;touch-action:manipulation;-webkit-tap-highlight-color:rgba(255,255,255,.22)}.header-logout{font-size:19px!important;font-weight:900;border-radius:11px!important;background:#ffffff20!important;border:1px solid #ffffff45!important;color:#fff!important}.bottomnav{z-index:9999;pointer-events:auto;touch-action:manipulation;padding-bottom:calc(7px + env(safe-area-inset-bottom))}.bottomnav button{position:relative;z-index:1;min-height:48px;pointer-events:auto!important;touch-action:manipulation!important;-webkit-tap-highlight-color:rgba(7,85,201,.18)}button,a,[role=button]{touch-action:manipulation;-webkit-tap-highlight-color:rgba(7,85,201,.14)}.banner-wrap{position:relative;z-index:1;pointer-events:auto}.banner-slide,.banner-dot{touch-action:pan-y manipulation}
+/* Build50: Android WebView touch fallback and single-banner navigation */\nheader{z-index:40}.topactions{position:relative;z-index:41}.topactions button{min-width:42px;min-height:42px;display:inline-flex;align-items:center;justify-content:center;touch-action:manipulation;-webkit-tap-highlight-color:rgba(255,255,255,.22)}.header-logout{font-size:19px!important;font-weight:900;border-radius:11px!important;background:#ffffff20!important;border:1px solid #ffffff45!important;color:#fff!important}.bottomnav{z-index:9999;pointer-events:auto;touch-action:manipulation;padding-bottom:calc(7px + env(safe-area-inset-bottom))}.bottomnav button{position:relative;z-index:1;min-height:48px;pointer-events:auto!important;touch-action:manipulation!important;-webkit-tap-highlight-color:rgba(7,85,201,.18)}button,a,[role=button]{touch-action:manipulation;-webkit-tap-highlight-color:rgba(7,85,201,.14)}.banner-wrap{position:relative;z-index:1;pointer-events:auto}.banner-slide,.banner-dot{touch-action:manipulation}
 </style>
 <style id="aman-splash-style">
 #amanWelcomeSplash{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:28px 22px;text-align:center;background:radial-gradient(circle at 50% 34%,#174d91 0,#0b2e60 42%,#061a39 100%);color:#fff;transition:opacity .45s ease,visibility .45s ease}
@@ -168,11 +168,48 @@ body.dark .home-category-strip button,body.dark .product-card,body.dark .home-pr
 </div>
 <script>
 /* Independent safety timer: open the shop even if the main app script encounters an error. */
-(function(){var splash=document.getElementById("amanWelcomeSplash");if(!splash)return;window.setTimeout(function(){splash.classList.add("is-leaving");window.setTimeout(function(){if(splash.parentNode)splash.parentNode.removeChild(splash);},550);},6500);})();
+(function(){var splash=document.getElementById("amanWelcomeSplash");if(!splash)return;window.setTimeout(function(){splash.classList.add("is-leaving");window.setTimeout(function(){if(splash.parentNode)splash.parentNode.removeChild(splash);},550);},4000);})();
 
-/* Build49: central Android navigation and logout tap fallback */
+/* Build50: Android WebView touch-to-click compatibility fallback */
 function headerLogout(){try{if(typeof isStoreAdmin==="function"&&isStoreAdmin())return adminLogout();if(typeof customerUser!=="undefined"&&customerUser)return customerLogout();if(auth&&auth.currentUser)return auth.signOut().then(()=>{showSection("account");});showSection("account");}catch(e){console.error("Logout:",e);alert("Logout nahi ho paya: "+(e.message||e));}}
 document.addEventListener("click",function(event){const nav=event.target&&event.target.closest?event.target.closest(".bottomnav button[data-section]"):null;if(!nav)return;event.preventDefault();event.stopPropagation();if(event.stopImmediatePropagation)event.stopImmediatePropagation();const section=nav.dataset.section;if(section==="wishlist")showWishlist();else showSection(section);},true);
+
+/* Android WebView fallback: replay a tap only when WebView failed to emit its native click. */
+(function(){
+ let down=null,lastClickTarget=null,lastClickAt=0,replayTarget=null,replayAt=0,replaying=false;
+ function actionable(node){
+  if(!node||node.nodeType!==1)return null;
+  return node.closest('button,a,[role="button"],[onclick],[data-admin-target],[data-admin-action],label,summary');
+ }
+ document.addEventListener('click',function(e){
+  const a=actionable(e.target);if(!a)return;
+  if(replaying){lastClickTarget=a;lastClickAt=Date.now();return;}
+  if(replayTarget===a&&Date.now()-replayAt<900){e.preventDefault();e.stopPropagation();if(e.stopImmediatePropagation)e.stopImmediatePropagation();return;}
+  lastClickTarget=a;lastClickAt=Date.now();
+ },true);
+ document.addEventListener('touchstart',function(e){
+  const t=e.changedTouches&&e.changedTouches[0];if(!t)return;
+  down={target:actionable(e.target),x:t.clientX,y:t.clientY,time:Date.now(),moved:false};
+ },{capture:true,passive:true});
+ document.addEventListener('touchmove',function(e){
+  if(!down)return;const t=e.changedTouches&&e.changedTouches[0];if(!t)return;
+  if(Math.abs(t.clientX-down.x)>18||Math.abs(t.clientY-down.y)>18)down.moved=true;
+ },{capture:true,passive:true});
+ document.addEventListener('touchcancel',function(){down=null;},{capture:true,passive:true});
+ document.addEventListener('touchend',function(e){
+  const d=down;down=null;if(!d||d.moved||!d.target)return;
+  const t=e.changedTouches&&e.changedTouches[0];if(t&&(Math.abs(t.clientX-d.x)>18||Math.abs(t.clientY-d.y)>18))return;
+  const target=actionable(e.target)||d.target;if(!target||!target.isConnected)return;
+  window.setTimeout(function(){
+   if(!target.isConnected)return;
+   if(lastClickTarget===target&&lastClickAt>=d.time)return;
+   replayTarget=target;replayAt=Date.now();replaying=true;
+   try{target.click();}catch(err){console.warn('Touch fallback:',err);}
+   replaying=false;
+  },450);
+ },{capture:true,passive:true});
+ window.__amanTouchFallbackReady=true;
+})();
 </script>
 
 <header><div class="brandline"><div class="brandlogo" aria-label="Aman Shoe Store logo"><img src="aman-gold-logo.svg" alt="Aman Shoe Store" style="width:100%;height:100%;object-fit:cover;border-radius:16px"></div><div><div class="brandname">Aman <span>Shoe Store</span></div><div class="brandtag">Step Ahead With Style...</div></div><div class="topactions"><button type="button" aria-label="More options" onclick="showSection('more')">☰</button><button type="button" aria-label="Logout" class="header-logout" onclick="headerLogout()">↪</button><button type="button" aria-label="Cart" onclick="showSection('cart')">🛒<span class="bubble" id="cartBadge">0</span></button></div></div><div class="searchbox"><span>⌕</span><input id="search" placeholder="Search for shoes, slippers..." oninput="renderProducts()"><span>⌄</span></div></header>
