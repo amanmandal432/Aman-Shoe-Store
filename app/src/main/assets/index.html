@@ -364,13 +364,14 @@ function initialColorForGallery(p,colors){
  return match||colors[0]||"Default";
 }
 function selectDetailChoice(type,value,button){
- if(!button)return;
- if(type==="size"){window.selectedDetailSize=value;document.querySelectorAll(".detail-size-options .choice-chip").forEach(x=>x.classList.toggle("selected",x===button));return;}
+ if(!button||button.disabled)return;
+ if(type==="size"){window.selectedDetailSize=value;document.querySelectorAll(".detail-size-options .choice-chip").forEach(x=>x.classList.toggle("selected",x===button));refreshVariantAvailability();return;}
  window.selectedDetailColor=value;
  document.querySelectorAll(".detail-color-option").forEach(x=>{const selected=normalizeColorKey(x.dataset.color)===normalizeColorKey(value);x.classList.toggle("selected",selected);x.setAttribute("aria-pressed",selected?"true":"false");});
  const label=document.getElementById("selectedDetailColorLabel");if(label)label.textContent=value;
- const photoIndex=colorImageIndex(value);if(photoIndex>=0)gallerySelect(photoIndex);
+ const photoIndex=colorImageIndex(value);if(photoIndex>=0)gallerySelect(photoIndex);refreshVariantAvailability();
 }
+function refreshVariantAvailability(){const p=products.find(x=>x.id===window.detailProductId);if(!p)return;const size=window.selectedDetailSize,color=window.selectedDetailColor;document.querySelectorAll(".detail-size-options .choice-chip").forEach(b=>{const sold=variantIsSoldOut(p,b.textContent.replace(/\\s*×\\s*$/,"").trim(),color);b.disabled=sold;b.classList.toggle("sold-out",sold);});document.querySelectorAll(".detail-color-option").forEach(b=>{const sold=variantIsSoldOut(p,size,b.dataset.color);b.disabled=sold;b.classList.toggle("sold-out",sold);let mark=b.querySelector(".sold-out-mark");if(sold&&!mark){mark=document.createElement("span");mark.className="sold-out-mark";mark.textContent="×";b.appendChild(mark);}else if(!sold&&mark)mark.remove();});const available=variantStock(p,size,color),q=document.getElementById("detailQtyValue");if(available<Number(window.detailQty||1))window.detailQty=Math.max(1,available);if(q)q.textContent=String(window.detailQty||1);document.querySelectorAll(".detail-buy-row button").forEach(btn=>btn.disabled=available<1);}
 function showSizeChart(){
  const p=products.find(x=>x.id===window.detailProductId);
  const sizes=Array.isArray(p?.sizes)&&p.sizes.length?p.sizes:["6","7","8","9","10"];
