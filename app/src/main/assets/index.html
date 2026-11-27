@@ -172,7 +172,7 @@ body.dark .home-category-strip button,body.dark .product-card,body.dark .home-pr
 
 /* Build50: Android WebView touch-to-click compatibility fallback */
 function headerLogout(){try{if(typeof isStoreAdmin==="function"&&isStoreAdmin())return adminLogout();if(typeof customerUser!=="undefined"&&customerUser)return customerLogout();if(auth&&auth.currentUser)return auth.signOut().then(()=>{showSection("account");});showSection("account");}catch(e){console.error("Logout:",e);alert("Logout nahi ho paya: "+(e.message||e));}}
-document.addEventListener("click",function(event){const nav=event.target&&event.target.closest?event.target.closest(".bottomnav button[data-section]"):null;if(!nav)return;event.preventDefault();event.stopPropagation();if(event.stopImmediatePropagation)event.stopImmediatePropagation();const section=nav.dataset.section;if(section==="wishlist")showWishlist();else showSection(section);},true);
+document.addEventListener("click",function(event){const nav=event.target&&event.target.closest?event.target.closest(".bottomnav button[data-section]"):null;if(!nav)return;event.preventDefault();event.stopPropagation();event.stopPropagation();const section=nav.dataset.section;if(section==="wishlist")showWishlist();else showSection(section);},true);
 
 /* Android WebView fallback: replay a tap only when WebView failed to emit its native click. */
 (function(){
