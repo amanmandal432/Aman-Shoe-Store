@@ -16,3 +16,11 @@ FINAL CHECKPOINT 2026-11-27:
 - Changes in this branch: all uploaded home banners are loaded (removed one-banner slice); Admin re-entry resets to dashboard and reloads admin data; Back restores previous app section/detail; Home double-back prompts exit and native Android bridge closes app after confirmation.
 - Still pending real-device verification: multi-banner carousel, Admin re-entry after switching screens, one-step Back across pages/details/admin, and Home double-back exit. Do not claim these are phone-tested until user confirms.
 - Preserve Build21 stable branch/build unchanged.
+
+
+CUSTOMER DISTRIBUTION CHECKPOINT:
+- Build54 release workflow now publishes the APK as a GitHub Release asset named app-debug.apk.
+- Stable customer download URL: https://github.com/amanmandal432/Aman-Shoe-Store/releases/latest/download/app-debug.apk
+- Customer QR should encode that stable latest-release URL, not a temporary Actions artifact URL.
+- Future releases must upload the same asset filename and be marked latest; the QR image remains unchanged.
+- Build54 customer release publishing is pending workflow execution and verification.
