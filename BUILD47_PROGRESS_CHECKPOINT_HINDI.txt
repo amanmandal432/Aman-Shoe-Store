@@ -1,0 +1,17 @@
+AMAN SHOE STORE — BUILD 47 CHECKPOINT (2026-11-27)
+
+Base: build46-variant-stock-delivery-2026-11-27
+Working branch: build47-order-tracking-customer-dashboard-2026-11-27
+Build46 stable branch untouched. Build21 and Recovery branches untouched.
+
+Changes:
+1. Fix Firestore tracking error: FieldValue.serverTimestamp() is not permitted inside arrayUnion elements. Each tracking event now stores at:new Date(); order-level statusUpdatedAt remains serverTimestamp(). Initial pending tracking event also uses new Date().
+2. Customer My Orders redesigned into richer order cards with first product photo, product name, size, colour, quantity, order date/time, status, total, View Order Details and Track Order timeline.
+3. Customer order history sorted newest first and initially shows 3 orders with View More / Show Less.
+4. Help & Support now reads admin-managed phone from storeSettings/support and offers Call + WhatsApp actions.
+5. Admin has Customer Support Contact setting to save or remove the phone number; saved number is preloaded when Help & Support loads.
+
+Important:
+- Customer dashboard profile/login area remains in existing account section; richer customer order cards are added there.
+- Do not claim runtime tested yet. GitHub Actions Build47 workflow performs JavaScript syntax check, Gradle APK build and APK validation.
+- Firestore rules must permit admin read/write of storeSettings/support (existing storeSettings permissions should be checked before release).
