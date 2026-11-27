@@ -1,15 +1,16 @@
-name: Build Aman Shoe Store Build47/48 APK
+name: Build Aman Shoe Store Build49 APK
 on:
   workflow_dispatch:
   push:
     branches:
       - build47-order-tracking-customer-dashboard-2026-11-27
       - build48-admin-navigation-dashboard-2026-11-27
+      - build49-touch-navigation-single-banner-2026-11-27
 permissions:
   contents: read
 jobs:
   build:
-    if: contains(fromJSON('["build47-order-tracking-customer-dashboard-2026-11-27","build48-admin-navigation-dashboard-2026-11-27"]'), github.ref_name)
+    if: github.ref_name == 'build49-touch-navigation-single-banner-2026-11-27'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Build47 source
@@ -28,7 +29,7 @@ jobs:
           wget -q https://services.gradle.org/distributions/gradle-8.9-bin.zip
           unzip -q gradle-8.9-bin.zip
           echo "$PWD/gradle-8.9/bin" >> "$GITHUB_PATH"
-      - name: Verify Build47 features and JavaScript
+      - name: Verify Build49 features and JavaScript
         run: |
           set -euo pipefail
           test -f settings.gradle
@@ -44,6 +45,9 @@ jobs:
           grep -q "admin-hero-banner" app/src/main/assets/index.html
           grep -q "dashTotalSales" app/src/main/assets/index.html
           grep -q "renderAdminDashboard" app/src/main/assets/index.html
+          grep -q "function headerLogout" app/src/main/assets/index.html
+          grep -q "Build49: central Android navigation" app/src/main/assets/index.html
+          grep -q "class=\"header-logout\"" app/src/main/assets/index.html
           grep -q "android:roundIcon=\"@drawable/ic_aman_logo\"" app/src/main/AndroidManifest.xml
           python3 - <<'PY'
           import re
@@ -51,12 +55,12 @@ jobs:
           html = Path("app/src/main/assets/index.html").read_text()
           scripts = re.findall(r"<script(?:\s[^>]*)?>([\s\S]*?)</script>", html, re.I)
           inline = "\n".join(x for x in scripts if x.strip())
-          Path("/tmp/aman-build47-inline.js").write_text(inline)
+          Path("/tmp/aman-build49-inline.js").write_text(inline)
           if not inline.strip():
               raise SystemExit("No inline JavaScript found")
           PY
           node --input-type=module --check < /tmp/aman-build47-inline.js
-      - name: Build Build47/48 APK
+      - name: Build Build49 APK
         run: gradle --no-daemon assembleDebug
       - name: Validate APK
         run: |
@@ -66,9 +70,9 @@ jobs:
           unzip -t "$APK"
           unzip -l "$APK" | grep -q "assets/index.html"
           unzip -l "$APK" | grep -q "classes.dex"
-      - name: Upload Build47 APK
+      - name: Upload Build49 APK
         uses: actions/upload-artifact@v4
         with:
-          name: Aman-Shoe-Store-Build48
+          name: Aman-Shoe-Store-Build49
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
