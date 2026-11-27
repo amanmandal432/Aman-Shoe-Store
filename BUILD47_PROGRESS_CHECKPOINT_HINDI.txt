@@ -39,3 +39,5 @@ Branch: build48-admin-navigation-dashboard-2026-11-27
 - CI validation adjusted to parse inline JavaScript as an ES module because the existing page uses top-level async module syntax.
 
 - Removed a pre-existing duplicate refreshVariantAvailability() declaration that was stopping the JavaScript validation/build pipeline; retained the newer variant sold-out × UI behavior.
+
+- Fixed adminLogin() missing async keyword; its existing Firebase sign-in and data-loading calls use await. This was a real admin-panel JavaScript bug uncovered during CI syntax validation.
