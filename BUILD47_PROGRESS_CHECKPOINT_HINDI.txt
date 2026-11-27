@@ -35,3 +35,5 @@ Branch: build48-admin-navigation-dashboard-2026-11-27
 - Added dashboard-style icons, short descriptions, arrow indicators, touch feedback and mobile sizing.
 - Enabled GitHub Actions APK build for Build48 and added checks for the new navigation function and cards.
 - Build48 APK must be built and validated before distribution. Build21 stable and Recovery remain untouched.
+
+- CI validation adjusted to parse inline JavaScript as an ES module because the existing page uses top-level async module syntax.
