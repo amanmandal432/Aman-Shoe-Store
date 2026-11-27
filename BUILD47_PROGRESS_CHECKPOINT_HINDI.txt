@@ -15,3 +15,13 @@ Important:
 - Customer dashboard profile/login area remains in existing account section; richer customer order cards are added there.
 - Do not claim runtime tested yet. GitHub Actions Build47 workflow performs JavaScript syntax check, Gradle APK build and APK validation.
 - Firestore rules must permit admin read/write of storeSettings/support (existing storeSettings permissions should be checked before release).
+
+
+ADMIN PANEL REDESIGN — added 2026-11-27:
+- Fresh colourful Admin Control Center welcome header and logout button.
+- Horizontal quick-navigation chips jump to the relevant section.
+- Seven numbered, visually separated sections: 01 Store Settings, 02 Home Banner Management, 03 Home Category Shortcuts, 04 Store Logo & App Branding, 05 Product Management, 06 Orders Management, 07 Customer Feedback & Reviews.
+- Consistent white cards, blue section headers, clearer spacing, cleaner expandable settings and mobile responsive styling.
+- Existing form IDs, button handlers and data-loading functions preserved; layout-only organization/styling.
+- Final banner section wrapper completed in commit b67bafcd63fb8ee8d2bb0e9814f700b142e37cfe.
+- Latest GitHub Actions build for final source commit: run 46003555725, currently queued at checkpoint creation. Do not distribute APK until this exact run succeeds and artifact is present.
