@@ -55,3 +55,6 @@ BUILD48 ADMIN DASHBOARD VISUAL REFRESH — approved reference image applied (202
 - CI workflow now checks for hero, live dashboard renderer, dashboard metrics, and the sneaker launcher icon.
 - Latest source commit for this UI update: e8b7e90e2d4842ec78e1e71fd96cf69557c99716; CI workflow check commit: b998b2fcb65c9858f317832370af6dc3aba9cb2a.
 - A fresh APK build and validation are required before distributing this exact visual update.
+
+
+BUILD48 TOUCH + SINGLE-BANNER HOTFIX (2026-11-27): User reported none of the seven admin shortcut cards responded to taps and two stacked welcome/admin banners were wasting space. Removed the duplicate welcome block and merged its Welcome Admin text + Logout action into the single shoe hero banner. Replaced inline card onclick navigation with data-admin-target attributes and a document-level capture-phase delegated click handler; added explicit window.navigateAdminSection, real native button semantics retained, child icon/text pointer-events disabled so taps reach the button, higher z-index/touch-action rules and visible section focus. Logout now uses the same delegated action path. One hero banner remains. Fresh APK build required; do not distribute previous Build48 APK for this fix.
