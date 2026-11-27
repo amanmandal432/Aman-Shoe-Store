@@ -41,11 +41,14 @@ jobs:
           grep -q "versionCode 23" app/build.gradle
           grep -q "1.21-build50" app/build.gradle
           python3 - <<'PY'
-          import re
           from pathlib import Path
           html = Path("app/src/main/assets/index.html").read_text()
-          scripts = re.findall(r"<script(?:\s[^>]*)?>([\s\S]*?)</script>", html, re.I)
-          inline = "\n".join(x for x in scripts if x.strip())
+          parts = html.split("<script")
+          scripts = []
+          for part in parts[1:]:
+              if ">" in part and "</script>" in part:
+                  scripts.append(part.split(">", 1)[1].split("</script>", 1)[0])
+          inline = chr(10).join(x for x in scripts if x.strip())
           Path("/tmp/aman-build50-inline.js").write_text(inline)
           if not inline.strip():
               raise SystemExit("No inline JavaScript found")
