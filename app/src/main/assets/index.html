@@ -170,7 +170,8 @@ body.dark .home-category-strip button,body.dark .product-card,body.dark .home-pr
 /* Independent safety timer: open the shop even if the main app script encounters an error. */
 (function(){var splash=document.getElementById("amanWelcomeSplash");if(!splash)return;window.setTimeout(function(){splash.classList.add("is-leaving");window.setTimeout(function(){if(splash.parentNode)splash.parentNode.removeChild(splash);},550);},6500);})();
 
-/* Build49: central Android navigation and logout tap fallback */\nfunction headerLogout(){try{if(typeof isStoreAdmin==="function"&&isStoreAdmin())return adminLogout();if(typeof customerUser!=="undefined"&&customerUser)return customerLogout();if(auth&&auth.currentUser)return auth.signOut().then(()=>{showSection("account");});showSection("account");}catch(e){console.error("Logout:",e);alert("Logout nahi ho paya: "+(e.message||e));}}
+/* Build49: central Android navigation and logout tap fallback */
+function headerLogout(){try{if(typeof isStoreAdmin==="function"&&isStoreAdmin())return adminLogout();if(typeof customerUser!=="undefined"&&customerUser)return customerLogout();if(auth&&auth.currentUser)return auth.signOut().then(()=>{showSection("account");});showSection("account");}catch(e){console.error("Logout:",e);alert("Logout nahi ho paya: "+(e.message||e));}}
 document.addEventListener("click",function(event){const nav=event.target&&event.target.closest?event.target.closest(".bottomnav button[data-section]"):null;if(!nav)return;event.preventDefault();event.stopPropagation();if(event.stopImmediatePropagation)event.stopImmediatePropagation();const section=nav.dataset.section;if(section==="wishlist")showWishlist();else showSection(section);},true);
 </script>
 
