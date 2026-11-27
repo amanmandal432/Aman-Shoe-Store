@@ -65,6 +65,29 @@ public class MainActivity extends Activity {
 
     public class AndroidShareBridge {
         @JavascriptInterface
+        public void openWhatsApp(String phone) {
+            runOnUiThread(() -> {
+                String digits = phone == null ? "" : phone.replaceAll("[^0-9]", "");
+                if (digits.length() == 10) digits = "91" + digits;
+                else if (digits.length() == 11 && digits.startsWith("0")) digits = "91" + digits.substring(1);
+                if (digits.isEmpty()) return;
+                try {
+                    Intent whatsapp = new Intent(Intent.ACTION_VIEW, Uri.parse("whatsapp://send?phone=" + digits));
+                    startActivity(whatsapp);
+                } catch (ActivityNotFoundException ex) {
+                    try {
+                        Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse("https://wa.me/" + digits));
+                        startActivity(browser);
+                    } catch (ActivityNotFoundException ignored) {
+                        new AlertDialog.Builder(MainActivity.this)
+                            .setMessage("WhatsApp ya browser available nahi hai.")
+                            .setPositiveButton("OK", null).show();
+                    }
+                }
+            });
+        }
+
+        @JavascriptInterface
         public void shareText(String text) {
             runOnUiThread(() -> {
                 Intent send = new Intent(Intent.ACTION_SEND);
