@@ -1,0 +1,4 @@
+Build54 changes:
+1. Home banner listener now loads every valid uploaded banner instead of slicing the list to one item.
+2. Re-entering Admin Panel resets the hidden nested admin section state back to the dashboard and reloads admin data.
+3. Android version: 1.25-build54, versionCode 27.
