@@ -1,9 +1,32 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp" android:height="108dp"
-    android:viewportWidth="108" android:viewportHeight="108">
-    <path android:fillColor="#080808" android:pathData="M0,0h108v108h-108z"/>
-    <path android:strokeColor="#D6A22E" android:strokeWidth="2.1" android:fillColor="#080808" android:pathData="M7,7h94v94h-94z"/>
-    <path android:fillColor="#D6A22E" android:pathData="M24,30 L31,10 L43,23 L54,9 L66,23 L78,10 L84,31 L54,42 Z"/>
-    <path android:fillColor="#D6A22E" android:pathData="M14,88 L39,43 L51,43 L76,88 L62,88 L55,74 L35,74 L28,88 Z M40,64 L50,64 L45,53 Z"/>
-    <path android:fillColor="#FFF2B0" android:pathData="M20,94h68v3h-68z"/>
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Deep navy app-icon background with a gold rim -->
+    <path android:fillColor="#06152F" android:pathData="M0,0h108v108h-108z"/>
+    <path android:fillColor="#071A38" android:pathData="M54,4a50,50 0,1 0,0 100a50,50 0,1 0,0 -100"/>
+    <path android:strokeColor="#F4C64E" android:strokeWidth="3" android:fillColor="#071A38" android:pathData="M54,5a49,49 0,1 0,0 98a49,49 0,1 0,0 -98"/>
+    <path android:strokeColor="#B77B18" android:strokeWidth="1" android:fillColor="#102A50" android:pathData="M54,12a42,42 0,1 0,0 84a42,42 0,1 0,0 -84"/>
+    <!-- Sport sneaker silhouette -->
+    <path android:fillColor="#07101E" android:pathData="M17,61 L25,54 L34,47 L43,34 L50,31 L56,39 L64,46 L76,51 L88,57 L94,66 L92,74 L84,78 L28,78 L19,73 Z"/>
+    <path android:fillColor="#F5F7FB" android:pathData="M19,61 L28,55 L37,48 L45,36 L50,34 L56,42 L64,49 L77,54 L88,60 L92,67 L89,72 L81,75 L28,74 L20,70 Z"/>
+    <path android:fillColor="#1688E8" android:pathData="M39,49 L48,37 L54,42 L63,50 L76,55 L87,61 L91,68 L85,70 L73,65 L61,60 L51,58 L40,57 L31,64 L25,64 Z"/>
+    <path android:fillColor="#0B1B35" android:pathData="M19,66 L31,63 L42,56 L54,57 L67,62 L81,67 L91,67 L91,73 L84,77 L29,77 L20,72 Z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M20,70 L31,70 L42,68 L56,69 L70,72 L88,71 L86,76 L28,76 L21,74 Z"/>
+    <path android:fillColor="#F5C64A" android:pathData="M23,77 L84,77 L81,81 L29,81 L22,79 Z"/>
+    <!-- Heel and toe overlays -->
+    <path android:fillColor="#0D2D56" android:pathData="M26,57 L37,49 L42,53 L31,63 L23,66 Z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M48,38 L53,42 L49,49 L44,46 Z"/>
+    <!-- Laces -->
+    <path android:strokeColor="#FFFFFF" android:strokeWidth="2" android:pathData="M47,43 L59,51 M44,47 L57,55 M41,51 L54,59"/>
+    <path android:strokeColor="#F5C64A" android:strokeWidth="1.4" android:pathData="M49,43 L57,47 M46,48 L54,52 M43,53 L51,57"/>
+    <!-- Side stripe / brand-like motion mark -->
+    <path android:fillColor="#071A38" android:pathData="M57,55 L72,58 L62,61 L77,66 L58,64 L48,60 Z"/>
+    <path android:fillColor="#F5C64A" android:pathData="M55,55 L67,58 L58,60 L70,64 L54,62 L47,59 Z"/>
+    <!-- Small crown accent -->
+    <path android:fillColor="#F5C64A" android:pathData="M38,25 L41,16 L48,22 L54,12 L60,22 L68,16 L70,26 Z"/>
+    <path android:fillColor="#F5C64A" android:pathData="M40,27h28v3h-28z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M26,88h56v2h-56z"/>
+    <path android:fillColor="#F5C64A" android:pathData="M33,92h42v2h-42z"/>
 </vector>
