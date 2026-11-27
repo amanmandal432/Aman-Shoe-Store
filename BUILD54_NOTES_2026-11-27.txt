@@ -4,3 +4,5 @@ Build54 changes:
 3. Android version: 1.25-build54, versionCode 27.
 
 Build validation updated to assert multiple-banner behavior rather than the old one-banner limit.
+
+Additional Build54 fix: browser Back now restores the immediately previous app section/detail screen one step at a time; Home requires two Back presses to exit.
