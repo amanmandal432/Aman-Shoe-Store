@@ -8,3 +8,11 @@ Build validation updated to assert multiple-banner behavior rather than the old 
 Additional Build54 fix: browser Back now restores the immediately previous app section/detail screen one step at a time; Home requires two Back presses to exit.
 
 Android back-button behavior: each Back restores one previous section/detail; on Home, first Back shows an exit hint, second Back confirms and calls the native Android exit bridge.
+
+FINAL CHECKPOINT 2026-11-27:
+- Build54 workflow run 46033758274 completed successfully; all validation, APK build, APK contents validation and artifact upload steps passed.
+- Artifact: Aman-Shoe-Store-Build54 (artifact ID 15215472409), contains app-debug.apk.
+- APK archive integrity verified locally; SHA-256: 17383b4ff66202c559af1f6ad800740873cced674fafa0dfa3590f52bdaddf99.
+- Changes in this branch: all uploaded home banners are loaded (removed one-banner slice); Admin re-entry resets to dashboard and reloads admin data; Back restores previous app section/detail; Home double-back prompts exit and native Android bridge closes app after confirmation.
+- Still pending real-device verification: multi-banner carousel, Admin re-entry after switching screens, one-step Back across pages/details/admin, and Home double-back exit. Do not claim these are phone-tested until user confirms.
+- Preserve Build21 stable branch/build unchanged.
