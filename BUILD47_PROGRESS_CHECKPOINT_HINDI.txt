@@ -25,3 +25,13 @@ ADMIN PANEL REDESIGN — added 2026-11-27:
 - Existing form IDs, button handlers and data-loading functions preserved; layout-only organization/styling.
 - Final banner section wrapper completed in commit b67bafcd63fb8ee8d2bb0e9814f700b142e37cfe.
 - Latest GitHub Actions build for final source commit: run 46003555725, currently queued at checkpoint creation. Do not distribute APK until this exact run succeeds and artifact is present.
+
+
+BUILD 48 — ADMIN NAVIGATION FIX (2026-11-27)
+Branch: build48-admin-navigation-dashboard-2026-11-27
+- Replaced the horizontal scroll-chip navigation (the screenshot showed several chips cut off and tap targets were not reliably navigating) with seven large, colourful, full-card shortcut buttons in a responsive two-column grid.
+- Each shortcut has an explicit type=button and calls navigateAdminSection(sectionId), which scrolls to the exact existing numbered admin section and briefly highlights it.
+- Existing section IDs and existing admin feature handlers/forms are preserved; no business logic or data schema changed for this navigation/UI improvement.
+- Added dashboard-style icons, short descriptions, arrow indicators, touch feedback and mobile sizing.
+- Enabled GitHub Actions APK build for Build48 and added checks for the new navigation function and cards.
+- Build48 APK must be built and validated before distribution. Build21 stable and Recovery remain untouched.
