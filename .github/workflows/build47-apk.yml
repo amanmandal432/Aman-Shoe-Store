@@ -41,6 +41,10 @@ jobs:
           grep -q "navigateAdminSection" app/src/main/assets/index.html
           grep -q "admin-shortcut-grid" app/src/main/assets/index.html
           grep -q "adminOrdersSection" app/src/main/assets/index.html
+          grep -q "admin-hero-banner" app/src/main/assets/index.html
+          grep -q "dashTotalSales" app/src/main/assets/index.html
+          grep -q "renderAdminDashboard" app/src/main/assets/index.html
+          grep -q "android:roundIcon=\"@drawable/ic_aman_logo\"" app/src/main/AndroidManifest.xml
           python3 - <<'PY'
           import re
           from pathlib import Path
