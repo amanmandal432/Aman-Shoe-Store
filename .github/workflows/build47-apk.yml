@@ -1,14 +1,15 @@
-name: Build Aman Shoe Store Build47 APK
+name: Build Aman Shoe Store Build47/48 APK
 on:
   workflow_dispatch:
   push:
     branches:
       - build47-order-tracking-customer-dashboard-2026-11-27
+      - build48-admin-navigation-dashboard-2026-11-27
 permissions:
   contents: read
 jobs:
   build:
-    if: github.ref_name == 'build47-order-tracking-customer-dashboard-2026-11-27'
+    if: contains(fromJSON('["build47-order-tracking-customer-dashboard-2026-11-27","build48-admin-navigation-dashboard-2026-11-27"]'), github.ref_name)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Build47 source
@@ -37,6 +38,9 @@ jobs:
           grep -q "function renderMyOrders" app/src/main/assets/index.html
           grep -q "View More Orders" app/src/main/assets/index.html
           grep -q "saveSupportContact" app/src/main/assets/index.html
+          grep -q "navigateAdminSection" app/src/main/assets/index.html
+          grep -q "admin-shortcut-grid" app/src/main/assets/index.html
+          grep -q "adminOrdersSection" app/src/main/assets/index.html
           python3 - <<'PY'
           import re
           from pathlib import Path
@@ -48,7 +52,7 @@ jobs:
               raise SystemExit("No inline JavaScript found")
           PY
           node --check /tmp/aman-build47-inline.js
-      - name: Build Build47 APK
+      - name: Build Build47/48 APK
         run: gradle --no-daemon assembleDebug
       - name: Validate APK
         run: |
@@ -61,6 +65,6 @@ jobs:
       - name: Upload Build47 APK
         uses: actions/upload-artifact@v4
         with:
-          name: Aman-Shoe-Store-Build47
+          name: Aman-Shoe-Store-Build48
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
