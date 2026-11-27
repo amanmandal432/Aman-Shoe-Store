@@ -32,8 +32,32 @@ public class MainActivity extends Activity {
         settings.setAllowFileAccess(true);
         settings.setAllowContentAccess(true);
         webView.setWebViewClient(new WebViewClient() {
-            @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            private boolean openExternal(Uri uri) {
+                String scheme = uri.getScheme() == null ? "" : uri.getScheme().toLowerCase();
+                try {
+                    if ("tel".equals(scheme)) {
+                        startActivity(new Intent(Intent.ACTION_DIAL, uri));
+                        return true;
+                    }
+                    if ("whatsapp".equals(scheme)) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, uri));
+                        return true;
+                    }
+                    if ("mailto".equals(scheme)) {
+                        startActivity(new Intent(Intent.ACTION_SENDTO, uri));
+                        return true;
+                    }
+                } catch (ActivityNotFoundException ignored) {
+                    return true;
+                }
                 return false;
+            }
+            @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return openExternal(request.getUrl());
+            }
+            @SuppressWarnings("deprecation")
+            @Override public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return openExternal(Uri.parse(url));
             }
         });
         webView.addJavascriptInterface(new AndroidShareBridge(), "AndroidShare");
@@ -64,6 +88,21 @@ public class MainActivity extends Activity {
     }
 
     public class AndroidShareBridge {
+        @JavascriptInterface
+        public void callPhone(String phone) {
+            runOnUiThread(() -> {
+                String digits = phone == null ? "" : phone.replaceAll("[^0-9]", "");
+                if (digits.isEmpty()) return;
+                try {
+                    startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + digits)));
+                } catch (ActivityNotFoundException ex) {
+                    new AlertDialog.Builder(MainActivity.this)
+                        .setMessage("Phone dialer available nahi hai.")
+                        .setPositiveButton("OK", null).show();
+                }
+            });
+        }
+
         @JavascriptInterface
         public void openWhatsApp(String phone) {
             runOnUiThread(() -> {
