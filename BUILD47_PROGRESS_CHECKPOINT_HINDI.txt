@@ -37,3 +37,5 @@ Branch: build48-admin-navigation-dashboard-2026-11-27
 - Build48 APK must be built and validated before distribution. Build21 stable and Recovery remain untouched.
 
 - CI validation adjusted to parse inline JavaScript as an ES module because the existing page uses top-level async module syntax.
+
+- Removed a pre-existing duplicate refreshVariantAvailability() declaration that was stopping the JavaScript validation/build pipeline; retained the newer variant sold-out × UI behavior.
