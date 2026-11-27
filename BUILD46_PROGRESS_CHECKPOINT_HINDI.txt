@@ -1,0 +1,20 @@
+AMAN SHOE STORE — BUILD46 CHECKPOINT
+Date: 2026-11-27
+Base: build45-color-sync-admin-lists-2026-11-26
+Branch: build46-variant-stock-delivery-2026-11-27
+
+Build46 work:
+- Admin product form now stores per-size inventory in sizeStock and per-colour inventory in colorStock.
+- Existing colour-to-photo mapping field and numbered gallery mapping remain in place.
+- Variant availability helper computes selected size/colour availability and refreshes disabled / sold-out UI.
+- Add-to-cart and Buy Now validate selected variant stock.
+- Checkout order payload records variantChanges and initial tracking event.
+- Order transaction validates and decrements matching size/colour inventory along with total stock.
+- Admin status update records timestamped trackingHistory entries and current parcel location/note.
+- Customer order tracking shows status timeline, timestamps, current location, and expected delivery if admin entered it.
+- Added isolated GitHub Actions Build46 workflow on main; it checks required feature markers, runs Node syntax validation, builds and validates APK, and uploads Aman-Shoe-Store-Build46 artifact.
+
+Important:
+- Build45 branch remains unchanged.
+- Build21 Stable and Recovery remain untouched.
+- Build46 is not considered ready until GitHub Actions JavaScript syntax validation, APK build, and APK ZIP validation all succeed.
