@@ -345,11 +345,28 @@ let currentAppSection="shop";
 function showSection(id,fromHistory=false){const target=document.getElementById(id);if(!target)return;if(!fromHistory&&id!==currentAppSection){try{history.pushState({appSection:id},"","#"+id);}catch(e){} }document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));target.classList.remove("hidden");currentAppSection=id;const navKey=({shop:"shop",categories:"categories",offers:"categories",account:"account",admin:"more",more:"more",wishlist:"wishlist"})[id];if(navKey)document.querySelectorAll(".bottomnav button").forEach(b=>b.classList.toggle("active",b.dataset.section===navKey));if(id==="help")loadSupportContact();if(id==="cart")renderCart();if(id==="categories")renderCategories();if(id==="offers")renderOffers();if(id==="wishlist")renderWishlist();if(id==="shop"){renderProducts();renderHomeCategoryStrip();}if(id==="admin"){if(isStoreAdmin()){document.getElementById("adminLogin").classList.add("hidden");document.getElementById("adminArea").classList.remove("hidden");if(typeof window.returnToAdminDashboard==="function")window.returnToAdminDashboard();loadDeliverySettings();loadOrders();loadAdminProducts();loadAdminBanners();loadAdminReviews();renderHomeCategoriesAdmin();renderAdminDashboard();}else{document.getElementById("adminLogin").classList.remove("hidden");document.getElementById("adminArea").classList.add("hidden");}}}
 try{history.replaceState({appSection:currentAppSection},"","#shop");history.pushState({appRoot:true},"","#app");}catch(e){}
 let lastHomeBackAt=0;
-window.addEventListener("popstate",function(){
- if(currentAppSection!=="shop"){showSection("shop",true);try{history.pushState({appRoot:true},"","#app");}catch(e){}return;}
+window.addEventListener("popstate",function(event){
+ const previous=event.state;
+ // Restore the immediately previous app screen (including product details),
+ // instead of jumping directly to Home from every screen.
+ if(previous&&previous.appSection&&previous.appSection!==currentAppSection){
+   showSection(previous.appSection,true);
+   lastHomeBackAt=0;
+   return;
+ }
+ // At Home, require two Back presses to exit.
  const now=Date.now();
- if(now-lastHomeBackAt<1800){if(confirm("Aman Shoe Store se exit karna hai?")){history.back();}else{try{history.pushState({appRoot:true},"","#app");}catch(e){}}}
- else{lastHomeBackAt=now;const n=document.createElement("div");n.textContent="Exit ke liye dobara Back dabayein";n.style.cssText="position:fixed;bottom:82px;left:50%;transform:translateX(-50%);background:#172033;color:white;padding:12px 18px;border-radius:24px;z-index:9999";document.body.appendChild(n);setTimeout(()=>n.remove(),1500);try{history.pushState({appRoot:true},"","#app");}catch(e){}}
+ if(now-lastHomeBackAt<1800){
+   if(confirm("Aman Shoe Store se exit karna hai?")){history.back();}
+   else{lastHomeBackAt=0;try{history.pushState({appRoot:true},"","#app");}catch(e){}}
+ }else{
+   lastHomeBackAt=now;
+   const n=document.createElement("div");
+   n.textContent="Exit ke liye dobara Back dabayein";
+   n.style.cssText="position:fixed;bottom:82px;left:50%;transform:translateX(-50%);background:#172033;color:white;padding:12px 18px;border-radius:24px;z-index:9999";
+   document.body.appendChild(n);setTimeout(()=>n.remove(),1500);
+   try{history.pushState({appRoot:true},"","#app");}catch(e){}
+ }
 });
 function productCardHTML(p,compact=false){
  const discount=p.mrp&&Number(p.mrp)>Number(p.price)?Math.round((Number(p.mrp)-Number(p.price))*100/Number(p.mrp)):0;
