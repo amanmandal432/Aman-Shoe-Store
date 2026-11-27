@@ -1,4 +1,4 @@
-name: Build Aman Shoe Store Build49 APK
+name: Build Aman Shoe Store Build49 APK (retry)
 on:
   workflow_dispatch:
   push:
